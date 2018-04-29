@@ -15,7 +15,7 @@ function formatDuration (duration) {
 }
 
 function trim (options) {
-  // https://superuser.com/questions/138331/using-ffmpeg-to-cut-up-video
+  // https://superuser.com/a/141343
   const startDuration = moment.duration(options.startTimestamp, timestampFormat)
   const ss = formatDuration(startDuration)
   if (typeof options.endTimestamp === 'number') {
