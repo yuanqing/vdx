@@ -27,9 +27,15 @@ const optionsConfig = {
   },
   gif: {
     alias: ['g'],
+    coerce: function (gif) {
+      if (gif === true) {
+        return 12
+      }
+      return gif
+    },
     default: -1,
     describe: '',
-    type: 'number'
+    type: ['boolean', 'number']
   },
   noAudio: {
     alias: ['n'],

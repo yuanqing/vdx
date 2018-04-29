@@ -32,7 +32,7 @@
     "fix": "prettier-standard 'src/**/*.js'",
     "lint": "standard 'src/**/*.js'",
     "precommit": "lint-staged",
-    "start": "./src/cli.js --resize 240 --output build --gif 12 --trim 00:00:01 00:02:00.500 --parallel 3 --debug --no-audio -- 'test/**/*.mov'"
+    "start": "./src/cli.js --resize 240 --output build --gif --trim 00:00:01 00:02:00.500 --parallel 3 --debug --no-audio -- 'test/**/*.mov'"
   },
   "lint-staged": {
     "*.js": [
