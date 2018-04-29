@@ -1,4 +1,4 @@
-const pAll = require('p-all')
+const promiseAll = require('p-all')
 
 const buildCommand = require('./build-command')
 const getInputFiles = require('./get-input-files')
@@ -6,12 +6,13 @@ const methods = require('./methods')
 
 function translateOptions (options) {
   const result = {}
-  return Object.keys(methods).reduce(function (result, key) {
-    return {
-      ...result,
-      ...methods[key](options[key])
+  return Object.keys(options).reduce(function (result, key) {
+    const method = methods[key]
+    if (method) {
+      result.push(method(options[key]))
     }
-  }, {})
+    return result
+  }, [])
 }
 
 class Vdx {
@@ -29,7 +30,7 @@ class Vdx {
     const commands = inputFiles.map(function (inputFile) {
       return buildCommand(inputFile, outputDirectory, options)
     })
-    return pAll(commands, {concurrency: this.options.parallel})
+    return promiseAll(commands, { concurrency: this.options.parallel })
   }
 }
 

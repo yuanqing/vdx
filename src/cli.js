@@ -57,7 +57,7 @@ const optionsConfig = {
   }
 }
 
-async function main() {
+async function main () {
   const parsed = yargs.options(optionsConfig).argv
   const input = parsed._[0]
   const { outputDirectory, ...options } = Object.keys(optionsConfig).reduce(
