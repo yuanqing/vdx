@@ -3,6 +3,9 @@ const isGlob = require('is-glob')
 const glob = promisify(require('glob'))
 
 async function getInputFiles (input) {
+  if (typeof input === 'undefined') {
+    return Promise.resolve(['-'])
+  }
   if (isGlob(input)) {
     return await glob(input)
   }

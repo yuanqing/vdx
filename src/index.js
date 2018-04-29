@@ -24,9 +24,9 @@ class Vdx {
     }, this)
   }
   async run (input, outputDirectory) {
-    const inputFiles = await getInputFiles(input)
     const options = translateOptions(this.options)
     const convertToGif = this.options.gif !== -1
+    const inputFiles = await getInputFiles(input)
     const commands = inputFiles.map(function (inputFile) {
       return buildCommand(inputFile, outputDirectory, convertToGif, options)
     })

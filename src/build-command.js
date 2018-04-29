@@ -41,7 +41,7 @@ function buildCommand (inputFile, outputDirectory, convertToGif, options) {
   const ffmpegCommand = `ffmpeg -y -i ${inputFile} ${stringifiedOptions} -- ${outputFile}`
   return async function () {
     await mkdirp(outputFileParentDirectory)
-    return execa.shell(ffmpegCommand)
+    return execa.shell(ffmpegCommand, { stdio: ['pipe', 'ignore', 'ignore'] })
   }
 }
 
