@@ -1,0 +1,51 @@
+{
+  "name": "vdx",
+  "version": "0.0.0",
+  "description": "",
+  "author": "Lim Yuan Qing",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/yuanqing/vdx.git"
+  },
+  "main": "src",
+  "bin": {
+    "vdx": "src/cli.js"
+  },
+  "dependencies": {
+    "execa": "^0.10.0",
+    "glob": "^7.1.2",
+    "is-glob": "^4.0.0",
+    "mkdirp": "^0.5.1",
+    "moment": "^2.22.1",
+    "p-all": "^1.0.0",
+    "yargs": "^11.0.0"
+  },
+  "devDependencies": {
+    "husky": "^0.14.3",
+    "lint-staged": "^7.0.4",
+    "prettier-standard": "^8.0.1",
+    "standard": "^11.0.1"
+  },
+  "scripts": {
+    "clean": "rimraf '*.log' build",
+    "fix": "prettier-standard 'src/**/*.js'",
+    "lint": "standard 'src/**/*.js'",
+    "precommit": "lint-staged",
+    "start": "./src/cli.js --resize 640 360 --output build --gif --trim 00:00:01 00:02:00.500 --parallel 3 --debug --no-audio -- 'test/**/*.mov'"
+  },
+  "lint-staged": {
+    "*.js": [
+      "standard",
+      "git add"
+    ]
+  },
+  "files": [
+    "src"
+  ],
+  "keywords": [
+    "ffmpeg",
+    "video",
+    "youtube"
+  ]
+}
