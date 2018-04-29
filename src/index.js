@@ -5,7 +5,6 @@ const getInputFiles = require('./get-input-files')
 const methods = require('./methods')
 
 function translateOptions (options) {
-  const result = {}
   return Object.keys(options).reduce(function (result, key) {
     const method = methods[key]
     if (method) {
@@ -27,8 +26,9 @@ class Vdx {
   async run (input, outputDirectory) {
     const inputFiles = await getInputFiles(input)
     const options = translateOptions(this.options)
+    const convertToGif = this.options.gif !== -1
     const commands = inputFiles.map(function (inputFile) {
-      return buildCommand(inputFile, outputDirectory, options)
+      return buildCommand(inputFile, outputDirectory, convertToGif, options)
     })
     return promiseAll(commands, { concurrency: this.options.parallel })
   }

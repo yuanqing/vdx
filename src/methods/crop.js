@@ -1,7 +1,7 @@
-function crop (x, y, width, height) {
+function crop (options) {
   // https://video.stackexchange.com/a/4571
   return {
-    vf: `crop=${width}:${height}:${x}:${y}`
+    filter_complex: `crop=${options.width}:${options.height}:${options.x}:${options.y}`
   }
 }
 
