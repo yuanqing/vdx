@@ -19,6 +19,7 @@
     "mkdirp": "^0.5.1",
     "moment": "^2.22.1",
     "p-all": "^1.0.0",
+    "unique-slug": "^2.0.0",
     "yargs": "^11.0.0"
   },
   "devDependencies": {
@@ -32,7 +33,8 @@
     "fix": "prettier-standard 'src/**/*.js'",
     "lint": "standard 'src/**/*.js'",
     "precommit": "lint-staged",
-    "start": "./src/cli.js --resize 240 --output build --gif --trim 00:00:01 00:02:00.500 --parallel 3 --debug --no-audio -- 'test/**/*.mov'"
+    "start": "./src/cli.js --resize 240 --output build --trim 00:00:01 00:02:00.500 --parallel 3 --debug --no-audio 'test/fixtures/*.mov'",
+    "start-stdin": "cat test/fixtures/test.mov | ./src/cli.js --resize 240 --output build --trim 00:00:01 00:02:00.500 --parallel 3 --debug --no-audio"
   },
   "lint-staged": {
     "*.js": [
