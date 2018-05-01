@@ -2,20 +2,24 @@
 
 ```sh
 # Crop
-$ vdx input.mp4 --crop 0 0 240 160
+$ vdx input.mp4 --crop 0,0,200,100
+$ vdx input.mp4 --crop 200,100
 
 # Convert to GIF
-$ vdx input.mp4 --gif
+$ vdx input.mp4 --format gif
 
-# Strip audio
+# Remove audio
 $ vdx input.mp4 --no-audio
 
 # Resize
-$ vdx input.mp4 --resize 640 360
+$ vdx input.mp4 --resize 360,640
 
 # Trim
-$ vdx input.mp4 --trim 0:05 0:20
+$ vdx input.mp4 --trim 0:03
+$ vdx input.mp4 --trim 0:03,0:14
+$ vdx input.mp4 --trim 3
+$ vdx input.mp4 --trim 3,14
 
 # Multiple
-$ vdx '*.mp4' --resize 640 360 --no-audio --trim 0:05 0:20 --output build --parallel 2
+$ vdx '*.mp4' --no-audio --resize 360,640 --trim 0:03,0:14 --output build --parallel 2
 ```
