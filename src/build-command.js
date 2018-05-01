@@ -12,7 +12,7 @@ function stringifyOptions (options) {
       const value = option[key]
       if (value) {
         result.push(`-${key}`)
-        if (typeof value === 'string') {
+        if (value !== true) {
           result.push(value)
         }
       }
