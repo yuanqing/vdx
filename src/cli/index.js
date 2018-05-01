@@ -5,6 +5,7 @@ const vdx = require('..')
 
 const optionsConfig = {
   crop: require('./crop'),
+  debug: require('./debug'),
   gif: require('./gif'),
   noAudio: require('./no-audio'),
   outputDirectory: require('./output-directory'),
