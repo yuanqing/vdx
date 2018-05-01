@@ -5,6 +5,8 @@ const regExp = new RegExp(
 
 module.exports = {
   alias: ['c'],
+  type: ['string'],
+  default: null,
   coerce: function (string) {
     const matches = string.match(regExp)
     if (matches === null) {
@@ -25,7 +27,5 @@ module.exports = {
       width: parseInt(options[2]),
       height: parseInt(options[3])
     }
-  },
-  default: null,
-  type: ['string']
+  }
 }
