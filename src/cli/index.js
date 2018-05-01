@@ -6,8 +6,8 @@ const vdx = require('..')
 const optionsConfig = {
   crop: require('./crop'),
   format: require('./format'),
-  outputDirectory: require('./output-directory'),
   noAudio: require('./no-audio'),
+  outputDirectory: require('./output-directory'),
   parallel: require('./parallel'),
   resize: require('./resize'),
   trim: require('./trim')
