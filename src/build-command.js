@@ -6,19 +6,19 @@ const uniqueSlug = require('unique-slug')
 const STDIN_SENTINEL = require('./stdin-sentinel')
 
 function stringifyOptions (options) {
-  const results = []
+  const result = []
   options.forEach(function (option) {
     Object.keys(option).forEach(function (key) {
       const value = option[key]
       if (value) {
-        results.push(`-${key}`)
+        result.push(`-${key}`)
         if (typeof value === 'string') {
-          results.push(value)
+          result.push(value)
         }
       }
     })
   })
-  return results.join(' ')
+  return result.join(' ')
 }
 
 function changeExtension (file, newExtension) {

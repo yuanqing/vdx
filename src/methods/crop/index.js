@@ -8,3 +8,4 @@ function crop (options) {
 }
 
 module.exports = crop
+module.exports.config = require('./config')

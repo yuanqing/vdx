@@ -6,3 +6,4 @@ function resize (options) {
 }
 
 module.exports = resize
+module.exports.config = require('./config')

@@ -16,15 +16,15 @@ function formatDuration (duration) {
 
 function trim (options) {
   // https://superuser.com/a/141343
-  const startDuration = moment.duration(options.startTimestamp, timestampFormat)
+  const startDuration = moment.duration(options.start, timestampFormat)
   const ss = formatDuration(startDuration)
-  if (typeof options.endTimestamp === 'number') {
+  if (typeof options.end === 'number') {
     return {
-      t: `${options.endTimestamp}`,
+      t: `${options.end}`,
       ss
     }
   }
-  const endDuration = moment.duration(options.endTimestamp, timestampFormat)
+  const endDuration = moment.duration(options.end, timestampFormat)
   const difference = endDuration.subtract(startDuration)
   return {
     t: formatDuration(difference),
@@ -33,3 +33,4 @@ function trim (options) {
 }
 
 module.exports = trim
+module.exports.config = require('./config')

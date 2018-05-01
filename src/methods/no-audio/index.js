@@ -12,3 +12,4 @@ function noAudio (noAudio) {
 }
 
 module.exports = noAudio
+module.exports.config = require('./config')
