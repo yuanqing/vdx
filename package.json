@@ -33,7 +33,7 @@
     "fix": "prettier-standard 'src/**/*.js'",
     "lint": "standard 'src/**/*.js'",
     "precommit": "lint-staged",
-    "start": "./src/cli/index.js --crop 240,240 --fps 12 --resize 240 --output build --trim 1,3 --parallel 3 --debug --no-audio 'test/fixtures/*.mov'",
+    "start": "./src/cli/index.js --speed 2 --resize 240 --output build --trim 10 --parallel 3 --debug --no-audio 'test/fixtures/test.mov'",
     "start-stdin": "cat test/fixtures/test.mov | ./src/cli.js --resize 240 --output build --trim 00:00:01 00:02:00.500 --parallel 3 --debug --no-audio"
   },
   "lint-staged": {

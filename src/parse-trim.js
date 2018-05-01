@@ -13,8 +13,13 @@ function formatDuration (duration) {
     .format(timestampFormat)
 }
 
+function changeSpeed (duration, speed) {
+  const operation = speed > 1 ? 'subtract' : 'add'
+  return duration[operation](duration.asMilliseconds() / speed, 'milliseconds')
+}
+
 const separatorRegExp = /:/g
-function parseDuration (duration) {
+function parseDuration (duration, speed) {
   const matches = duration.match(separatorRegExp)
   if (matches) {
     if (matches.length === 1) {
@@ -26,8 +31,12 @@ function parseDuration (duration) {
 }
 
 function trim (options, speed) {
-  const startDuration = parseDuration(options.start)
-  const endDuration = parseDuration(options.end)
+  let startDuration = parseDuration(options.start)
+  let endDuration = parseDuration(options.end)
+  if (speed !== 1) {
+    startDuration = changeSpeed(startDuration, speed)
+    endDuration = changeSpeed(endDuration, speed)
+  }
   const difference = endDuration.subtract(startDuration)
   // https://superuser.com/a/141343
   return {
