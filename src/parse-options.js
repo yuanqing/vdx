@@ -1,7 +1,7 @@
 const parseTrim = require('./parse-trim')
 
 function parseOptions (options) {
-  const { crop, format, noAudio, resize, trim } = options
+  const { crop, format, fps, noAudio, resize, trim } = options
   const result = []
   const filters = []
 
@@ -11,6 +11,11 @@ function parseOptions (options) {
   } else {
     // https://superuser.com/q/602983
     result.push({ 'c:a': 'copy' })
+  }
+
+  if (fps) {
+    // https://stackoverflow.com/a/28073732
+    result.push({ r: fps })
   }
 
   if (trim) {
