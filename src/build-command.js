@@ -32,10 +32,10 @@ function buildOutputFilePath (inputFile, outputDirectory, outputFormat) {
   let outputFile = inputFile
   if (inputFile === STDIN_SENTINEL) {
     outputFile = `${uniqueSlug()}.${
-      outputFormat !== null ? outputFormat : 'mp4'
+      typeof outputFormat !== 'undefined' ? outputFormat : 'mp4'
     }`
   }
-  if (outputFormat !== null) {
+  if (typeof outputFormat !== 'undefined') {
     outputFile = changeExtension(outputFile, outputFormat)
   }
   return path.join(outputDirectory, outputFile)

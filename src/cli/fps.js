@@ -1,4 +1,3 @@
 module.exports = {
-  type: ['number'],
-  default: null
+  type: ['number']
 }

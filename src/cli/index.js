@@ -11,6 +11,7 @@ const optionsConfig = {
   outputDirectory: require('./output-directory'),
   parallel: require('./parallel'),
   resize: require('./resize'),
+  speed: require('./speed'),
   trim: require('./trim')
 }
 

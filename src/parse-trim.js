@@ -25,7 +25,7 @@ function parseDuration (duration) {
   return moment.duration(parseFloat(duration), 'seconds')
 }
 
-function trim (options) {
+function trim (options, speed) {
   const startDuration = parseDuration(options.start)
   const endDuration = parseDuration(options.end)
   const difference = endDuration.subtract(startDuration)

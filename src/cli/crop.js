@@ -6,7 +6,6 @@ const regExp = new RegExp(
 module.exports = {
   alias: ['c'],
   type: ['string'],
-  default: null,
   coerce: function (string) {
     const matches = string.match(regExp)
     if (matches === null) {
