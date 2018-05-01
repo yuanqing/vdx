@@ -6,8 +6,7 @@ const getInputFiles = require('./get-input-files')
 const parseOptions = require('./parse-options')
 
 async function vdx (options) {
-  const ffmpegPath = await which(options.ffmpegPath || 'ffmpeg')
-  const outputFormat = options.format
+  const ffmpegPath = await which('ffmpeg')
   const ffmpegOptions = parseOptions(options)
   return async function (inputGlobs, outputDirectory) {
     const inputFiles = await getInputFiles(inputGlobs)
@@ -16,7 +15,7 @@ async function vdx (options) {
         ffmpegPath,
         inputFile,
         outputDirectory,
-        outputFormat,
+        options.format,
         ffmpegOptions
       )
     })
