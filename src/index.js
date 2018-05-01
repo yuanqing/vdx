@@ -1,24 +1,26 @@
+const promisify = require('util').promisify
 const promiseAll = require('p-all')
+const which = promisify(require('which'))
 const buildCommand = require('./build-command')
 const getInputFiles = require('./get-input-files')
 const parseOptions = require('./parse-options')
 
-function vdx (options) {
+async function vdx (options) {
+  const ffmpegPath = await which(options.ffmpegPath || 'ffmpeg')
+  const outputFormat = options.format
   const ffmpegOptions = parseOptions(options)
-  const convertToGif = options.gif !== -1
-  return async function (inputGlobPatterns, outputDirectory) {
-    const inputFiles = await getInputFiles(inputGlobPatterns)
+  return async function (inputGlobs, outputDirectory) {
+    const inputFiles = await getInputFiles(inputGlobs)
     const commands = inputFiles.map(function (inputFile) {
       return buildCommand(
+        ffmpegPath,
         inputFile,
         outputDirectory,
-        convertToGif,
+        outputFormat,
         ffmpegOptions
       )
     })
-    return function () {
-      return promiseAll(commands, { concurrency: options.parallel })
-    }
+    return promiseAll(commands, { concurrency: options.parallel })
   }
 }
 

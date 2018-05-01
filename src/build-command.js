@@ -6,46 +6,56 @@ const uniqueSlug = require('unique-slug')
 const STDIN_SENTINEL = require('./stdin-sentinel')
 
 function stringifyOptions (options) {
-  const result = []
-  const filters = []
+  const results = []
   options.forEach(function (option) {
     Object.keys(option).forEach(function (key) {
       const value = option[key]
       if (value) {
-        if (key === 'filter_complex') {
-          filters.push(value)
-          return
-        }
-        result.push(`-${key}`)
+        results.push(`-${key}`)
         if (typeof value === 'string') {
-          result.push(value)
+          results.push(value)
         }
       }
     })
   })
-  return `${result.join(' ')} -filter_complex "[0:v] ${filters.join(',')}"`
+  return results.join(' ')
 }
 
-function buildOutputFilePath (inputFile, outputDirectory, convertToGif) {
-  inputFile = inputFile === STDIN_SENTINEL ? `${uniqueSlug()}.mov` : inputFile
-  if (convertToGif) {
-    const inputFileExtension = path.extname(inputFile)
-    const inputFileParentDirectory = path.dirname(inputFile)
-    const outputFile = `${path.basename(inputFile, inputFileExtension)}.gif`
-    return path.join(outputDirectory, inputFileParentDirectory, outputFile)
+function changeExtension (file, newExtension) {
+  const parentDirectory = path.dirname(file)
+  const extension = path.extname(file)
+  const basename = path.basename(file, extension)
+  return path.join(parentDirectory, `${basename}.${newExtension}`)
+}
+
+function buildOutputFilePath (inputFile, outputDirectory, outputFormat) {
+  let outputFile = inputFile
+  if (inputFile === STDIN_SENTINEL) {
+    outputFile = `${uniqueSlug()}.${
+      outputFormat !== null ? outputFormat : 'mp4'
+    }`
   }
-  return path.join(outputDirectory, inputFile)
+  if (outputFormat !== null) {
+    outputFile = changeExtension(outputFile, outputFormat)
+  }
+  return path.join(outputDirectory, outputFile)
 }
 
-function buildCommand (inputFile, outputDirectory, convertToGif, options) {
-  const stringifiedOptions = stringifyOptions(options)
+function buildCommand (
+  ffmpegPath,
+  inputFile,
+  outputDirectory,
+  outputFormat,
+  ffmpegOptions
+) {
+  const stringifiedOptions = stringifyOptions(ffmpegOptions)
   const outputFile = buildOutputFilePath(
     inputFile,
     outputDirectory,
-    convertToGif
+    outputFormat
   )
   const outputFileParentDirectory = path.resolve(outputFile, '..')
-  const ffmpegCommand = `ffmpeg -y -i "${inputFile}" ${stringifiedOptions} -- "${outputFile}"`
+  const ffmpegCommand = `${ffmpegPath} -y -i "${inputFile}" ${stringifiedOptions} -- "${outputFile}"`
   return function () {
     return new Promise(async function (resolve) {
       await mkdirp(outputFileParentDirectory)

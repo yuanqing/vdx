@@ -6,7 +6,7 @@ const vdx = require('..')
 const optionsConfig = {
   crop: require('./crop'),
   debug: require('./debug'),
-  gif: require('./gif'),
+  format: require('./format'),
   noAudio: require('./no-audio'),
   outputDirectory: require('./output-directory'),
   parallel: require('./parallel'),
@@ -16,7 +16,7 @@ const optionsConfig = {
 
 async function main () {
   const parsed = yargs.options(optionsConfig).argv
-  const input = parsed._
+  const inputGlobs = parsed._
   const { outputDirectory, ...options } = Object.keys(optionsConfig).reduce(
     function (result, key) {
       const value = parsed[key]
@@ -27,8 +27,7 @@ async function main () {
     },
     {}
   )
-  const parse = vdx(options)
-  const run = await parse(input, outputDirectory)
-  await run()
+  const run = await vdx(options)
+  await run(inputGlobs, outputDirectory)
 }
 main()
