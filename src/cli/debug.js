@@ -1,7 +1,5 @@
-const debug = {
+module.exports = {
   alias: ['d'],
   default: false,
   type: ['boolean']
 }
-
-module.exports = debug

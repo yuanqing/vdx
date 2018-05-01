@@ -1,7 +1,5 @@
-const noAudio = {
+module.exports = {
   alias: ['n'],
   default: false,
   type: ['boolean']
 }
-
-module.exports = noAudio

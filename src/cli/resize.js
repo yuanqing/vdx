@@ -1,7 +1,7 @@
 const dimension = '(-1|\\d+)'
 const regExp = new RegExp(`^${dimension}(?:,${dimension})?$`)
 
-const resize = {
+module.exports = {
   alias: ['r', 'scale', 's'],
   coerce: function (string) {
     const matches = string.match(regExp)
@@ -17,5 +17,3 @@ const resize = {
   default: null,
   type: ['string']
 }
-
-module.exports = resize

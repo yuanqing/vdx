@@ -2,12 +2,17 @@
 
 const yargs = require('yargs')
 const vdx = require('..')
-const methods = require('./methods')
 
-const optionsConfig = Object.keys(methods).reduce(function (result, key) {
-  result[key] = methods[key].config
-  return result
-}, {})
+const optionsConfig = {
+  crop: require('./crop'),
+  debug: require('./debug'),
+  format: require('./format'),
+  outputDirectory: require('./output-directory'),
+  noAudio: require('./no-audio'),
+  parallel: require('./parallel'),
+  resize: require('./resize'),
+  trim: require('./trim')
+}
 
 async function main () {
   const parsed = yargs.options(optionsConfig).argv

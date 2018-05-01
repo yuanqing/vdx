@@ -3,7 +3,7 @@ const regExp = new RegExp(
   `^${dimension},${dimension}(?:,${dimension},${dimension})?$`
 )
 
-const crop = {
+module.exports = {
   alias: ['c'],
   coerce: function (string) {
     const matches = string.match(regExp)
@@ -29,5 +29,3 @@ const crop = {
   default: null,
   type: ['string']
 }
-
-module.exports = crop

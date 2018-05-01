@@ -1,4 +1,4 @@
-const parallel = {
+module.exports = {
   alias: ['p'],
   coerce: function (parallel) {
     if (parallel === true) {
@@ -9,5 +9,3 @@ const parallel = {
   default: 3,
   type: ['boolean', 'number']
 }
-
-module.exports = parallel

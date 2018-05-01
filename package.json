@@ -10,7 +10,7 @@
   },
   "main": "src",
   "bin": {
-    "vdx": "src/cli"
+    "vdx": "src/cli/index.js"
   },
   "dependencies": {
     "execa": "^0.10.0",
@@ -33,7 +33,7 @@
     "fix": "prettier-standard 'src/**/*.js'",
     "lint": "standard 'src/**/*.js'",
     "precommit": "lint-staged",
-    "start": "./src/cli.js --crop 240,240 --resize 240 --output build --trim 00:00:01.5 --parallel 3 --debug --no-audio 'test/fixtures/*.mov'",
+    "start": "./src/cli/index.js --crop 240,240 --resize 240 --output build --trim 1,00:50 --parallel 3 --debug --no-audio 'test/fixtures/*.mov'",
     "start-stdin": "cat test/fixtures/test.mov | ./src/cli.js --resize 240 --output build --trim 00:00:01 00:02:00.500 --parallel 3 --debug --no-audio"
   },
   "lint-staged": {

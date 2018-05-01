@@ -1,7 +1,5 @@
-const format = {
+module.exports = {
   alias: ['f'],
   default: null,
   type: ['string']
 }
-
-module.exports = format

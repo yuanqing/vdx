@@ -1,7 +1,5 @@
-const outputDirectory = {
+module.exports = {
   alias: ['output', 'o'],
   default: 'build',
   type: ['string']
 }
-
-module.exports = outputDirectory

@@ -56,6 +56,7 @@ function buildCommand (
   )
   const outputFileParentDirectory = path.resolve(outputFile, '..')
   const ffmpegCommand = `${ffmpegPath} -y -i "${inputFile}" ${stringifiedOptions} -- "${outputFile}"`
+  console.log(ffmpegCommand)
   return function () {
     return new Promise(async function (resolve) {
       await mkdirp(outputFileParentDirectory)

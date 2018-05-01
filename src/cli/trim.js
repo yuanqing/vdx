@@ -1,9 +1,9 @@
 const hourMinuteSecond = '(?:[0-9]|[0-5][0-9])'
 const millisecond = '\\d{1,3}'
-const time = `(\\d+|(?:${hourMinuteSecond}:)${hourMinuteSecond}:${hourMinuteSecond}(?:\\.${millisecond})?)`
+const time = `((?:\\d+|(?:${hourMinuteSecond}:)?${hourMinuteSecond}:${hourMinuteSecond})(?:\\.${millisecond})?)`
 const regExp = new RegExp(`^${time}(?:,${time})?$`)
 
-const trim = {
+module.exports = {
   alias: ['t'],
   coerce: function (string) {
     const matches = string.match(regExp)
@@ -25,5 +25,3 @@ const trim = {
   default: null,
   type: ['string']
 }
-
-module.exports = trim
