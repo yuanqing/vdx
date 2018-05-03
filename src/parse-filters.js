@@ -15,7 +15,7 @@ function parseFilters (options) {
 
   // http://trac.ffmpeg.org/wiki/How%20to%20speed%20up%20/%20slow%20down%20a%20video
   if (speed !== 1) {
-    videoFilters.push(`setpts=(1/${1 / speed})*PTS`)
+    videoFilters.push(`setpts=(1/${speed})*PTS`)
     audioFilters.push(`atempo=${speed}`)
   }
 
