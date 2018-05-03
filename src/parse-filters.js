@@ -1,3 +1,24 @@
+function computeATempo (speed) {
+  if (speed === 1) {
+    return speed
+  }
+  const result = []
+  if (speed > 2) {
+    while (speed > 2) {
+      speed = speed / 2
+      result.push(2)
+    }
+    result.push(speed)
+    return result
+  }
+  while (speed < 0.5) {
+    speed = speed / 0.5
+    result.push(0.5)
+  }
+  result.push(speed)
+  return result
+}
+
 function parseFilters (options) {
   const { crop, format, resize, speed } = options
   const videoFilters = []
@@ -16,7 +37,9 @@ function parseFilters (options) {
   // http://trac.ffmpeg.org/wiki/How%20to%20speed%20up%20/%20slow%20down%20a%20video
   if (speed !== 1) {
     videoFilters.push(`setpts=(1/${speed})*PTS`)
-    audioFilters.push(`atempo=${speed}`)
+    computeATempo(speed).forEach(function (audioSpeed) {
+      audioFilters.push(`atempo=${audioSpeed}`)
+    })
   }
 
   // https://engineering.giphy.com/how-to-make-gifs-with-ffmpeg/
