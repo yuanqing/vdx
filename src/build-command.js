@@ -6,7 +6,7 @@ const rimraf = promisify(require('rimraf'))
 const uniqueSlug = require('unique-slug')
 const STDIN_SENTINEL = require('./stdin-sentinel')
 
-function stringifyOptions (options) {
+function stringify (options) {
   const result = []
   options.forEach(function (option) {
     Object.keys(option).forEach(function (key) {
@@ -29,7 +29,12 @@ function changeExtension (file, newExtension) {
   return path.join(parentDirectory, `${basename}.${newExtension}`)
 }
 
-function buildOutputFilePath (inputFile, outputDirectory, outputFormat) {
+function getTemporaryFilePath (inputFile, outputDirectory) {
+  const basename = path.basename(inputFile)
+  return path.join(outputDirectory, `vdx-${uniqueSlug()}-${basename}`)
+}
+
+function getOutputFilePath (inputFile, outputDirectory, outputFormat) {
   const hasOutputFormat = typeof outputFormat !== 'undefined'
   let outputFile = inputFile
   if (inputFile === STDIN_SENTINEL) {
@@ -41,12 +46,6 @@ function buildOutputFilePath (inputFile, outputDirectory, outputFormat) {
   return path.join(outputDirectory, outputFile)
 }
 
-function buildTemporaryFilePath (outputFile) {
-  const parentDirectory = path.dirname(outputFile)
-  const basename = path.basename(outputFile)
-  return path.join(parentDirectory, `.${basename}`)
-}
-
 function buildCommand (
   ffmpegPath,
   inputFile,
@@ -55,32 +54,28 @@ function buildCommand (
   ffmpegOptions,
   ffmpegFilters
 ) {
-  const outputFile = buildOutputFilePath(
-    inputFile,
-    outputDirectory,
-    outputFormat
-  )
-  const outputFileParentDirectory = path.resolve(outputFile, '..')
-  const temporaryFile = buildTemporaryFilePath(outputFile)
-  const c1 = `${ffmpegPath} -y -i "${inputFile}" ${stringifyOptions(
+  const temporaryFile = getTemporaryFilePath(inputFile, outputDirectory)
+  const outputFile = getOutputFilePath(inputFile, outputDirectory, outputFormat)
+  const parentDirectory = path.resolve(outputFile, '..')
+  const c1 = `${ffmpegPath} -y -i "${inputFile}" ${stringify(
     ffmpegOptions
   )} -- "${temporaryFile}"`
-  const c2 = `${ffmpegPath} -y -i "${temporaryFile}" ${stringifyOptions(
+  const c2 = `${ffmpegPath} -y -i "${temporaryFile}" ${stringify(
     ffmpegFilters
   )} -- "${outputFile}"`
   return async function () {
-    await mkdirp(outputFileParentDirectory)
+    await mkdirp(parentDirectory)
     try {
       await new Promise(async function (resolve) {
-        const ffmpegProcess = execa.shell(c1)
+        const p1 = execa.shell(c1)
         if (inputFile === STDIN_SENTINEL) {
-          ffmpegProcess.on('exit', function (code) {
+          p1.on('exit', function () {
             resolve()
           })
-          process.stdin.pipe(ffmpegProcess.stdin)
+          process.stdin.pipe(p1.stdin)
           return
         }
-        await ffmpegProcess
+        await p1
         resolve()
       })
       await execa.shell(c2)
