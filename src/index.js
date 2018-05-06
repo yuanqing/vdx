@@ -1,28 +1,36 @@
 const promisify = require('util').promisify
 const promiseAll = require('p-all')
 const which = promisify(require('which'))
-const buildCommand = require('./build-command')
+const createCommand = require('./create-command')
+const createFFmpegOptions = require('./create-ffmpeg-options')
 const getInputFiles = require('./get-input-files')
-const parseFilters = require('./parse-filters')
-const parseOptions = require('./parse-options')
 
-async function vdx (options) {
-  const ffmpegPath = await which('ffmpeg')
-  const ffmpegOptions = parseOptions(options)
-  const ffmpegFilters = parseFilters(options)
-  return async function (inputGlobs, outputDirectory) {
-    const inputFiles = await getInputFiles(inputGlobs)
+async function vdx (options, logger) {
+  const { audio, crop, format, fps, parallel, resize, speed, trim } = options
+  const ffmpegBinaryPath = await which('ffmpeg')
+  const ffmpegOptions = createFFmpegOptions({
+    audio,
+    crop,
+    format,
+    fps,
+    resize,
+    speed,
+    trim
+  })
+  const concurrency = parallel || 1
+  return async function (input, outputDirectory) {
+    const inputFiles = await getInputFiles(input)
     const commands = inputFiles.map(function (inputFile) {
-      return buildCommand(
-        ffmpegPath,
+      return createCommand(
         inputFile,
         outputDirectory,
-        options.format,
+        format,
+        ffmpegBinaryPath,
         ffmpegOptions,
-        ffmpegFilters
+        logger
       )
     })
-    return promiseAll(commands, { concurrency: options.parallel })
+    return promiseAll(commands, { concurrency })
   }
 }
 

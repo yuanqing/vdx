@@ -1,10 +1,11 @@
 const promisify = require('util').promisify
 const glob = promisify(require('glob'))
-const STDIN_SENTINEL = require('./stdin-sentinel')
+
+const stdinSentinel = '-'
 
 async function getInputFiles (globPatterns) {
   if (globPatterns.length === 0) {
-    return [STDIN_SENTINEL]
+    return [stdinSentinel]
   }
   const inputFiles = await Promise.all(
     globPatterns.map(async function (item) {

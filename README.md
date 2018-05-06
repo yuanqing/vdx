@@ -1,5 +1,7 @@
 # vdx
 
+> A simple, opinionated CLI for common video processing tasks.
+
 ```sh
 # Crop
 $ vdx input.mp4 --crop 0,0,200,100
