@@ -1,23 +1,9 @@
-<div align="center">
+# vdx [![npm Version](https://img.shields.io/npm/v/vdx.svg?style=flat)](https://www.npmjs.org/package/vdx) [![Build Status](https://img.shields.io/travis/yuanqing/vdx.svg?branch=master&style=flat)](https://travis-ci.org/yuanqing/vdx)
 
-# vdx
-
-***An intuitive CLI for processing video and audio, powered by [FFmpeg.](https://www.ffmpeg.org/)***
-
-[![npm Version](https://img.shields.io/npm/v/vdx.svg?style=flat)](https://www.npmjs.org/package/vdx) [![Build Status](https://img.shields.io/travis/yuanqing/vdx.svg?branch=master&style=flat)](https://travis-ci.org/yuanqing/vdx) [![Prettier](https://img.shields.io/badge/code_style-prettier-41718c.svg)](https://prettier.io) [![JavaScript Standard Style](https://img.shields.io/badge/code_style-standard-e0c807.svg)](https://standardjs.com)
-
-</div>
+> An intuitive CLI for processing video and audio, powered by FFmpeg.
 
 - Crop, trim, resize, change the speed, change the frame rate, strip audio, convert between file formats
 - Run multiple operations on multiple files concurrently
-
-<div align="center">
-
-[**Installation**](#installation) &nbsp;&middot;&nbsp; [**Usage**](#usage) &nbsp;&middot;&nbsp; [**Related**](#related) &nbsp;&middot;&nbsp; [**License**](#license)
-
-</div>
-
----
 
 ## Installation
 
@@ -41,7 +27,7 @@ $ vdx '*.mov' --speed 2         # Double the speed
 $ vdx '*.mov' --trim 0:05,0:10  # Trim from time 0:05 to 0:10
 ```
 
-Or run multiple operations all at once:
+Or, run multiple operations all at once:
 
 ```sh
 $ vdx '*.mov' --format gif --fps 12 --resize 360,640 --speed 2 --trim 0:05,0:10
@@ -50,7 +36,7 @@ $ vdx '*.mov' --format gif --fps 12 --resize 360,640 --speed 2 --trim 0:05,0:10
 ## CLI
 
 ```sh
-vdx [input] [options]
+Usage: vdx [input] [options]
 ```
 
 ### [input]
