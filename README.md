@@ -1,84 +1,137 @@
+<div align="center">
+
 # vdx
 
-> A simple way to process video on the terminal, powered by [FFmpeg](https://www.ffmpeg.org/).
+***An intuitive CLI for processing video and audio, powered by [FFmpeg.](https://www.ffmpeg.org/)***
 
-## Quick start
+[![npm Version](https://img.shields.io/npm/v/vdx.svg?style=flat)](https://www.npmjs.org/package/vdx) [![Build Status](https://img.shields.io/travis/yuanqing/vdx.svg?branch=master&style=flat)](https://travis-ci.org/yuanqing/vdx) [![Prettier](https://img.shields.io/badge/code_style-prettier-41718c.svg)](https://prettier.io) [![JavaScript Standard Style](https://img.shields.io/badge/code_style-standard-e0c807.svg)](https://standardjs.com)
 
-Requires [FFmpeg](https://www.ffmpeg.org/) and [Node.js](https://nodejs.org/).
+</div>
+
+- Crop, trim, resize, speed up, slow down, change the frame rate, strip audio, convert between file formats
+- Run multiple operations on multiple files concurrently
+
+<div align="center">
+
+[**Installation**](#installation) &nbsp;&middot;&nbsp; [**Usage**](#usage) &nbsp;&middot;&nbsp; [**Related**](#related) &nbsp;&middot;&nbsp; [**License**](#license)
+
+</div>
+
+---
+
+## Installation
+
+Ensure that you have the latest versions of [FFmpeg](https://www.ffmpeg.org/) and [Node.js](https://nodejs.org/) installed. Then:
 
 ```sh
 $ npm install --global vdx
-```
-
-```sh
-$ ls
-input.mov
-
-# Crop
-$ vdx input.mov --crop 0,0,200,100
-$ vdx input.mov --crop 200,100
-
-# Convert to GIF
-$ vdx input.mov --format gif
-
-# Remove audio
-$ vdx input.mov --no-audio
-
-# Resize
-$ vdx input.mov --resize 360,640
-
-# Trim
-$ vdx input.mov --trim 0:03
-$ vdx input.mov --trim 0:03,0:14
-$ vdx input.mov --trim 3
-$ vdx input.mov --trim 3,14
-
-# Multiple
-$ vdx '*.mov' --no-audio --resize 360,640 --trim 0:03,0:14 --output build --parallel 2
 ```
 
 ## Usage
 
-```
-Usage: vdx [input] [options]
-
-Input:
-  Glob of input files. Reads from stdin if not specified.
-
-Options:
-  -c, --crop <options>  Crop the input files. <options> is one of
-                        <x>,<y>,<width>,<height> or <width>,<height>.
-  -f, --format <format>  Set the format of the output files.
-  -x  --fps <fps>  Set the frame rate.
-  -g, --gif  Shorthand for \`--format gif\`
-  -h, --help  Print this message.
-  -n, --no-audio  Remove audio from the input files.
-  -o, --output <directory>  Set the output directory. Defaults
-                            to 'build'.
-  -p, --parallel <concurrency>  Set the maximum number of files to
-                                process at any one time.
-  -r, --resize <options>  Resize the input files. <options> is
-                          specified as <width>,<height>.
-  -s, --speed <speed>  Set the speed of the input files. To slow down
-                       the video, set <speed> to a number between 0
-                       and 1. To speed up the video, set <speed> to a
-                       number greater than 1.
-  -t, --trim <options>  Trim the input files to a specific duration.
-                        <options> is either <start>,<end> or <end>.
-  -v, --version  Print the version number.
+```sh
+vdx [input] [options]
 ```
 
-## Installation
+### [input]
+
+Globs of input files to process. Read from `stdin` if not specified.
+
+### [options]
+
+#### -c, --crop [&lt;x&gt;,&lt;y&gt;,]&lt;width&gt;,&lt;height&gt;
 
 ```sh
-$ npm install --global vdx
+# Crop to a rectangle starting from coordinate (0, 0), with width 360 and height 640
+$ vdx input.mov --crop 360,640
+
+# Crop to a rectangle starting from coordinate (10, 20), with width 360 and height 640
+$ vdx input.mov --crop 10,20,360,640
 ```
 
-Or:
+#### -f, --format &lt;format&gt;
 
 ```sh
-$ yarn global add vdx
+# Convert to GIF
+$ vdx input.mov --format gif
 ```
+
+#### -x, --fps &lt;fps&gt;
+
+```sh
+# Set the frame rate to 12
+$ vdx input.mov --fps 12
+```
+
+#### -n, --no-audio
+
+```sh
+# Strip audio
+$ vdx input.mov --no-audio
+```
+
+#### -r, --resize &lt;width&gt;,&lt;height&gt;
+
+```sh
+# Resize to width 360 and height 640
+$ vdx input.mov --resize 360,640
+
+# Resize to width 360, maintaining the aspect ratio
+$ vdx input.mov --resize 360,-1
+
+# Resize to height 640, maintaining the aspect ratio
+$ vdx input.mov --resize -1,640
+```
+
+#### -o, --output &lt;directory&gt;
+
+`<directory>` defaults to `'./build'`
+
+```sh
+# Write files to the './gifs' directory
+$ vdx '*.mov' --format gif --output './gifs'
+```
+
+#### -p, --parallel &lt;concurrency&gt;
+
+`<concurrency>` defaults to `3`
+
+```sh
+# Process up to 5 files concurrently
+$ vdx '*.mov' --format gif --parallel 5
+```
+
+#### -s, --speed &lt;speed&gt;
+
+```sh
+# Halve the speed
+$ vdx input.mov --speed 0.5
+
+# Double the speed
+$ vdx input.mov --speed 2
+```
+
+#### -t, --trim &lt;start&gt;[,&lt;end&gt;]
+
+```sh
+# Trim out a clip from 0:05 to the end of the input file
+$ vdx input.mov --trim 0:05
+
+# Trim out a clip from 0:05 to 0:10
+$ vdx input.mov --trim 0:05,0:10
+```
+
+---
+
+### Running multiple operations on multiple files
+
+```sh
+$ vdx '*.mov' --format gif --fps 12 --output './gifs' --parallel 5 --resize 360,640 --trim 0:05,0:10
+```
+
+## Related
+
+- [fluent-ffmpeg](https://github.com/fluent-ffmpeg/node-fluent-ffmpeg)
 
 ## License
 
