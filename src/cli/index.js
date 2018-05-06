@@ -10,26 +10,27 @@ const usageMessage = `
 Usage: vdx [input] [options]
 
 Input:
+  Glob of input files. Reads from stdin if not specified.
 
 Options:
-  -c, --crop <options>  Crop the input file. <options> is one of
+  -c, --crop <options>  Crop the input files. <options> is one of
                         <x>,<y>,<width>,<height> or <width>,<height>.
   -f, --format <format>  Set the format of the output files.
   -x  --fps <fps>  Set the frame rate.
   -g, --gif  Shorthand for \`--format gif\`
   -h, --help  Print this message.
-  -n, --no-audio  Remove audio from the input file.
+  -n, --no-audio  Remove audio from the input files.
   -o, --output <directory>  Set the output directory. Defaults
                             to 'build'.
   -p, --parallel <concurrency>  Set the maximum number of files to
                                 process at any one time.
-  -r, --resize <options>  Resize the input file. <options> is
+  -r, --resize <options>  Resize the input files. <options> is
                           specified as <width>,<height>.
-  -s, --speed <speed>  Set the speed of the input file. To slow down
+  -s, --speed <speed>  Set the speed of the input files. To slow down
                        the video, set <speed> to a number between 0
                        and 1. To speed up the video, set <speed> to a
                        number greater than 1.
-  -t, --trim <options>  Trim the input file to a specific duration.
+  -t, --trim <options>  Trim the input files to a specific duration.
                         <options> is either <start>,<end> or <end>.
   -v, --version  Print the version number.
 `
