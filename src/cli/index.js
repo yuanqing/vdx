@@ -10,28 +10,29 @@ const usageMessage = `
 Usage: vdx [input] [options]
 
 Input:
-  Glob of input files. Reads from stdin if not specified.
+  Globs of input files to process. Read from stdin if not specified.
 
 Options:
-  -c, --crop <options>  Crop the input files. <options> is one of
-                        <x>,<y>,<width>,<height> or <width>,<height>.
+  -c, --crop [<x>,<y>,]<width>,<height>  Crop the input files. <x>
+                                         and <y> both default to 0.
   -f, --format <format>  Set the format of the output files.
+      --gif  Shorthand for '--format gif'.
+      --mov  Shorthand for '--format mov'.
+      --mp4  Shorthand for '--format mp4'.
   -x  --fps <fps>  Set the frame rate.
-  -g, --gif  Shorthand for \`--format gif\`
   -h, --help  Print this message.
-  -n, --no-audio  Remove audio from the input files.
+  -n, --no-audio  Strip audio from the input files.
   -o, --output <directory>  Set the output directory. Defaults
-                            to 'build'.
+                            to './build'.
   -p, --parallel <concurrency>  Set the maximum number of files to
-                                process at any one time.
-  -r, --resize <options>  Resize the input files. <options> is
-                          specified as <width>,<height>.
+                                process concurrently. Defaults to 3.
+  -r, --resize <width>,<height>  Resize the input files.
   -s, --speed <speed>  Set the speed of the input files. To slow down
                        the video, set <speed> to a number between 0
                        and 1. To speed up the video, set <speed> to a
                        number greater than 1.
-  -t, --trim <options>  Trim the input files to a specific duration.
-                        <options> is either <start>,<end> or <end>.
+  -t, --trim <start>[,<end>]  Trim the input files to the
+                              specified duration.
   -v, --version  Print the version number.
 `
 
@@ -50,8 +51,9 @@ const knownOptions = {
 }
 const shorthands = {
   f: '--format',
-  g: '--format gif',
   gif: '--format gif',
+  mov: '--format mov',
+  mp4: '--format mp4',
   n: '--no-audio',
   x: '--fps'
 }
