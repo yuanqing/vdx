@@ -1,0 +1,10 @@
+notifications:
+  email: false
+
+language: node_js
+
+node_js:
+  - 'node'
+
+script:
+  - yarn lint
