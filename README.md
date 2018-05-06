@@ -1,6 +1,6 @@
 # vdx
 
-> A simple, opinionated CLI for common video processing tasks.
+> An opinionated CLI for video processing, powered by FFmpeg.
 
 ```sh
 # Crop

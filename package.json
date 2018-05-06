@@ -1,7 +1,7 @@
 {
   "name": "vdx",
   "version": "0.0.0",
-  "description": "A simple, opinionated CLI for common video processing tasks.",
+  "description": "An opinionated CLI for video processing, powered by FFmpeg.",
   "author": "Lim Yuan Qing",
   "license": "MIT",
   "repository": {
