@@ -8,7 +8,7 @@
 
 </div>
 
-- Crop, trim, resize, speed up, slow down, change the frame rate, strip audio, convert between file formats
+- Crop, trim, resize, change the speed, change the frame rate, strip audio, convert between file formats
 - Run multiple operations on multiple files concurrently
 
 <div align="center">
@@ -27,7 +27,27 @@ Ensure that you have the latest versions of [FFmpeg](https://www.ffmpeg.org/) an
 $ npm install --global vdx
 ```
 
-## Usage
+## Quick start
+
+Supported operations:
+
+```sh
+$ vdx '*.mov' --crop 360,640    # Crop to width 360, height 640
+$ vdx '*.mov' --format gif      # Convert to GIF
+$ vdx '*.mov' --fps 12          # Set the frame rate to 12
+$ vdx '*.mov' --no-audio        # Strip audio
+$ vdx '*.mov' --resize 360,640  # Resize to width 360, height 640
+$ vdx '*.mov' --speed 2         # Double the speed
+$ vdx '*.mov' --trim 0:05,0:10  # Trim from time 0:05 to 0:10
+```
+
+Or run multiple operations all at once:
+
+```sh
+$ vdx '*.mov' --format gif --fps 12 --resize 360,640 --speed 2 --trim 0:05,0:10
+```
+
+## CLI
 
 ```sh
 vdx [input] [options]
@@ -42,45 +62,45 @@ Globs of input files to process. Read from `stdin` if not specified.
 #### -c, --crop [&lt;x&gt;,&lt;y&gt;,]&lt;width&gt;,&lt;height&gt;
 
 ```sh
-# Crop to a rectangle starting from coordinate (0, 0), with width 360 and height 640
-$ vdx input.mov --crop 360,640
+# Crop to width 360, height 640
+$ vdx '*.mov' --crop 360,640
 
-# Crop to a rectangle starting from coordinate (10, 20), with width 360 and height 640
-$ vdx input.mov --crop 10,20,360,640
+# Crop to width 360, height 640, starting from coordinate (10, 20)
+$ vdx '*.mov' --crop 10,20,360,640
 ```
 
 #### -f, --format &lt;format&gt;
 
 ```sh
 # Convert to GIF
-$ vdx input.mov --format gif
+$ vdx '*.mov' --format gif
 ```
 
 #### -x, --fps &lt;fps&gt;
 
 ```sh
 # Set the frame rate to 12
-$ vdx input.mov --fps 12
+$ vdx '*.mov' --fps 12
 ```
 
 #### -n, --no-audio
 
 ```sh
 # Strip audio
-$ vdx input.mov --no-audio
+$ vdx '*.mov' --no-audio
 ```
 
 #### -r, --resize &lt;width&gt;,&lt;height&gt;
 
 ```sh
-# Resize to width 360 and height 640
-$ vdx input.mov --resize 360,640
+# Resize to width 360, height 640
+$ vdx '*.mov' --resize 360,640
 
 # Resize to width 360, maintaining the aspect ratio
-$ vdx input.mov --resize 360,-1
+$ vdx '*.mov' --resize 360,-1
 
 # Resize to height 640, maintaining the aspect ratio
-$ vdx input.mov --resize -1,640
+$ vdx '*.mov' --resize -1,640
 ```
 
 #### -o, --output &lt;directory&gt;
@@ -105,28 +125,20 @@ $ vdx '*.mov' --format gif --parallel 5
 
 ```sh
 # Halve the speed
-$ vdx input.mov --speed 0.5
+$ vdx '*.mov' --speed 0.5
 
 # Double the speed
-$ vdx input.mov --speed 2
+$ vdx '*.mov' --speed 2
 ```
 
 #### -t, --trim &lt;start&gt;[,&lt;end&gt;]
 
 ```sh
-# Trim out a clip from 0:05 to the end of the input file
-$ vdx input.mov --trim 0:05
+# Trim from time 0:05 to the end of the input file
+$ vdx '*.mov' --trim 0:05
 
-# Trim out a clip from 0:05 to 0:10
-$ vdx input.mov --trim 0:05,0:10
-```
-
----
-
-### Running multiple operations on multiple files
-
-```sh
-$ vdx '*.mov' --format gif --fps 12 --output './gifs' --parallel 5 --resize 360,640 --trim 0:05,0:10
+# Trim from time 0:05 to 0:10
+$ vdx '*.mov' --trim 0:05,0:10
 ```
 
 ## Related
