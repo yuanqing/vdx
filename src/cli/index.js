@@ -27,6 +27,7 @@ Options:
   -p, --parallel <concurrency>  Set the maximum number of files to
                                 process concurrently. Defaults to 3.
   -r, --resize <width>,<height>  Resize the input files.
+  -e, --reverse  Reverse the input files.
   -s, --speed <speed>  Set the speed of the input files. To slow down
                        the video, set <speed> to a number between 0
                        and 1. To speed up the video, set <speed> to a
@@ -45,6 +46,7 @@ const knownOptions = {
   output: String,
   parallel: Number,
   resize: String,
+  reverse: Boolean,
   speed: Number,
   trim: String,
   version: Boolean
@@ -54,8 +56,9 @@ const shorthands = {
   gif: '--format gif',
   mov: '--format mov',
   mp4: '--format mp4',
+  x: '--fps',
   n: '--no-audio',
-  x: '--fps'
+  e: '--reverse'
 }
 
 async function main () {

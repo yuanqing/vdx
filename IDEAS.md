@@ -1,6 +1,6 @@
 # Ideas
 
-- [ ] Reverse
+- [X] Reverse
 - [ ] Repeat
 - [ ] Concatenate
 - [ ] Change volume

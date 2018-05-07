@@ -6,7 +6,7 @@ const createFFmpegOptions = require('./create-ffmpeg-options')
 const getInputFiles = require('./get-input-files')
 
 async function vdx (options, logger) {
-  const { audio, crop, format, fps, parallel, resize, speed, trim } = options
+  const { audio, crop, format, fps, parallel, resize, reverse, speed, trim } = options
   const ffmpegBinaryPath = await which('ffmpeg')
   const ffmpegOptions = createFFmpegOptions({
     audio,
@@ -14,6 +14,7 @@ async function vdx (options, logger) {
     format,
     fps,
     resize,
+    reverse,
     speed,
     trim
   })
