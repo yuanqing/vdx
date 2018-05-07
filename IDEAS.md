@@ -1,5 +1,6 @@
 # Ideas
 
-- Reverse
-- Repeat
-- Concatenate
+- [ ] Reverse
+- [ ] Repeat
+- [ ] Concatenate
+- [ ] Change volume
