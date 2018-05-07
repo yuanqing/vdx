@@ -6,7 +6,7 @@ const regExp = new RegExp(
 module.exports = function (string) {
   const matches = string.match(regExp)
   if (matches === null) {
-    throw new Error('Expected <x>,<y>,<width>,<height> or <width>,<height>')
+    throw new Error('Expected <width>,<height> or <x>,<y>,<width>,<height>')
   }
   const options = matches.slice(1)
   if (typeof options[2] === 'undefined') {

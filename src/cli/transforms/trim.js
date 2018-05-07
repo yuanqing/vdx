@@ -6,7 +6,7 @@ const regExp = new RegExp(`^${time}(?:,${time})?$`)
 module.exports = function (string) {
   const matches = string.match(regExp)
   if (matches === null) {
-    throw new Error('Expected <start>,<end> or <end>')
+    throw new Error('Expected <start> or <start>,<end>')
   }
   const options = matches.slice(1)
   if (typeof options[1] === 'undefined') {
