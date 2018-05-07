@@ -1,0 +1,5 @@
+# Ideas
+
+- Reverse
+- Repeat
+- Concatenate
