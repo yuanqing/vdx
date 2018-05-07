@@ -4,5 +4,4 @@ module.exports = function (cropOptions) {
       cropOptions.y
     }`
   }
-  return null
 }

@@ -1,6 +1,7 @@
 const moment = require('moment')
 
 const timestampFormat = 'HH:mm:ss.SSS'
+
 function formatDuration (duration) {
   return moment()
     .startOf('year')
@@ -14,6 +15,7 @@ function formatDuration (duration) {
 }
 
 const separatorRegExp = /:/g
+
 function parseDuration (duration, speed) {
   const matches = duration.match(separatorRegExp)
   if (matches) {
@@ -25,15 +27,20 @@ function parseDuration (duration, speed) {
   return moment.duration(parseFloat(duration), 'seconds')
 }
 
-function trim (options) {
-  let startDuration = parseDuration(options.start)
-  let endDuration = parseDuration(options.end)
-  const difference = endDuration.subtract(startDuration)
-  // https://superuser.com/a/141343
-  return {
-    t: formatDuration(difference),
-    ss: formatDuration(startDuration)
+module.exports = function (trimOptions) {
+  if (trimOptions) {
+    let startDuration = parseDuration(trimOptions.start)
+    const ss = formatDuration(startDuration)
+    if (typeof trimOptions.end === 'undefined') {
+      return {
+        ss
+      }
+    }
+    let endDuration = parseDuration(trimOptions.end)
+    const difference = endDuration.subtract(startDuration)
+    return {
+      t: formatDuration(difference),
+      ss
+    }
   }
 }
-
-module.exports = trim
