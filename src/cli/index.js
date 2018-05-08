@@ -13,33 +13,35 @@ Input:
   Globs of input files to process. Read from stdin if not specified.
 
 Options:
-  -c, --crop [<x>,<y>,]<width>,<height>  Crop the input files. <x>
+  -c,  --crop [<x>,<y>,]<width>,<height>  Crop the input files. <x>
                                          and <y> both default to 0.
-  -f, --format <format>  Set the format of the output files.
-      --gif  Shorthand for '--format gif'.
-      --mov  Shorthand for '--format mov'.
-      --mp4  Shorthand for '--format mp4'.
-  -x  --fps <fps>  Set the frame rate.
-  -h, --help  Print this message.
-  -n, --no-audio  Strip audio from the input files.
-  -o, --output <directory>  Set the output directory. Defaults
+  -f,  --format <format>  Set the format of the output files.
+       --gif  Shorthand for '--format gif'.
+       --mov  Shorthand for '--format mov'.
+       --mp4  Shorthand for '--format mp4'.
+  -fp, --fps <fps>  Set the frame rate.
+  -h,  --help  Print this message.
+  -na, --no-audio  Strip audio from the input files.
+  -o,  --output <directory>  Set the output directory. Defaults
                             to './build'.
-  -p, --parallel <concurrency>  Set the maximum number of files to
+  -p,  --parallel <concurrency>  Set the maximum number of files to
                                 process concurrently. Defaults to 3.
-  -r, --resize <width>,<height>  Resize the input files.
-  -e, --reverse  Reverse the input files.
-  -s, --speed <speed>  Set the speed of the input files. To slow down
+  -r,  --resize <width>,<height>  Resize the input files.
+  -rv, --reverse  Reverse the input files.
+  -s,  --speed <speed>  Set the speed of the input files. To slow down
                        the video, set <speed> to a number between 0
                        and 1. To speed up the video, set <speed> to a
                        number greater than 1.
-  -t, --trim <start>[,<end>]  Trim the input files to the
+  -t,  --trim <start>[,<end>]  Trim the input files to the
                               specified duration.
-  -v, --version  Print the version number.
+  -v,  --version  Print the version number.
+  -vo, --volume  Set the volume of the input files.
 `
 
 const knownOptions = {
   audio: Boolean,
   crop: String,
+  debug: Boolean,
   format: String,
   fps: Number,
   help: Boolean,
@@ -49,18 +51,30 @@ const knownOptions = {
   reverse: Boolean,
   speed: Number,
   trim: String,
-  version: Boolean
+  version: Boolean,
+  volume: Number
 }
 const shorthands = {
+  a: '--audio',
+  na: '--no-audio',
+  c: '--crop',
+  d: '--debug',
   f: '--format',
   gif: '--format gif',
   mov: '--format mov',
   mp4: '--format mp4',
   x: '--fps',
-  n: '--no-audio',
+  h: '--help',
+  o: '--output',
+  p: '--parallel',
   r: '--resize',
   scale: '--resize',
-  e: '--reverse'
+  rv: '--reverse',
+  s: '--speed',
+  t: '--trim',
+  cut: '--trim',
+  v: '--version',
+  vo: '--volume'
 }
 
 async function main () {
