@@ -29,16 +29,22 @@ $ vdx '*.mov' --trim 0:05,0:10  # Trim from time 0:05 to 0:10
 $ vdx '*.mov' --volume 0.5      # Halve the volume
 ```
 
-The processed files will be written to a directory called `./build`. To change this, use the `--output` flag:
+Running multiple operations all at once is also supported:
+
+```sh
+$ vdx '*.mov' --format gif --fps 12 --resize 360,640 --speed 2 --trim 0:05,0:10
+```
+
+By default, the processed files will be written to a directory called `./build`. To change this, use the `--output` flag:
 
 ```sh
 $ vdx '*.mov' --format gif --output './gifs'
 ```
 
-Running multiple operations all at once is also supported:
+By default, up to 3 input files will be processed concurrently. To change this, use the `--parallel` flag:
 
 ```sh
-$ vdx '*.mov' --format gif --fps 12 --resize 360,640 --speed 2 --trim 0:05,0:10
+$ vdx '*.mov' --format gif --output './gifs' --parallel 5
 ```
 
 ## CLI
