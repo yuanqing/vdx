@@ -23,7 +23,10 @@ function createFilters (transforms, options) {
     }
     return result
   }, [])
-  return `"${result.join(',')}"`
+  if (result.length) {
+    return `"${result.join(',')}"`
+  }
+  return null
 }
 
 function createFFmpegOptions (options) {
