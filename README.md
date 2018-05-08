@@ -1,6 +1,6 @@
 # vdx [![npm Version](https://img.shields.io/npm/v/vdx.svg?style=flat)](https://www.npmjs.org/package/vdx) [![Build Status](https://img.shields.io/travis/yuanqing/vdx.svg?branch=master&style=flat)](https://travis-ci.org/yuanqing/vdx)
 
-> An intuitive CLI for processing video and audio, powered by FFmpeg.
+> An intuitive CLI for processing video, powered by [FFmpeg.](https://www.ffmpeg.org/)
 
 - Crop, trim, resize, change the speed, change the frame rate, change the volume, strip audio, convert between file formats
 - Run multiple operations on multiple files concurrently
