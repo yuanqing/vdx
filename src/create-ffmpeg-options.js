@@ -7,8 +7,8 @@ function createFlags (options) {
     const flag = flagsTransforms[key](options[key])
     if (flag) {
       return {
-        ...flag,
-        ...result
+        ...result,
+        ...flag
       }
     }
     return result
