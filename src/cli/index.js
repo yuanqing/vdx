@@ -58,6 +58,8 @@ const shorthands = {
   mp4: '--format mp4',
   x: '--fps',
   n: '--no-audio',
+  r: '--resize',
+  scale: '--resize',
   e: '--reverse'
 }
 
