@@ -15,23 +15,26 @@ $ npm install --global vdx
 
 ## Quick start
 
+A variety of common video operations are supported:
+
 ```sh
 $ vdx '*.mov' --crop 360,640    # Crop to width 360, height 640
 $ vdx '*.mov' --format gif      # Convert to GIF
 $ vdx '*.mov' --fps 12          # Set the frame rate to 12
 $ vdx '*.mov' --no-audio        # Strip audio
 $ vdx '*.mov' --resize 360,640  # Resize to width 360, height 640
+$ vdx '*.mov' --reverse         # Reverse
 $ vdx '*.mov' --speed 2         # Double the speed
 $ vdx '*.mov' --trim 0:05,0:10  # Trim from time 0:05 to 0:10
 ```
 
-The processed files will be written to a directory called `./build`. To change this, use the `--output <directory>` flag. For example:
+The processed files will be written to a directory called `./build`. To change this, use the `--output` flag:
 
 ```sh
 $ vdx '*.mov' --format gif --output './gifs'
 ```
 
-Running multiple operations all at once is also supported. For example:
+Running multiple operations all at once is also supported:
 
 ```sh
 $ vdx '*.mov' --format gif --fps 12 --resize 360,640 --speed 2 --trim 0:05,0:10
@@ -109,6 +112,13 @@ $ vdx '*.mov' --format gif --output './gifs'
 ```sh
 # Process up to 5 files concurrently
 $ vdx '*.mov' --format gif --parallel 5
+```
+
+#### -r, --reverse
+
+```sh
+# Reverse
+$ vdx '*.mov' --reverse
 ```
 
 #### -s, --speed &lt;speed&gt;
