@@ -2,7 +2,7 @@
 
 > An intuitive CLI for processing video and audio, powered by FFmpeg.
 
-- Crop, trim, resize, change the speed, change the frame rate, strip audio, convert between file formats
+- Crop, trim, resize, change the speed, change the frame rate, change the volume, strip audio, convert between file formats
 - Run multiple operations on multiple files concurrently
 
 ## Installation
@@ -26,6 +26,7 @@ $ vdx '*.mov' --resize 360,640  # Resize to width 360, height 640
 $ vdx '*.mov' --reverse         # Reverse
 $ vdx '*.mov' --speed 2         # Double the speed
 $ vdx '*.mov' --trim 0:05,0:10  # Trim from time 0:05 to 0:10
+$ vdx '*.mov' --volume 0.5      # Halve the volume
 ```
 
 The processed files will be written to a directory called `./build`. To change this, use the `--output` flag:
@@ -69,31 +70,18 @@ $ vdx '*.mov' --crop 10,20,360,640
 $ vdx '*.mov' --format gif
 ```
 
-#### -x, --fps &lt;fps&gt;
+#### -fp, --fps &lt;fps&gt;
 
 ```sh
 # Set the frame rate to 12
 $ vdx '*.mov' --fps 12
 ```
 
-#### -n, --no-audio
+#### -na, --no-audio
 
 ```sh
 # Strip audio
 $ vdx '*.mov' --no-audio
-```
-
-#### -r, --resize &lt;width&gt;,&lt;height&gt;
-
-```sh
-# Resize to width 360, height 640
-$ vdx '*.mov' --resize 360,640
-
-# Resize to width 360, maintaining the aspect ratio
-$ vdx '*.mov' --resize 360,-1
-
-# Resize to height 640, maintaining the aspect ratio
-$ vdx '*.mov' --resize -1,640
 ```
 
 #### -o, --output &lt;directory&gt;
@@ -114,7 +102,20 @@ $ vdx '*.mov' --format gif --output './gifs'
 $ vdx '*.mov' --format gif --parallel 5
 ```
 
-#### -r, --reverse
+#### -r, --resize &lt;width&gt;,&lt;height&gt;
+
+```sh
+# Resize to width 360, height 640
+$ vdx '*.mov' --resize 360,640
+
+# Resize to width 360, maintaining the aspect ratio
+$ vdx '*.mov' --resize 360,-1
+
+# Resize to height 640, maintaining the aspect ratio
+$ vdx '*.mov' --resize -1,640
+```
+
+#### -rv, --reverse
 
 ```sh
 # Reverse
@@ -139,6 +140,16 @@ $ vdx '*.mov' --trim 0:05
 
 # Trim from time 0:05 to 0:10
 $ vdx '*.mov' --trim 0:05,0:10
+```
+
+#### -vo, --volume &lt;volume&gt;
+
+```sh
+# Halve the volume
+$ vdx '*.mov' --volume 0.5
+
+# Double the volume
+$ vdx '*.mov' --volume 2
 ```
 
 ## Related
