@@ -3,4 +3,4 @@
 - [X] Reverse
 - [ ] Repeat
 - [ ] Concatenate
-- [ ] Change volume
+- [X] Change volume
