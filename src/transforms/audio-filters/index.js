@@ -1,3 +1,4 @@
 module.exports = {
-  speed: require('./speed')
+  speed: require('./speed'),
+  volume: require('./volume')
 }
