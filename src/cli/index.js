@@ -15,6 +15,7 @@ Input:
 Options:
   -c,  --crop [<x>,<y>,]<width>,<height>  Crop the input files. <x>
                                          and <y> both default to 0.
+  -d,  --debug  Verbose output for debugging or development.
   -f,  --format <format>  Set the format of the output files.
        --gif  Shorthand for '--format gif'.
        --mov  Shorthand for '--format mov'.
