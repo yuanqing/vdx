@@ -11,8 +11,7 @@ module.exports = function (string) {
   const options = matches.slice(1)
   if (typeof options[1] === 'undefined') {
     return {
-      start: '0',
-      end: options[0]
+      start: options[0]
     }
   }
   return {
