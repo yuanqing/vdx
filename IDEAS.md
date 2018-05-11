@@ -4,3 +4,4 @@
 - [ ] Repeat
 - [ ] Concatenate
 - [X] Change volume
+- [ ] Rotate
