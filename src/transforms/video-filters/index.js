@@ -3,5 +3,6 @@ module.exports = {
   format: require('./format'),
   resize: require('./resize'),
   reverse: require('./reverse'),
+  rotate: require('./rotate'),
   speed: require('./speed')
 }

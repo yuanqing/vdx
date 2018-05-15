@@ -2,7 +2,6 @@
 
 const nopt = require('nopt')
 const vdx = require('..')
-const logger = require('./logger')
 const transformOptions = require('./transform-options')
 const packageVersion = require('../../package.json').version
 
@@ -50,6 +49,7 @@ const knownOptions = {
   parallel: Number,
   resize: String,
   reverse: Boolean,
+  rotate: String,
   speed: Number,
   trim: String,
   version: Boolean,
@@ -71,6 +71,7 @@ const shorthands = {
   r: '--resize',
   scale: '--resize',
   rv: '--reverse',
+  ro: '--rotate',
   s: '--speed',
   t: '--trim',
   cut: '--trim',
@@ -97,7 +98,7 @@ async function main () {
     process.exit(0)
   }
 
-  const run = await vdx(options, logger)
+  const run = await vdx(options)
   await run(input, output || 'build')
 }
 
