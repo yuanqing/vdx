@@ -1,4 +1,5 @@
 const promisify = require('util').promisify
+const consola = require('consola')
 const execa = require('execa')
 const path = require('path')
 const mkdirp = promisify(require('mkdirp'))
@@ -40,8 +41,7 @@ function createCommand (
   outputDirectory,
   format,
   ffmpegBinaryPath,
-  ffmpegOptions,
-  logger
+  ffmpegOptions
 ) {
   const temporaryFile = createTemporaryFilePath(inputFile, outputDirectory)
   const outputFile = createOutputFilePath(inputFile, outputDirectory, format)
@@ -57,7 +57,7 @@ function createCommand (
   const isStdin = inputFile === stdinSentinel
 
   return async function () {
-    const spinner = logger(isStdin ? 'stdin' : inputFile)
+    consola.start(isStdin ? 'stdin' : inputFile)
     await mkdirp(parentDirectory)
     try {
       await new Promise(async function (resolve) {
@@ -73,10 +73,9 @@ function createCommand (
         resolve()
       })
       await execa.shell(c2)
-      spinner.succeed(outputFile)
+      consola.success(outputFile)
     } catch (error) {
-      spinner.fail()
-      console.error(error)
+      consola.error(outputFile)
     } finally {
       await rimraf(temporaryFile)
     }
