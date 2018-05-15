@@ -5,7 +5,7 @@ const createCommand = require('./create-command')
 const createFFmpegOptions = require('./create-ffmpeg-options')
 const getInputFiles = require('./get-input-files')
 
-async function vdx (options, logger) {
+async function vdx (options) {
   const ffmpegBinaryPath = await which('ffmpeg')
   const ffmpegOptions = createFFmpegOptions(options)
   const concurrency = options.parallel || 3
@@ -17,8 +17,7 @@ async function vdx (options, logger) {
         outputDirectory,
         options.format,
         ffmpegBinaryPath,
-        ffmpegOptions,
-        logger
+        ffmpegOptions
       )
     })
     return promiseAll(commands, { concurrency })
