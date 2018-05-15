@@ -8,7 +8,7 @@ const getInputFiles = require('./get-input-files')
 async function vdx (options, logger) {
   const ffmpegBinaryPath = await which('ffmpeg')
   const ffmpegOptions = createFFmpegOptions(options)
-  const concurrency = options.parallel || 1
+  const concurrency = options.parallel || 3
   return async function (input, outputDirectory) {
     const inputFiles = await getInputFiles(input)
     const commands = inputFiles.map(function (inputFile) {
