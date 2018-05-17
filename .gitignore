@@ -3,5 +3,5 @@
 /build
 /coverage
 /node_modules
-/test
+/sandbox
 *.log
