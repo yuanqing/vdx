@@ -9,7 +9,12 @@ const uniqueSlug = require('unique-slug')
 const stdinSentinel = '-'
 const defaultFileExtension = 'mp4'
 
-function stringifyOptions (options) {
+function createFFmpegCommand (ffmpegBinaryPath, inputFile, outputFile, options) {
+  const stringifiedOptions = stringifyFFmpegOptions(options)
+  return `${ffmpegBinaryPath} -y -i "${inputFile}" ${stringifiedOptions} -- "${outputFile}"`
+}
+
+function stringifyFFmpegOptions (options) {
   return Object.keys(options)
     .reduce(function (result, key) {
       const value = options[key]
@@ -31,7 +36,7 @@ function setFileExtension (file, newExtension) {
   return path.join(parentDirectory, `${basename}.${newExtension}`)
 }
 
-function createTemporaryFilePath (inputFile, outputDirectory) {
+function getTemporaryFilePath (inputFile, outputDirectory) {
   const temporaryFile =
     inputFile === stdinSentinel
       ? `${uniqueSlug()}.${defaultFileExtension}`
@@ -39,7 +44,7 @@ function createTemporaryFilePath (inputFile, outputDirectory) {
   return path.join(outputDirectory, `temp-${temporaryFile}`)
 }
 
-function createOutputFilePath (inputFile, outputDirectory, outputFormat) {
+function getOutputFilePath (inputFile, outputDirectory, outputFormat) {
   let outputFile = inputFile
   if (outputFile === stdinSentinel) {
     outputFile = `${uniqueSlug()}.${defaultFileExtension}`
@@ -57,18 +62,11 @@ function createCommand (
   ffmpegBinaryPath,
   ffmpegOptions
 ) {
-  const temporaryFile = createTemporaryFilePath(inputFile, outputDirectory)
-  const outputFile = createOutputFilePath(inputFile, outputDirectory, format)
+  const temporaryFile = getTemporaryFilePath(inputFile, outputDirectory)
+  const outputFile = getOutputFilePath(inputFile, outputDirectory, format)
   const parentDirectory = path.resolve(outputFile, '..')
 
-  const c1 = `${ffmpegBinaryPath} -y -i "${inputFile}" ${stringifyOptions(
-    ffmpegOptions.flags
-  )} -- "${temporaryFile}"`
-  const c2 = `${ffmpegBinaryPath} -y -i "${temporaryFile}" ${stringifyOptions({
-    af: ffmpegOptions.audioFilters,
-    vf: ffmpegOptions.videoFilters
-  })} -- "${outputFile}"`
-
+  const hasFilters = ffmpegOptions.audioFilters || ffmpegOptions.videoFilters
   const isStdin = inputFile === stdinSentinel
 
   return async function () {
@@ -76,18 +74,25 @@ function createCommand (
     await mkdirp(parentDirectory)
     try {
       await new Promise(async function (resolve) {
-        const p1 = execa.shell(c1)
+        const flagCommand = createFFmpegCommand(ffmpegBinaryPath, inputFile, hasFilters ? temporaryFile : outputFile, ffmpegOptions.flags)
+        const childProcess = execa.shell(flagCommand)
         if (isStdin) {
-          p1.on('exit', function () {
+          childProcess.on('exit', function () {
             resolve()
           })
-          process.stdin.pipe(p1.stdin)
+          process.stdin.pipe(childProcess.stdin)
           return
         }
-        await p1
+        await childProcess
         resolve()
       })
-      await execa.shell(c2)
+      if (hasFilters) {
+        const filtersCommand = createFFmpegCommand(ffmpegBinaryPath, temporaryFile, outputFile, {
+          af: ffmpegOptions.audioFilters,
+          vf: ffmpegOptions.videoFilters
+        })
+        await execa.shell(filtersCommand)
+      }
       consola.success(outputFile)
     } catch (error) {
       consola.error(outputFile)
