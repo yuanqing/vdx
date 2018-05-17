@@ -2,7 +2,7 @@
 
 > An intuitive CLI for processing video, powered by [FFmpeg.](https://www.ffmpeg.org/)
 
-- Crop, trim, resize, reverse, rotate, strip audio, change the speed, change the frame rate, change the volume, convert between file formats
+- Crop, trim, resize, reverse, rotate, strip audio, change the speed, change the frame rate, change the volume, convert to a different file format
 - Run multiple operations on multiple files concurrently
 
 ## Installation
