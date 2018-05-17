@@ -1,7 +1,7 @@
 const mapAngleToFilter = {
   '-90': 'transpose=2',
-  90: 'transpose=1',
-  180: 'transpose=1,transpose=1'
+  '90': 'transpose=1',
+  '180': 'transpose=1,transpose=1'
 }
 
 module.exports = function (rotateOptions) {
