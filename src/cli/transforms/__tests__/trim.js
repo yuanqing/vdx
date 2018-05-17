@@ -37,18 +37,18 @@ test('parses start and end durations, specified in seconds', function (t) {
 
 test('parses start duration, specified as a timestamp', function (t) {
   t.plan(1)
-  const actual = trim('00:05')
+  const actual = trim('0:05')
   const expected = {
-    start: '00:05'
+    start: '0:05'
   }
   t.looseEqual(actual, expected)
 })
 
 test('parses start and end durations, specified as timestamps', function (t) {
   t.plan(1)
-  const actual = trim('00:01,02:03:04.567')
+  const actual = trim('0:05,02:03:04.567')
   const expected = {
-    start: '00:01',
+    start: '0:05',
     end: '02:03:04.567'
   }
   t.looseEqual(actual, expected)

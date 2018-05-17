@@ -25,7 +25,7 @@ test('parses the start time, specified in seconds', function (t) {
 test('parses the start time, specified as a timestamp', function (t) {
   t.plan(1)
   const actual = trim({
-    start: '00:05'
+    start: '0:05'
   })
   const expected = {
     ss: '00:00:05.000'
@@ -36,7 +36,7 @@ test('parses the start time, specified as a timestamp', function (t) {
 test('calculates the correct duration based on the start and end times', function (t) {
   t.plan(1)
   const actual = trim({
-    start: '00:05',
+    start: '0:05',
     end: '02:03:04.567'
   })
   const expected = {
