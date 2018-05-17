@@ -20,7 +20,7 @@ test('parses 90 degrees clockwise', function (t) {
   t.plan(1)
   const actual = rotate('90')
   const expected = {
-    angle: 90
+    angle: '90'
   }
   t.looseEqual(actual, expected)
 })
@@ -29,7 +29,7 @@ test('parses 90 degrees counter clockwise', function (t) {
   t.plan(1)
   const actual = rotate('-90')
   const expected = {
-    angle: -90
+    angle: '-90'
   }
   t.looseEqual(actual, expected)
 })
@@ -38,7 +38,7 @@ test('parses 180 degrees', function (t) {
   t.plan(1)
   const actual = rotate('180')
   const expected = {
-    angle: 180
+    angle: '180'
   }
   t.looseEqual(actual, expected)
 })

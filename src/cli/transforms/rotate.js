@@ -7,6 +7,6 @@ module.exports = function (string) {
   }
   const options = matches.slice(1)
   return {
-    angle: parseInt(options[0])
+    angle: options[0]
   }
 }

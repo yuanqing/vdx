@@ -20,7 +20,7 @@ test('parses start duration, specified in seconds', function (t) {
   t.plan(1)
   const actual = trim('5')
   const expected = {
-    start: 5
+    start: '5'
   }
   t.looseEqual(actual, expected)
 })
@@ -29,8 +29,8 @@ test('parses start and end durations, specified in seconds', function (t) {
   t.plan(1)
   const actual = trim('5,10')
   const expected = {
-    start: 5,
-    end: 10
+    start: '5',
+    end: '10'
   }
   t.looseEqual(actual, expected)
 })

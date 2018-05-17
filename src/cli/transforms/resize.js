@@ -3,9 +3,9 @@ const regExp = new RegExp(`^${dimension}(?:,${dimension})?$`)
 
 function parseDimension (dimension) {
   if (dimension === '-1') {
-    return -2
+    return '-2'
   }
-  return parseInt(dimension) || -2
+  return parseInt(dimension) || '-2'
 }
 
 module.exports = function (string) {
