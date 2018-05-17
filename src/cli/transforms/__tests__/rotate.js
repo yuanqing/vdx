@@ -16,7 +16,7 @@ test('throws for unexpected formats', function (t) {
   })
 })
 
-test('90 degrees clockwise', function (t) {
+test('parses 90 degrees clockwise', function (t) {
   t.plan(1)
   const actual = rotate('90')
   const expected = {
@@ -25,7 +25,7 @@ test('90 degrees clockwise', function (t) {
   t.looseEqual(actual, expected)
 })
 
-test('90 degrees counter clockwise', function (t) {
+test('parses 90 degrees counter clockwise', function (t) {
   t.plan(1)
   const actual = rotate('-90')
   const expected = {
@@ -34,7 +34,7 @@ test('90 degrees counter clockwise', function (t) {
   t.looseEqual(actual, expected)
 })
 
-test('180 degrees', function (t) {
+test('parses 180 degrees', function (t) {
   t.plan(1)
   const actual = rotate('180')
   const expected = {
