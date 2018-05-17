@@ -64,9 +64,10 @@ function createCommand (
   const c1 = `${ffmpegBinaryPath} -y -i "${inputFile}" ${stringifyOptions(
     ffmpegOptions.flags
   )} -- "${temporaryFile}"`
-  const c2 = `${ffmpegBinaryPath} -y -i "${temporaryFile}" ${stringifyOptions(
-    ffmpegOptions.filters
-  )} -- "${outputFile}"`
+  const c2 = `${ffmpegBinaryPath} -y -i "${temporaryFile}" ${stringifyOptions({
+    af: ffmpegOptions.audioFilters,
+    vf: ffmpegOptions.videoFilters
+  })} -- "${outputFile}"`
 
   const isStdin = inputFile === stdinSentinel
 
