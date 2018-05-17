@@ -31,8 +31,8 @@ function createFilters (transforms, options) {
 
 function createFFmpegOptions (options) {
   return {
-    audioFilters: createFilters(audioFiltersTransforms, options),
     flags: createFlags(options),
+    audioFilters: createFilters(audioFiltersTransforms, options),
     videoFilters: createFilters(videoFiltersTransforms, options)
   }
 }

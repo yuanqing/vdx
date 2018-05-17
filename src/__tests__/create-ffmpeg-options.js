@@ -6,49 +6,38 @@ test('is a function', function (t) {
   t.true(typeof createFFmpegOptions === 'function')
 })
 
-test('takes basic options', function (t) {
+test('parses the given options into `flags`, `audioFilters` and `videoFilters`', function (t) {
   t.plan(1)
   const options = {
-    audio: false
-  }
-  const actual = createFFmpegOptions(options)
-  const expected = {
-    audioFilters: null,
-    flags: {
-      c: 'copy',
-      an: true
+    crop: {
+      width: '360',
+      height: '640'
     },
-    videoFilters: null
-  }
-  t.looseEqual(actual, expected)
-})
-
-test('takes complex options', function (t) {
-  t.plan(1)
-  const options = {
-    format: 'gif',
+    format: 'mp4',
     fps: 12,
     resize: {
       width: '360',
       height: '-1'
     },
+    reverse: true,
     speed: 2,
     trim: {
       start: '0:05',
       end: '0:10'
-    }
+    },
+    volume: 0.5
   }
   const actual = createFFmpegOptions(options)
   const expected = {
-    audioFilters: '"atempo=2"',
     flags: {
       'c:a': 'copy',
       r: 12,
       t: '00:00:05.000',
       ss: '00:00:05.000'
     },
+    audioFilters: '"atempo=2,volume=0.5"',
     videoFilters:
-      '"[0:v] split [v1][v2];[v1] palettegen [palette];[v2][palette] paletteuse,scale=360:-1,setpts=(1/2)*PTS"'
+      '"crop=360:640:undefined:undefined,scale=360:-1,reverse,setpts=(1/2)*PTS"'
   }
   t.looseEqual(actual, expected)
 })
