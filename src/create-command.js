@@ -5,10 +5,24 @@ const path = require('path')
 const mkdirp = promisify(require('mkdirp'))
 const rimraf = promisify(require('rimraf'))
 const uniqueSlug = require('unique-slug')
-const stringifyOptions = require('./stringify-options')
 
 const stdinSentinel = '-'
 const defaultFileExtension = 'mp4'
+
+function stringifyOptions (options) {
+  return Object.keys(options)
+    .reduce(function (result, key) {
+      const value = options[key]
+      if (value) {
+        result.push(`-${key}`)
+        if (typeof value !== 'boolean') {
+          result.push(value)
+        }
+      }
+      return result
+    }, [])
+    .join(' ')
+}
 
 function setFileExtension (file, newExtension) {
   const parentDirectory = path.dirname(file)
