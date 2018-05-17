@@ -99,7 +99,7 @@ async function main () {
   }
 
   const run = await vdx(options)
-  await run(input, output || 'build')
+  await run(input, output)
 }
 
 main()

@@ -10,6 +10,7 @@ async function vdx (options) {
   const ffmpegOptions = createFFmpegOptions(options)
   const concurrency = options.parallel || 3
   return async function (input, outputDirectory) {
+    outputDirectory = outputDirectory || 'build'
     const inputFiles = await getInputFiles(input)
     const commands = inputFiles.map(function (inputFile) {
       return createCommand(
