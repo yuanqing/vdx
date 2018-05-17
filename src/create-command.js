@@ -55,12 +55,20 @@ function getOutputFilePath (inputFile, outputDirectory, outputFormat) {
   return path.join(outputDirectory, outputFile)
 }
 
+function runCommand (command, isDebug) {
+  if (isDebug) {
+    consola.info(command)
+  }
+  return execa.shell(command)
+}
+
 function createCommand (
   inputFile,
   outputDirectory,
   format,
   ffmpegBinaryPath,
-  ffmpegOptions
+  ffmpegOptions,
+  isDebug
 ) {
   const temporaryFile = getTemporaryFilePath(inputFile, outputDirectory)
   const outputFile = getOutputFilePath(inputFile, outputDirectory, format)
@@ -74,8 +82,13 @@ function createCommand (
     await mkdirp(parentDirectory)
     try {
       await new Promise(async function (resolve) {
-        const flagCommand = createFFmpegCommand(ffmpegBinaryPath, inputFile, hasFilters ? temporaryFile : outputFile, ffmpegOptions.flags)
-        const childProcess = execa.shell(flagCommand)
+        const flagCommand = createFFmpegCommand(
+          ffmpegBinaryPath,
+          inputFile,
+          hasFilters ? temporaryFile : outputFile,
+          ffmpegOptions.flags
+        )
+        const childProcess = runCommand(flagCommand, isDebug)
         if (isStdin) {
           childProcess.on('exit', function () {
             resolve()
@@ -87,11 +100,16 @@ function createCommand (
         resolve()
       })
       if (hasFilters) {
-        const filtersCommand = createFFmpegCommand(ffmpegBinaryPath, temporaryFile, outputFile, {
-          af: ffmpegOptions.audioFilters,
-          vf: ffmpegOptions.videoFilters
-        })
-        await execa.shell(filtersCommand)
+        const filtersCommand = createFFmpegCommand(
+          ffmpegBinaryPath,
+          temporaryFile,
+          outputFile,
+          {
+            af: ffmpegOptions.audioFilters,
+            vf: ffmpegOptions.videoFilters
+          }
+        )
+        await runCommand(filtersCommand, isDebug)
       }
       consola.success(outputFile)
     } catch (error) {

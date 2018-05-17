@@ -38,8 +38,8 @@
     "fix": "prettier-standard 'src/**/*.js'",
     "lint": "standard 'src/**/*.js'",
     "precommit": "lint-staged",
-    "start": "./src/cli/index.js './sandbox/*.mov' --speed 2 --resize 360 --trim 0:00,0:05 --no-audio --format gif --reverse --rotate 90",
-    "start-stdin": "cat ./sandbox/*.mov | ./src/cli/index.js --speed 2 --resize 360 --trim 0:00,0:05 --no-audio --format gif --reverse --rotate 90",
+    "start": "./src/cli/index.js './sandbox/*.mov' --debug --format gif --no-audio --resize 360 --reverse --rotate 90 --speed 2 --trim 0:00,0:05",
+    "start-stdin": "cat ./sandbox/*.mov | ./src/cli/index.js --debug --format gif --no-audio --resize 360 --reverse --rotate 90 --speed 2 --trim 0:00,0:05",
     "test": "tape 'src/**/__tests__/*.js'"
   },
   "lint-staged": {

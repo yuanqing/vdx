@@ -18,7 +18,8 @@ async function vdx (options) {
         outputDirectory,
         options.format,
         ffmpegBinaryPath,
-        ffmpegOptions
+        ffmpegOptions,
+        options.debug
       )
     })
     return promiseAll(commands, { concurrency })
