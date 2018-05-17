@@ -1,8 +1,8 @@
-function computeAtempo (speed) {
-  if (speed === 1) {
-    return speed
-  }
+function splitSpeed (speed) {
   const result = []
+  if (speed === 1) {
+    return result
+  }
   if (speed > 2) {
     while (speed > 2) {
       speed = speed / 2
@@ -21,9 +21,13 @@ function computeAtempo (speed) {
 
 module.exports = function (speed) {
   if (speed) {
-    return computeAtempo(speed)
-      .map(function (aTempo) {
-        return `atempo=${aTempo}`
+    const split = splitSpeed(speed)
+    if (split.length === 0) {
+      return null
+    }
+    return split
+      .map(function (atempo) {
+        return `atempo=${atempo}`
       })
       .join(',')
   }
