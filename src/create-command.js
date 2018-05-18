@@ -41,7 +41,7 @@ function getTemporaryFilePath (inputFile, outputDirectory) {
     inputFile === stdinSentinel
       ? `${uniqueSlug()}.${defaultFileExtension}`
       : path.basename(inputFile)
-  return path.join(outputDirectory, `temp-${temporaryFile}`)
+  return path.join(outputDirectory, '.vdx', `${temporaryFile}`)
 }
 
 function getOutputFilePath (inputFile, outputDirectory, outputFormat) {
@@ -72,16 +72,18 @@ function createCommand (
 ) {
   const temporaryFile = getTemporaryFilePath(inputFile, outputDirectory)
   const outputFile = getOutputFilePath(inputFile, outputDirectory, format)
-  const parentDirectory = path.resolve(outputFile, '..')
 
   const hasFilters = ffmpegOptions.audioFilters || ffmpegOptions.videoFilters
   const isStdin = inputFile === stdinSentinel
 
   return async function () {
     consola.start(isStdin ? 'stdin' : inputFile)
-    await mkdirp(parentDirectory)
+    await mkdirp(path.resolve(outputFile, '..'))
     try {
       await new Promise(async function (resolve) {
+        if (hasFilters) {
+          await mkdirp(path.resolve(temporaryFile, '..'))
+        }
         const flagCommand = createFFmpegCommand(
           ffmpegBinaryPath,
           inputFile,
