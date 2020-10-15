@@ -16,7 +16,7 @@ function formatDuration (duration) {
 
 const separatorRegExp = /:/g
 
-function parseDuration (duration, speed) {
+function parseDuration (duration) {
   const matches = duration.match(separatorRegExp)
   if (matches) {
     if (matches.length === 1) {
@@ -29,14 +29,14 @@ function parseDuration (duration, speed) {
 
 module.exports = function (trimOptions) {
   if (trimOptions) {
-    let startDuration = parseDuration(trimOptions.start)
+    const startDuration = parseDuration(trimOptions.start)
     const ss = formatDuration(startDuration)
     if (typeof trimOptions.end === 'undefined') {
       return {
         ss
       }
     }
-    let endDuration = parseDuration(trimOptions.end)
+    const endDuration = parseDuration(trimOptions.end)
     const difference = endDuration.subtract(startDuration)
     return {
       t: formatDuration(difference),

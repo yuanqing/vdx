@@ -22,7 +22,7 @@ test('parses 90 degrees clockwise', function (t) {
   const expected = {
     angle: '90'
   }
-  t.looseEqual(actual, expected)
+  t.deepEqual(actual, expected)
 })
 
 test('parses 90 degrees counter clockwise', function (t) {
@@ -31,7 +31,7 @@ test('parses 90 degrees counter clockwise', function (t) {
   const expected = {
     angle: '-90'
   }
-  t.looseEqual(actual, expected)
+  t.deepEqual(actual, expected)
 })
 
 test('parses 180 degrees', function (t) {
@@ -40,5 +40,5 @@ test('parses 180 degrees', function (t) {
   const expected = {
     angle: '180'
   }
-  t.looseEqual(actual, expected)
+  t.deepEqual(actual, expected)
 })

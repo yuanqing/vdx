@@ -23,7 +23,7 @@ test('parses width only', function (t) {
     width: '360',
     height: '-2'
   }
-  t.looseEqual(actual, expected)
+  t.deepEqual(actual, expected)
 })
 
 test('parses width and height', function (t) {
@@ -33,7 +33,7 @@ test('parses width and height', function (t) {
     width: '360',
     height: '640'
   }
-  t.looseEqual(actual, expected)
+  t.deepEqual(actual, expected)
 })
 
 test('parses negative width', function (t) {
@@ -43,7 +43,7 @@ test('parses negative width', function (t) {
     width: '-2',
     height: '640'
   }
-  t.looseEqual(actual, expected)
+  t.deepEqual(actual, expected)
 })
 
 test('parses negative height', function (t) {
@@ -53,5 +53,5 @@ test('parses negative height', function (t) {
     width: '360',
     height: '-2'
   }
-  t.looseEqual(actual, expected)
+  t.deepEqual(actual, expected)
 })

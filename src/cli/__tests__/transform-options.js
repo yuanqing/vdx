@@ -16,12 +16,12 @@ test('transforms the `crop`, `resize`, `rotate`, and `trim` keys', function (t) 
   }
   const actual = transformOptions(options)
   const expected = {
-    crop: { x: 0, y: 0, width: 360, height: 640 },
-    resize: { width: 360, height: -2 },
-    rotate: { angle: 180 },
+    crop: { x: '0', y: '0', width: '360', height: '640' },
+    resize: { width: '360', height: '-2' },
+    rotate: { angle: '180' },
     trim: { start: '0:05', end: '0:10' }
   }
-  t.looseEqual(actual, expected)
+  t.deepEqual(actual, expected)
 })
 
 test('leaves all other keys untouched', function (t) {
@@ -33,5 +33,5 @@ test('leaves all other keys untouched', function (t) {
   const expected = {
     foo: 42
   }
-  t.looseEqual(actual, expected)
+  t.deepEqual(actual, expected)
 })

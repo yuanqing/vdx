@@ -1,15 +1,17 @@
 const promisify = require('util').promisify
-const consola = require('consola')
 const execa = require('execa')
 const path = require('path')
-const mkdirp = promisify(require('mkdirp'))
+const mkdirp = require('mkdirp')
 const rimraf = promisify(require('rimraf'))
-const uniqueSlug = require('unique-slug')
 
-const stdinSentinel = '-'
-const defaultFileExtension = 'mp4'
+const log = require('./log')
 
-function createFFmpegCommand (ffmpegBinaryPath, inputFile, outputFile, options) {
+function createFFmpegCommand (
+  ffmpegBinaryPath,
+  inputFile,
+  outputFile,
+  options
+) {
   const stringifiedOptions = stringifyFFmpegOptions(options)
   return `${ffmpegBinaryPath} -y -i "${inputFile}" ${stringifiedOptions} -- "${outputFile}"`
 }
@@ -37,29 +39,23 @@ function setFileExtension (file, newExtension) {
 }
 
 function getTemporaryFilePath (inputFile, outputDirectory) {
-  const temporaryFile =
-    inputFile === stdinSentinel
-      ? `${uniqueSlug()}.${defaultFileExtension}`
-      : path.basename(inputFile)
+  const temporaryFile = path.basename(inputFile)
   return path.join(outputDirectory, '.vdx', `${temporaryFile}`)
 }
 
 function getOutputFilePath (inputFile, outputDirectory, outputFormat) {
-  let outputFile = inputFile
-  if (outputFile === stdinSentinel) {
-    outputFile = `${uniqueSlug()}.${defaultFileExtension}`
-  }
-  if (typeof outputFormat !== 'undefined') {
-    outputFile = setFileExtension(outputFile, outputFormat)
-  }
+  const outputFile =
+    typeof outputFormat === 'undefined'
+      ? inputFile
+      : setFileExtension(inputFile, outputFormat)
   return path.join(outputDirectory, outputFile)
 }
 
 function runCommand (command, isDebug) {
   if (isDebug) {
-    consola.info(command)
+    log.info(command)
   }
-  return execa.shell(command)
+  return execa.command(command, { shell: true })
 }
 
 function createCommand (
@@ -74,33 +70,21 @@ function createCommand (
   const outputFile = getOutputFilePath(inputFile, outputDirectory, format)
 
   const hasFilters = ffmpegOptions.audioFilters || ffmpegOptions.videoFilters
-  const isStdin = inputFile === stdinSentinel
 
   return async function () {
-    consola.start(isStdin ? 'stdin' : inputFile)
-    await mkdirp(path.resolve(outputFile, '..'))
+    log.start(inputFile)
+    mkdirp.sync(path.resolve(outputFile, '..'))
     try {
-      await new Promise(async function (resolve) {
-        if (hasFilters) {
-          await mkdirp(path.resolve(temporaryFile, '..'))
-        }
-        const flagCommand = createFFmpegCommand(
-          ffmpegBinaryPath,
-          inputFile,
-          hasFilters ? temporaryFile : outputFile,
-          ffmpegOptions.flags
-        )
-        const childProcess = runCommand(flagCommand, isDebug)
-        if (isStdin) {
-          childProcess.on('exit', function () {
-            resolve()
-          })
-          process.stdin.pipe(childProcess.stdin)
-          return
-        }
-        await childProcess
-        resolve()
-      })
+      if (hasFilters) {
+        await mkdirp(path.resolve(temporaryFile, '..'))
+      }
+      const flagCommand = createFFmpegCommand(
+        ffmpegBinaryPath,
+        inputFile,
+        hasFilters ? temporaryFile : outputFile,
+        ffmpegOptions.flags
+      )
+      await runCommand(flagCommand, isDebug)
       if (hasFilters) {
         const filtersCommand = createFFmpegCommand(
           ffmpegBinaryPath,
@@ -113,9 +97,9 @@ function createCommand (
         )
         await runCommand(filtersCommand, isDebug)
       }
-      consola.success(outputFile)
+      log.success(outputFile)
     } catch (error) {
-      consola.error(outputFile)
+      log.error(outputFile)
     } finally {
       await rimraf(temporaryFile)
     }

@@ -19,7 +19,7 @@ test('parses the start time, specified in seconds', function (t) {
   const expected = {
     ss: '00:00:05.000'
   }
-  t.looseEqual(actual, expected)
+  t.deepEqual(actual, expected)
 })
 
 test('parses the start time, specified as a timestamp', function (t) {
@@ -30,7 +30,7 @@ test('parses the start time, specified as a timestamp', function (t) {
   const expected = {
     ss: '00:00:05.000'
   }
-  t.looseEqual(actual, expected)
+  t.deepEqual(actual, expected)
 })
 
 test('calculates the correct duration based on the start and end times', function (t) {
@@ -40,8 +40,8 @@ test('calculates the correct duration based on the start and end times', functio
     end: '02:03:04.567'
   })
   const expected = {
-    ss: '00:00:05.000',
-    t: '02:02:59.567'
+    t: '02:02:59.567',
+    ss: '00:00:05.000'
   }
-  t.looseEqual(actual, expected)
+  t.deepEqual(actual, expected)
 })

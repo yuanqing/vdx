@@ -30,7 +30,8 @@ test('parses the given options into `flags`, `audioFilters` and `videoFilters`',
   const actual = createFFmpegOptions(options)
   const expected = {
     flags: {
-      'c:a': 'copy',
+      vcodec: 'libx264',
+      acodec: 'copy',
       r: 12,
       t: '00:00:05.000',
       ss: '00:00:05.000'
@@ -39,5 +40,5 @@ test('parses the given options into `flags`, `audioFilters` and `videoFilters`',
     videoFilters:
       '"crop=360:640:undefined:undefined,scale=360:-1,reverse,setpts=(1/2)*PTS"'
   }
-  t.looseEqual(actual, expected)
+  t.deepEqual(actual, expected)
 })

@@ -1,15 +1,17 @@
 #!/usr/bin/env node
 
 const nopt = require('nopt')
-const vdx = require('..')
-const transformOptions = require('./transform-options')
+
+const log = require('../log')
 const packageVersion = require('../../package.json').version
+const transformOptions = require('./transform-options')
+const vdx = require('../vdx')
 
 const usageMessage = `
-Usage: vdx [input] [options]
+Usage: vdx <pattern> [options]
 
-Input:
-  Globs of input files to process. Read from stdin if not specified.
+Pattern:
+  Globs of input files to process.
 
 Options:
   -c,  --crop [<x>,<y>,]<width>,<height>  Crop the video. <x> and
@@ -86,7 +88,12 @@ async function main () {
     shorthands
   )
 
-  const input = argv.remain
+  const globPatterns = argv.remain
+  if (globPatterns.length === 0) {
+    log.error('Need a glob pattern for input files')
+    process.exit(0)
+  }
+
   const options = transformOptions(rest)
 
   if (help) {
@@ -100,7 +107,7 @@ async function main () {
   }
 
   const run = await vdx(options)
-  await run(input, output)
+  await run(globPatterns, output)
 }
 
 main()

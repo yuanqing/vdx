@@ -27,22 +27,22 @@ test('parses width and height', function (t) {
   t.plan(1)
   const actual = crop('360,640')
   const expected = {
-    x: 0,
-    y: 0,
-    width: 360,
-    height: 640
+    x: '0',
+    y: '0',
+    width: '360',
+    height: '640'
   }
-  t.looseEqual(actual, expected)
+  t.deepEqual(actual, expected)
 })
 
 test('parses x, y, width, height', function (t) {
   t.plan(1)
   const actual = crop('10,20,360,640')
   const expected = {
-    x: 10,
-    y: 20,
-    width: 360,
-    height: 640
+    x: '10',
+    y: '20',
+    width: '360',
+    height: '640'
   }
-  t.looseEqual(actual, expected)
+  t.deepEqual(actual, expected)
 })

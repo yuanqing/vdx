@@ -9,9 +9,9 @@ async function vdx (options) {
   const ffmpegBinaryPath = await which('ffmpeg')
   const ffmpegOptions = createFFmpegOptions(options)
   const concurrency = options.parallel || 3
-  return async function (input, outputDirectory) {
+  return async function (globPatterns, outputDirectory) {
     outputDirectory = outputDirectory || 'build'
-    const inputFiles = await getInputFiles(input)
+    const inputFiles = await getInputFiles(globPatterns)
     const commands = inputFiles.map(function (inputFile) {
       return createCommand(
         inputFile,

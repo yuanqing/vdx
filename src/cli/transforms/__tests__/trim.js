@@ -22,7 +22,7 @@ test('parses start duration, specified in seconds', function (t) {
   const expected = {
     start: '5'
   }
-  t.looseEqual(actual, expected)
+  t.deepEqual(actual, expected)
 })
 
 test('parses start and end durations, specified in seconds', function (t) {
@@ -32,7 +32,7 @@ test('parses start and end durations, specified in seconds', function (t) {
     start: '5',
     end: '10'
   }
-  t.looseEqual(actual, expected)
+  t.deepEqual(actual, expected)
 })
 
 test('parses start duration, specified as a timestamp', function (t) {
@@ -41,7 +41,7 @@ test('parses start duration, specified as a timestamp', function (t) {
   const expected = {
     start: '0:05'
   }
-  t.looseEqual(actual, expected)
+  t.deepEqual(actual, expected)
 })
 
 test('parses start and end durations, specified as timestamps', function (t) {
@@ -51,5 +51,5 @@ test('parses start and end durations, specified as timestamps', function (t) {
     start: '0:05',
     end: '02:03:04.567'
   }
-  t.looseEqual(actual, expected)
+  t.deepEqual(actual, expected)
 })

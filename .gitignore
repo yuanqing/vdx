@@ -1,7 +1,7 @@
 .DS_Store
-/.nyc_output
-/build
-/coverage
-/node_modules
-/sandbox
+.nyc_output/
+build/
+coverage/
+node_modules/
+sandbox/
 *.log

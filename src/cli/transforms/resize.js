@@ -5,7 +5,8 @@ function parseDimension (dimension) {
   if (dimension === '-1') {
     return '-2'
   }
-  return parseInt(dimension) || '-2'
+  const result = parseInt(dimension)
+  return isNaN(result) === true ? '-2' : `${result}`
 }
 
 module.exports = function (string) {

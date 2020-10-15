@@ -1,6 +1,6 @@
 module.exports = function (hasAudio) {
-  if (hasAudio || typeof hasAudio === 'undefined') {
-    return { 'c:a': 'copy' }
+  if (hasAudio === false) {
+    return { an: true }
   }
-  return { c: 'copy', an: true }
+  return { acodec: 'copy' }
 }
