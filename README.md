@@ -9,7 +9,7 @@
 
 Ensure that you have the latest versions of [FFmpeg](https://www.ffmpeg.org/) and [Node.js](https://nodejs.org/) installed. Then:
 
-```
+```sh
 $ npm install --global vdx
 ```
 
@@ -17,7 +17,7 @@ $ npm install --global vdx
 
 A variety of common video processing operations are supported:
 
-```
+```sh
 $ vdx '*.mov' --crop 360,640    # Crop to width 360, height 640
 $ vdx '*.mov' --format gif      # Convert to GIF
 $ vdx '*.mov' --fps 12          # Set the frame rate to 12
@@ -32,37 +32,37 @@ $ vdx '*.mov' --volume 0.5      # Halve the volume
 
 Running multiple operations all at once is also supported:
 
-```
+```sh
 $ vdx '*.mov' --format gif --fps 12 --resize 360,640 --speed 2 --trim 0:05,0:10
 ```
 
 By default, the processed files will be written to a directory called `./build`. To change this, use the `--output` flag:
 
-```
+```sh
 $ vdx '*.mov' --format gif --output './gifs'
 ```
 
 By default, up to 3 input files will be processed concurrently. To change this, use the `--parallel` flag:
 
-```
+```sh
 $ vdx '*.mov' --format gif --output './gifs' --parallel 5
 ```
 
 ## CLI
 
 ```
-Usage: vdx [input] [options]
+Usage: vdx <pattern> [options]
 ```
 
-### [input]
+### &lt;pattern&gt;
 
-Globs of input files to process. Read from `stdin` if not specified.
+Globs of input files to process.
 
 ### [options]
 
 #### -c, --crop [&lt;x&gt;,&lt;y&gt;,]&lt;width&gt;,&lt;height&gt;
 
-```
+```sh
 # Crop to width 360, height 640
 $ vdx '*.mov' --crop 360,640
 
@@ -72,21 +72,21 @@ $ vdx '*.mov' --crop 10,20,360,640
 
 #### -f, --format &lt;format&gt;
 
-```
+```sh
 # Convert to GIF
 $ vdx '*.mov' --format gif
 ```
 
 #### -fp, --fps &lt;fps&gt;
 
-```
+```sh
 # Set the frame rate to 12
 $ vdx '*.mov' --fps 12
 ```
 
 #### -na, --no-audio
 
-```
+```sh
 # Strip audio
 $ vdx '*.mov' --no-audio
 ```
@@ -95,7 +95,7 @@ $ vdx '*.mov' --no-audio
 
 `<directory>` defaults to `'./build'`
 
-```
+```sh
 # Write files to './gifs'
 $ vdx '*.mov' --format gif --output './gifs'
 ```
@@ -104,14 +104,14 @@ $ vdx '*.mov' --format gif --output './gifs'
 
 `<concurrency>` defaults to `3`
 
-```
+```sh
 # Process up to 5 files concurrently
 $ vdx '*.mov' --format gif --parallel 5
 ```
 
 #### -r, --resize &lt;width&gt;,&lt;height&gt;
 
-```
+```sh
 # Resize to width 360, height 640
 $ vdx '*.mov' --resize 360,640
 
@@ -124,7 +124,7 @@ $ vdx '*.mov' --resize -1,640
 
 #### -ro, --rotate
 
-```
+```sh
 # Rotate 90 degrees clockwise
 $ vdx '*.mov' --rotate 90
 
@@ -137,14 +137,14 @@ $ vdx '*.mov' --rotate 180
 
 #### -rv, --reverse
 
-```
+```sh
 # Reverse
 $ vdx '*.mov' --reverse
 ```
 
 #### -s, --speed &lt;speed&gt;
 
-```
+```sh
 # Halve the speed
 $ vdx '*.mov' --speed 0.5
 
@@ -154,7 +154,7 @@ $ vdx '*.mov' --speed 2
 
 #### -t, --trim &lt;start&gt;[,&lt;end&gt;]
 
-```
+```sh
 # Trim from time 0:05 to the end of the input file
 $ vdx '*.mov' --trim 0:05
 
@@ -164,7 +164,7 @@ $ vdx '*.mov' --trim 0:05,0:10
 
 #### -vo, --volume &lt;volume&gt;
 
-```
+```sh
 # Halve the volume
 $ vdx '*.mov' --volume 0.5
 
