@@ -9,8 +9,6 @@
 
 *Requires [FFmpeg](https://ffmpeg.org/) and [Node.js](https://nodejs.org/).*
 
-First, do:
-
 ```sh
 $ npm install --global vdx
 ```
@@ -180,7 +178,7 @@ $ vdx '*.mov' --volume 2
 $ npm install --global vdx
 ```
 
-## Related
+## Prior art
 
 - [fluent-ffmpeg](https://github.com/fluent-ffmpeg/node-fluent-ffmpeg)
 
