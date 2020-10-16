@@ -5,15 +5,15 @@
 - Crop, trim, resize, reverse, rotate, strip audio, change the speed, change the frame rate, change the volume, convert to a different file format
 - Run multiple operations on multiple files concurrently
 
-## Installation
+## Quick start
 
-Ensure that you have the latest versions of [FFmpeg](https://www.ffmpeg.org/) and [Node.js](https://nodejs.org/) installed. Then:
+*Requires [FFmpeg](https://ffmpeg.org/) and [Node.js](https://nodejs.org/).*
+
+First, do:
 
 ```sh
 $ npm install --global vdx
 ```
-
-## Quick start
 
 A variety of common video processing operations are supported:
 
@@ -30,7 +30,7 @@ $ vdx '*.mov' --trim 0:05,0:10  # Trim from time 0:05 to 0:10
 $ vdx '*.mov' --volume 0.5      # Halve the volume
 ```
 
-Running multiple operations all at once is also supported:
+We can also run multiple operations all at once:
 
 ```sh
 $ vdx '*.mov' --format gif --fps 12 --resize 360,640 --speed 2 --trim 0:05,0:10
@@ -48,7 +48,7 @@ By default, up to 3 input files will be processed concurrently. To change this, 
 $ vdx '*.mov' --format gif --output './gifs' --parallel 5
 ```
 
-## CLI
+## Usage
 
 ```
 Usage: vdx <pattern> [options]
@@ -60,13 +60,15 @@ Globs of input files to process.
 
 ### [options]
 
+*Use the `-d` or `--debug` flag to print the underlying FFMpeg command that is being run.*
+
 #### -c, --crop [&lt;x&gt;,&lt;y&gt;,]&lt;width&gt;,&lt;height&gt;
 
 ```sh
 # Crop to width 360, height 640
 $ vdx '*.mov' --crop 360,640
 
-# Crop to width 360, height 640, starting from coordinate (10, 20)
+# Crop to width 360, height 640, starting from coordinates (10, 20)
 $ vdx '*.mov' --crop 10,20,360,640
 ```
 
@@ -122,6 +124,13 @@ $ vdx '*.mov' --resize 360,-1
 $ vdx '*.mov' --resize -1,640
 ```
 
+#### -rv, --reverse
+
+```sh
+# Reverse
+$ vdx '*.mov' --reverse
+```
+
 #### -ro, --rotate
 
 ```sh
@@ -133,13 +142,6 @@ $ vdx '*.mov' --rotate -90
 
 # Rotate 180 degrees
 $ vdx '*.mov' --rotate 180
-```
-
-#### -rv, --reverse
-
-```sh
-# Reverse
-$ vdx '*.mov' --reverse
 ```
 
 #### -s, --speed &lt;speed&gt;
@@ -170,6 +172,12 @@ $ vdx '*.mov' --volume 0.5
 
 # Double the volume
 $ vdx '*.mov' --volume 2
+```
+
+## Installation
+
+```sh
+$ npm install --global vdx
 ```
 
 ## Related
