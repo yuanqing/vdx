@@ -16,31 +16,31 @@ Pattern:
   Globs of input files to process.
 
 Options:
-  -c,  --crop [<x>,<y>,]<width>,<height>  Crop the video. <x> and
-                                          <y> both default to 0.
+  -c,  --crop [<x>,<y>,]<width>,<height>  Crop the video to the specified
+                                          dimension. <x> and <y> default to 0.
   -d,  --debug  Verbose output for debugging.
-  -f,  --format <format>  Set the format of the output files.
+  -f,  --format <format>  Convert to a different file format.
        --gif  Shorthand for '--format gif'.
        --mov  Shorthand for '--format mov'.
        --mp4  Shorthand for '--format mp4'.
   -fp, --fps <fps>  Set the frame rate.
   -h,  --help  Print this message.
   -na, --no-audio  Strip the audio.
-  -o,  --output <directory>  Set the output directory. Defaults
+  -o,  --output <directory>  Set the output directory. <directory> defaults
                              to './build'.
-  -p,  --parallel <concurrency>  Set the maximum number of files
-                                 to process concurrently. Defaults
-                                 to 3.
+  -p,  --parallel <concurrency>  Set the maximum number of files to process
+                                 concurrently. <concurrency> defaults to 3.
   -r,  --resize <width>,<height>  Resize the video.
-  -ro, --rotate <angle>  Rotate the video. <angle> is one of
-                         -90, 90, or 180.
   -rv, --reverse  Reverse the video.
-  -s,  --speed <speed>  Set the speed. To slow down, set <speed> to
-                        a number between 0 and 1. To speed up, set
-                        <speed> to a number greater than 1.
+  -ro, --rotate <angle>  Rotate the video. <angle> is one of -90, 90, or 180.
+  -s,  --speed <speed>  Set the speed. To slow down, set <speed> to a number
+                        between 0 and 1. To speed up, set <speed> to a number
+                        greater than 1.
   -t,  --trim <start>[,<end>]  Trim to the specified duration.
   -v,  --version  Print the version number.
-  -vo, --volume  Set the volume.
+  -vo, --volume <volume>  Set the volume. To reduce the volume, set <volume>
+                          to a number between 0 and 1. To raise the volume,
+                          set <speed> to a number greater than 1.
 `
 
 const knownOptions = {
