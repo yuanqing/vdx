@@ -13,6 +13,12 @@
 $ npm install --global vdx
 ```
 
+**NPX:** If you want to skip globally installing to your system path, you can preprend all of the commands demonstrated below with **[npx](https://www.npmjs.com/package/npx)** (*npx ships with npm@5.2.0 and above*)
+
+```sh
+npx vdx '*.mov'
+```
+
 A variety of common video processing operations are supported:
 
 ```sh
