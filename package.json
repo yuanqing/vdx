@@ -28,7 +28,6 @@
     "npmlog": "^4.1.2",
     "p-all": "^3.0.0",
     "rimraf": "^3.0.2",
-    "unique-slug": "^2.0.2",
     "which": "^2.0.2"
   },
   "devDependencies": {
