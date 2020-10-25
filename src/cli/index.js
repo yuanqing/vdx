@@ -88,14 +88,6 @@ async function main () {
     shorthands
   )
 
-  const globPatterns = argv.remain
-  if (globPatterns.length === 0) {
-    log.error('Need a glob pattern for input files')
-    process.exit(0)
-  }
-
-  const options = transformOptions(rest)
-
   if (help) {
     console.log(usageMessage)
     process.exit(0)
@@ -105,6 +97,14 @@ async function main () {
     console.log(packageVersion)
     process.exit(0)
   }
+
+  const globPatterns = argv.remain
+  if (globPatterns.length === 0) {
+    log.error('Need a glob pattern for input files')
+    process.exit(0)
+  }
+
+  const options = transformOptions(rest)
 
   const run = await vdx(options)
   await run(globPatterns, output)
