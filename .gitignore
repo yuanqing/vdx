@@ -2,6 +2,6 @@
 .nyc_output/
 build/
 coverage/
+lib/
 node_modules/
-sandbox/
 *.log
