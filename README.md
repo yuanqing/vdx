@@ -1,13 +1,13 @@
 # vdx [![npm Version](https://img.shields.io/npm/v/vdx?cacheSeconds=1800)](https://www.npmjs.org/package/vdx) [![build](https://github.com/yuanqing/vdx/workflows/build/badge.svg)](https://github.com/yuanqing/vdx/actions?query=workflow%3Abuild)
 
-> An intuitive CLI for processing video, powered by [FFmpeg](https://www.ffmpeg.org/)
+> An intuitive CLI for processing video, powered by [FFmpeg](https://ffmpeg.org)
 
 - Crop, trim, resize, reverse, rotate, strip audio, change the speed, change the frame rate, change the volume, convert to a different file format
 - Run multiple operations on multiple files concurrently
 
 ## Quick start
 
-*Requires [FFmpeg](https://ffmpeg.org/) and [Node.js](https://nodejs.org/).*
+*Requires [FFmpeg](https://ffmpeg.org) and [Node.js](https://nodejs.org).*
 
 ```sh
 $ npm install --global vdx
@@ -58,7 +58,7 @@ Globs of input files to process.
 
 ### [options]
 
-*Use the `-d` or `--debug` flag to print the underlying FFMpeg command that is being run.*
+*Use the `-d` or `--debug` flag to print the underlying FFmpeg command that is being run.*
 
 #### -c, --crop [&lt;x&gt;,&lt;y&gt;,]&lt;width&gt;,&lt;height&gt;
 
@@ -96,7 +96,7 @@ $ vdx '*.mov' --no-audio
 `<directory>` defaults to `'./build'`
 
 ```sh
-# Write files to './gifs'
+# Output files to './gifs'
 $ vdx '*.mov' --format gif --output './gifs'
 ```
 
