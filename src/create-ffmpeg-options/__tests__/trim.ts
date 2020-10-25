@@ -20,7 +20,7 @@ test('start timestamp only', function (t) {
   t.plan(2)
   const { flags, outputFile } = createFFmpegOptions('video.mov', 'build', {
     ...defaultFFmpegOptions,
-    trim: '00:05'
+    trim: '0:05'
   })
   t.deepEqual(
     {
@@ -30,7 +30,7 @@ test('start timestamp only', function (t) {
       'filter:a': [],
       'filter:v': [],
       'i': 'video.mov',
-      'ss': '00:05',
+      'ss': '0:05',
       'to': null
     },
     flags
@@ -43,7 +43,7 @@ test('invalid start timestamp', function (t) {
   try {
     createFFmpegOptions('video.mov', 'build', {
       ...defaultFFmpegOptions,
-      trim: 'foo,00:10'
+      trim: 'foo,0:10'
     })
     t.fail()
   } catch {
@@ -56,7 +56,7 @@ test('invalid end timestamp', function (t) {
   try {
     createFFmpegOptions('video.mov', 'build', {
       ...defaultFFmpegOptions,
-      trim: '00:05,foo'
+      trim: '0:05,foo'
     })
     t.fail()
   } catch {
@@ -68,7 +68,7 @@ test('start and end timestamp', function (t) {
   t.plan(2)
   const { flags, outputFile } = createFFmpegOptions('video.mov', 'build', {
     ...defaultFFmpegOptions,
-    trim: '00:05,00:10'
+    trim: '0:05,0:10'
   })
   t.deepEqual(
     {
@@ -78,8 +78,8 @@ test('start and end timestamp', function (t) {
       'filter:a': [],
       'filter:v': [],
       'i': 'video.mov',
-      'ss': '00:05',
-      'to': '00:10'
+      'ss': '0:05',
+      'to': '0:10'
     },
     flags
   )

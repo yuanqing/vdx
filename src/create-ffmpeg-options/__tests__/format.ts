@@ -3,7 +3,7 @@ import { test } from 'tap'
 import { createFFmpegOptions } from '../create-ffmpeg-options'
 import { defaultFFmpegOptions } from '../default-ffmpeg-options'
 
-test('same format as input file', function (t) {
+test('convert to same format as input file', function (t) {
   t.plan(2)
   const { flags, outputFile } = createFFmpegOptions('video.mov', 'build', {
     ...defaultFFmpegOptions,
@@ -25,7 +25,7 @@ test('same format as input file', function (t) {
   t.equal(outputFile, 'build/video.mov')
 })
 
-test('`gif` format', function (t) {
+test('convert to GIF format', function (t) {
   t.plan(2)
   const { flags, outputFile } = createFFmpegOptions('video.mov', 'build', {
     ...defaultFFmpegOptions,
