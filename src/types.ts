@@ -1,8 +1,8 @@
 export type FFmpegOptions = {
+  audio: boolean
   crop: null | string
   format: null | string
   fps: null | number
-  audio: boolean
   resize: null | string
   reverse: boolean
   rotate: null | string
