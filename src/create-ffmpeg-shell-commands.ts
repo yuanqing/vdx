@@ -44,7 +44,7 @@ function createFFmpegShellCommand(
     result.push(`-to ${ffmpegFlags.to}`)
   }
   // `-ss` and `-t` must come before the `-i` flag
-  result.push(`-i ${ffmpegFlags.i}`)
+  result.push(`-i '${ffmpegFlags.i}'`)
   if (ffmpegFlags.an === true) {
     result.push(`-an`)
   }
@@ -56,13 +56,13 @@ function createFFmpegShellCommand(
   }
   if (ffmpegFlags['filter:a'] !== null && ffmpegFlags['filter:a'].length > 0) {
     result.push(
-      `-filter:a "${ffmpegFlags['filter:a'].slice().sort().join(',')}"`
+      `-filter:a '${ffmpegFlags['filter:a'].slice().sort().join(',')}'`
     )
   }
   if (ffmpegFlags['filter:v'] !== null && ffmpegFlags['filter:v'].length > 0) {
     result.push(
-      `-filter:v "${ffmpegFlags['filter:v'].slice().sort().join(',')}"`
+      `-filter:v '${ffmpegFlags['filter:v'].slice().sort().join(',')}'`
     )
   }
-  return `${ffmpegBinaryPath} ${result.join(' ')} -y ${outputFile}`
+  return `${ffmpegBinaryPath} ${result.join(' ')} -y '${outputFile}'`
 }
