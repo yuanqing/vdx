@@ -104,9 +104,10 @@ async function main() {
     process.exit(1)
   }
   const outputDirectory = typeof output === 'undefined' ? './build' : output
+  const concurrency = typeof parallel === 'undefined' ? 3 : parallel
   const vdxOptions = { ...defaultFFmpegOptions, ...options } as FFmpegOptions
   try {
-    await vdx(globPatterns, outputDirectory, vdxOptions, parallel, debug)
+    await vdx(globPatterns, outputDirectory, vdxOptions, concurrency, debug)
   } catch (error) {
     console.error(`vdx: ${error.message}`)
     process.exit(1)
