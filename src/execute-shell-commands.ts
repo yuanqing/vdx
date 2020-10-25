@@ -11,6 +11,11 @@ export async function executeShellCommands(
   concurrency: number,
   debug: boolean
 ): Promise<void> {
+  if (debug === true) {
+    for (const { shellCommand } of shellCommands) {
+      console.log(kleur.gray(shellCommand))
+    }
+  }
   const callbacks = shellCommands.map(function ({
     inputFile,
     outputFile,
@@ -18,16 +23,15 @@ export async function executeShellCommands(
   }) {
     return function () {
       return new Promise(function (resolve, reject) {
-        if (debug === true) {
-          console.log(kleur.gray(shellCommand))
-        }
         childProcess.exec(shellCommand, function (error) {
           if (error) {
             reject(error)
             return
           }
           console.log(
-            `${kleur.green('✔')} ${inputFile} ${kleur.gray('›')} ${outputFile}`
+            `${kleur.green('✔')} ${formatFilePath(inputFile)} ${kleur.gray(
+              '›'
+            )} ${formatFilePath(outputFile)}`
           )
           resolve()
         })
@@ -35,4 +39,11 @@ export async function executeShellCommands(
     }
   })
   await pAll(callbacks, { concurrency })
+}
+
+function formatFilePath(filePath: string): string {
+  if (filePath.indexOf(' ') === -1) {
+    return filePath
+  }
+  return `'${filePath}'`
 }
