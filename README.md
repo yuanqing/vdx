@@ -62,6 +62,8 @@ Globs of input files to process.
 
 #### -c, --crop [&lt;x&gt;,&lt;y&gt;,]&lt;width&gt;,&lt;height&gt;
 
+`<x>` and `<y>` default to 0.
+
 ```sh
 # Crop to width 360, height 640
 $ vdx '*.mov' --crop 360,640
@@ -129,7 +131,9 @@ $ vdx '*.mov' --resize -1,640
 $ vdx '*.mov' --reverse
 ```
 
-#### -ro, --rotate
+#### -ro, --rotate &lt;angle&gt;
+
+`<angle>` is one of -90, 90, or 180.
 
 ```sh
 # Rotate 90 degrees clockwise
