@@ -11,6 +11,9 @@ export async function createFFmpegShellCommands(
 ): Promise<Array<FFmpegShellCommand>> {
   const ffmpegBinaryPath = await which('ffmpeg')
   const inputFiles = await globby(globPatterns)
+  if (inputFiles.length === 0) {
+    throw new Error('Cannot find input files')
+  }
   const result = []
   for (const inputFile of inputFiles) {
     const { flags, outputFile } = createFFmpegOptions(
