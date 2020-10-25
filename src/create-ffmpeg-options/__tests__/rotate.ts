@@ -3,19 +3,6 @@ import { test } from 'tap'
 import { createFFmpegOptions } from '../create-ffmpeg-options'
 import { defaultFFmpegOptions } from '../default-ffmpeg-options'
 
-test('invalid', function (t) {
-  t.plan(1)
-  try {
-    createFFmpegOptions('video.mov', 'build', {
-      ...defaultFFmpegOptions,
-      rotate: 'foo'
-    })
-    t.fail()
-  } catch {
-    t.pass()
-  }
-})
-
 test('90 degrees counter-clockwise', function (t) {
   t.plan(2)
   const { flags, outputFile } = createFFmpegOptions('video.mov', 'build', {

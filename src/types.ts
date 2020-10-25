@@ -5,11 +5,13 @@ export type FFmpegOptions = {
   fps: null | number
   resize: null | string
   reverse: boolean
-  rotate: null | string
+  rotate: null | RotateOption
   speed: null | number
   trim: null | string
   volume: null | number
 }
+
+export type RotateOption = '-90' | '90' | '180'
 
 export type FFmpegCliFlags = {
   'an': null | boolean

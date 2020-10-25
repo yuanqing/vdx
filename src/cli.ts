@@ -54,7 +54,7 @@ const knownOptions = {
   parallel: Number,
   resize: String,
   reverse: Boolean,
-  rotate: String,
+  rotate: ['-90', '90', '180'],
   speed: Number,
   trim: String,
   version: Boolean,
