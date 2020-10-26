@@ -18,7 +18,7 @@ A variety of common video processing operations are supported:
 ```sh
 $ vdx '*.mov' --crop=360,640    # Crop to width 360, height 640
 $ vdx '*.mov' --format=gif      # Convert to GIF
-$ vdx '*.mov' --fps=12          # Set the frame rate to 12
+$ vdx '*.mov' --fps=12          # Change the frame rate to 12
 $ vdx '*.mov' --no-audio        # Strip audio
 $ vdx '*.mov' --resize=360,-1   # Resize to width 360, maintaining aspect ratio
 $ vdx '*.mov' --reverse         # Reverse
@@ -82,7 +82,7 @@ $ vdx '*.mov' --format gif
 #### -fp, --fps &lt;fps&gt;
 
 ```sh
-# Set the frame rate to 12
+# Change the frame rate to 12
 $ vdx '*.mov' --fps=12
 ```
 

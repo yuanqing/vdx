@@ -19,12 +19,12 @@ Options:
   -c,  --crop [<x>,<y>,]<width>,<height>  Crop the video to the specified
                                           dimension. <x> and <y> both default
                                           to 0.
-  -d,  --debug  Verbose output for debugging.
+  -d,  --debug  Print the underlying FFmpeg command that is being run.
   -f,  --format <format>  Convert to a different file format.
        --gif  Shorthand for '--format gif'.
        --mov  Shorthand for '--format mov'.
        --mp4  Shorthand for '--format mp4'.
-  -fp, --fps <fps>  Set the frame rate.
+  -fp, --fps <fps>  Change the frame rate.
   -h,  --help  Print this message.
   -na, --no-audio  Strip the audio.
   -o,  --output <directory>  Set the output directory. <directory> defaults
@@ -36,20 +36,20 @@ Options:
   -rv, --reverse  Reverse the video.
   -ro, --rotate <angle>  Rotate the video. <angle> must be one of -90, 90,
                          or 180.
-  -s,  --speed <speed>  Set the speed. To slow down, set <speed> to a number
-                        between 0 and 1. To speed up, set <speed> to a number
-                        greater than 1.
+  -s,  --speed <speed>  Change the speed. To slow down, set <speed> to a
+                        number between 0 and 1. To speed up, set <speed> to a
+                        number greater than 1.
   -t,  --trim <start>[,<end>]  Trim to the specified duration. Omit <end> to
                                trim from <start> to the end of the input file.
   -v,  --version  Print the version number.
-  -vo, --volume <volume>  Set the volume. To decrease the volume, set <volume>
-                          to a number between 0 and 1. To increase the volume,
-                          set <speed> to a number greater than 1.
+  -vo, --volume <volume>  Change the volume. To decrease the volume, set
+                          <volume> to a number between 0 and 1. To increase the
+                          volume, set <speed> to a number greater than 1.
 
 Examples:
   $ vdx '*.mov' --crop=360,640    # Crop to width 360, height 640
   $ vdx '*.mov' --format=gif      # Convert to GIF
-  $ vdx '*.mov' --fps=12          # Set the frame rate to 12
+  $ vdx '*.mov' --fps=12          # Change the frame rate to 12
   $ vdx '*.mov' --no-audio        # Strip audio
   $ vdx '*.mov' --resize=360,-1   # Resize to width 360, maintaining aspect ratio
   $ vdx '*.mov' --reverse         # Reverse
