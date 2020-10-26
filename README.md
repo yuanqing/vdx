@@ -113,7 +113,7 @@ $ vdx '*.mov' --format=gif --parallel=5
 
 #### -r, --resize &lt;width&gt;,&lt;height&gt;
 
-Set either `<width>` or `<height>` to -1 to maintain the aspect ratio.
+Set either `<width>` or `<height>` to `-1` to maintain the aspect ratio.
 
 ```sh
 # Resize to width 360, height 640
