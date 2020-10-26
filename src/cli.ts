@@ -17,7 +17,8 @@ Pattern:
 
 Options:
   -c,  --crop [<x>,<y>,]<width>,<height>  Crop the video to the specified
-                                          dimension. <x> and <y> default to 0.
+                                          dimension. <x> and <y> both default
+                                          to 0.
   -d,  --debug  Verbose output for debugging.
   -f,  --format <format>  Convert to a different file format.
        --gif  Shorthand for '--format gif'.
@@ -41,6 +42,18 @@ Options:
   -vo, --volume <volume>  Set the volume. To reduce the volume, set <volume>
                           to a number between 0 and 1. To raise the volume,
                           set <speed> to a number greater than 1.
+
+Examples:
+  $ vdx '*.mov' --crop=360,640    # Crop to width 360, height 640
+  $ vdx '*.mov' --format=gif      # Convert to GIF
+  $ vdx '*.mov' --fps=12          # Set the frame rate to 12
+  $ vdx '*.mov' --no-audio        # Strip audio
+  $ vdx '*.mov' --resize=360,-1   # Resize to width 360, maintaining aspect ratio
+  $ vdx '*.mov' --reverse         # Reverse
+  $ vdx '*.mov' --rotate=90       # Rotate 90 degrees clockwise
+  $ vdx '*.mov' --speed=2         # Double the speed
+  $ vdx '*.mov' --trim=0:05,0:10  # Trim from time 0:05 to 0:10
+  $ vdx '*.mov' --volume=0.5      # Halve the volume
 `
 
 const knownOptions = {
