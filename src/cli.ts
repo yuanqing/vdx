@@ -3,8 +3,8 @@
 
 import * as nopt from 'nopt'
 
-import { defaultFFmpegOptions } from './create-ffmpeg-options/default-ffmpeg-options'
-import { FFmpegOptions } from './types'
+import { defaultOptions } from './default-options'
+import { Options } from './types'
 import { vdx } from './vdx'
 
 const packageJsonVersion = require('../package.json').version
@@ -102,7 +102,7 @@ const shorthands = {
 }
 
 async function main() {
-  const { argv, debug, help, output, parallel, version, ...options } = nopt(
+  const { argv, debug, help, output, parallel, version, ...rest } = nopt(
     knownOptions,
     shorthands
   )
@@ -121,9 +121,9 @@ async function main() {
   }
   const outputDirectory = typeof output === 'undefined' ? './build' : output
   const concurrency = typeof parallel === 'undefined' ? 3 : parallel
-  const vdxOptions = { ...defaultFFmpegOptions, ...options } as FFmpegOptions
+  const options = { ...defaultOptions, ...rest } as Options
   try {
-    await vdx(globPatterns, outputDirectory, vdxOptions, concurrency, debug)
+    await vdx(globPatterns, outputDirectory, options, concurrency, debug)
   } catch (error) {
     console.error(`vdx: ${error.message}`)
     process.exit(1)

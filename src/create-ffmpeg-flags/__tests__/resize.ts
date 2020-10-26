@@ -1,13 +1,13 @@
 import { test } from 'tap'
 
-import { createFFmpegOptions } from '../create-ffmpeg-options'
-import { defaultFFmpegOptions } from '../default-ffmpeg-options'
+import { defaultOptions } from '../../default-options'
+import { createFFmpegFlags } from '../create-ffmpeg-flags'
 
 test('invalid', function (t) {
   t.plan(1)
   try {
-    createFFmpegOptions('video.mov', 'build', {
-      ...defaultFFmpegOptions,
+    createFFmpegFlags('video.mov', {
+      ...defaultOptions,
       resize: 'foo'
     })
     t.fail()
@@ -17,9 +17,9 @@ test('invalid', function (t) {
 })
 
 test('width only', function (t) {
-  t.plan(2)
-  const { flags, outputFile } = createFFmpegOptions('video.mov', 'build', {
-    ...defaultFFmpegOptions,
+  t.plan(1)
+  const flags = createFFmpegFlags('video.mov', {
+    ...defaultOptions,
     resize: '360,-1'
   })
   t.deepEqual(
@@ -35,13 +35,12 @@ test('width only', function (t) {
     },
     flags
   )
-  t.equal(outputFile, 'build/video.mov')
 })
 
 test('height only', function (t) {
-  t.plan(2)
-  const { flags, outputFile } = createFFmpegOptions('video.mov', 'build', {
-    ...defaultFFmpegOptions,
+  t.plan(1)
+  const flags = createFFmpegFlags('video.mov', {
+    ...defaultOptions,
     resize: '-1,640'
   })
   t.deepEqual(
@@ -57,13 +56,12 @@ test('height only', function (t) {
     },
     flags
   )
-  t.equal(outputFile, 'build/video.mov')
 })
 
 test('width and height', function (t) {
-  t.plan(2)
-  const { flags, outputFile } = createFFmpegOptions('video.mov', 'build', {
-    ...defaultFFmpegOptions,
+  t.plan(1)
+  const flags = createFFmpegFlags('video.mov', {
+    ...defaultOptions,
     resize: '360,640'
   })
   t.deepEqual(
@@ -79,5 +77,4 @@ test('width and height', function (t) {
     },
     flags
   )
-  t.equal(outputFile, 'build/video.mov')
 })

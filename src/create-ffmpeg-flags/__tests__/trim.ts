@@ -1,13 +1,13 @@
 import { test } from 'tap'
 
-import { createFFmpegOptions } from '../create-ffmpeg-options'
-import { defaultFFmpegOptions } from '../default-ffmpeg-options'
+import { defaultOptions } from '../../default-options'
+import { createFFmpegFlags } from '../create-ffmpeg-flags'
 
 test('invalid timestamp', function (t) {
   t.plan(1)
   try {
-    createFFmpegOptions('video.mov', 'build', {
-      ...defaultFFmpegOptions,
+    createFFmpegFlags('video.mov', {
+      ...defaultOptions,
       trim: 'foo'
     })
     t.fail()
@@ -17,9 +17,9 @@ test('invalid timestamp', function (t) {
 })
 
 test('start timestamp only', function (t) {
-  t.plan(2)
-  const { flags, outputFile } = createFFmpegOptions('video.mov', 'build', {
-    ...defaultFFmpegOptions,
+  t.plan(1)
+  const flags = createFFmpegFlags('video.mov', {
+    ...defaultOptions,
     trim: '0:05'
   })
   t.deepEqual(
@@ -35,14 +35,13 @@ test('start timestamp only', function (t) {
     },
     flags
   )
-  t.equal(outputFile, 'build/video.mov')
 })
 
 test('invalid start timestamp', function (t) {
   t.plan(1)
   try {
-    createFFmpegOptions('video.mov', 'build', {
-      ...defaultFFmpegOptions,
+    createFFmpegFlags('video.mov', {
+      ...defaultOptions,
       trim: 'foo,0:10'
     })
     t.fail()
@@ -54,8 +53,8 @@ test('invalid start timestamp', function (t) {
 test('invalid end timestamp', function (t) {
   t.plan(1)
   try {
-    createFFmpegOptions('video.mov', 'build', {
-      ...defaultFFmpegOptions,
+    createFFmpegFlags('video.mov', {
+      ...defaultOptions,
       trim: '0:05,foo'
     })
     t.fail()
@@ -65,9 +64,9 @@ test('invalid end timestamp', function (t) {
 })
 
 test('start and end timestamp', function (t) {
-  t.plan(2)
-  const { flags, outputFile } = createFFmpegOptions('video.mov', 'build', {
-    ...defaultFFmpegOptions,
+  t.plan(1)
+  const flags = createFFmpegFlags('video.mov', {
+    ...defaultOptions,
     trim: '0:05,0:10'
   })
   t.deepEqual(
@@ -83,5 +82,4 @@ test('start and end timestamp', function (t) {
     },
     flags
   )
-  t.equal(outputFile, 'build/video.mov')
 })

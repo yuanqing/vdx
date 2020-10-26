@@ -1,12 +1,12 @@
 import { test } from 'tap'
 
-import { createFFmpegOptions } from '../create-ffmpeg-options'
-import { defaultFFmpegOptions } from '../default-ffmpeg-options'
+import { defaultOptions } from '../../default-options'
+import { createFFmpegFlags } from '../create-ffmpeg-flags'
 
 test('0.5x volume', function (t) {
-  t.plan(2)
-  const { flags, outputFile } = createFFmpegOptions('video.mov', 'build', {
-    ...defaultFFmpegOptions,
+  t.plan(1)
+  const flags = createFFmpegFlags('video.mov', {
+    ...defaultOptions,
     volume: 0.5
   })
   t.deepEqual(
@@ -22,13 +22,12 @@ test('0.5x volume', function (t) {
     },
     flags
   )
-  t.equal(outputFile, 'build/video.mov')
 })
 
 test('2x volume', function (t) {
-  t.plan(2)
-  const { flags, outputFile } = createFFmpegOptions('video.mov', 'build', {
-    ...defaultFFmpegOptions,
+  t.plan(1)
+  const flags = createFFmpegFlags('video.mov', {
+    ...defaultOptions,
     volume: 2
   })
   t.deepEqual(
@@ -44,5 +43,4 @@ test('2x volume', function (t) {
     },
     flags
   )
-  t.equal(outputFile, 'build/video.mov')
 })

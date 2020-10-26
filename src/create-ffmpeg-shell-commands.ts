@@ -1,13 +1,14 @@
 import * as globby from 'globby'
+import * as path from 'path'
 import * as which from 'which'
 
-import { createFFmpegOptions } from './create-ffmpeg-options/create-ffmpeg-options'
-import { FFmpegCliFlags, FFmpegOptions, FFmpegShellCommand } from './types'
+import { createFFmpegFlags } from './create-ffmpeg-flags/create-ffmpeg-flags'
+import { FFmpegFlags, FFmpegShellCommand, Options } from './types'
 
 export async function createFFmpegShellCommands(
   globPatterns: Array<string>,
   outputDirectory: string,
-  vdxOptions: FFmpegOptions
+  options: Options
 ): Promise<Array<FFmpegShellCommand>> {
   const ffmpegBinaryPath = await which('ffmpeg')
   const inputFiles = await globby(globPatterns)
@@ -16,27 +17,42 @@ export async function createFFmpegShellCommands(
   }
   const result = []
   for (const inputFile of inputFiles) {
-    const { flags, outputFile } = createFFmpegOptions(
+    const outputFile = createOutputFilePath(
       inputFile,
       outputDirectory,
-      vdxOptions
+      options.format
+    )
+    const flags = createFFmpegFlags(inputFile, options)
+    const shellCommand = createFFmpegShellCommand(
+      ffmpegBinaryPath,
+      flags,
+      outputFile
     )
     result.push({
       inputFile,
       outputFile,
-      shellCommand: createFFmpegShellCommand(
-        ffmpegBinaryPath,
-        flags,
-        outputFile
-      )
+      shellCommand
     })
   }
   return result
 }
 
+function createOutputFilePath(
+  inputFile: string,
+  outputDirectory: string,
+  format: null | string
+): string {
+  const directory = path.dirname(path.relative(process.cwd(), inputFile))
+  if (format === null) {
+    return path.join(outputDirectory, directory, path.basename(inputFile))
+  }
+  const basename = path.basename(inputFile, path.extname(inputFile))
+  return path.join(outputDirectory, directory, `${basename}.${format}`)
+}
+
 function createFFmpegShellCommand(
   ffmpegBinaryPath: string,
-  ffmpegFlags: FFmpegCliFlags,
+  ffmpegFlags: FFmpegFlags,
   outputFile: string
 ): string {
   const result: Array<string> = []

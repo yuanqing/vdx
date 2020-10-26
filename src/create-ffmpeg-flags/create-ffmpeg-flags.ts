@@ -1,6 +1,6 @@
 import * as path from 'path'
 
-import { FFmpegCliFlags, FFmpegOptions } from '../types'
+import { FFmpegFlags, Options } from '../types'
 import { formatFloat } from './utilities/format-float'
 import { mapCropOptionToVideoFilter } from './utilities/map-crop-option-to-video-filter'
 import { mapResizeOptionToVideoFilter } from './utilities/map-resize-option-to-video-filter'
@@ -9,9 +9,8 @@ import { mapSpeedOptionToAudioFilter } from './utilities/map-speed-option-to-aud
 import { mapSpeedOptionToVideoFilter } from './utilities/map-speed-option-to-video-filter'
 import { parseTrimOption } from './utilities/parse-trim-option'
 
-export function createFFmpegOptions(
+export function createFFmpegFlags(
   inputFile: string,
-  outputDirectory: string,
   {
     audio,
     crop,
@@ -23,9 +22,9 @@ export function createFFmpegOptions(
     speed,
     trim,
     volume
-  }: FFmpegOptions
-): { flags: FFmpegCliFlags; outputFile: string } {
-  const flags: FFmpegCliFlags = {
+  }: Options
+): FFmpegFlags {
+  const flags: FFmpegFlags = {
     'an': null,
     'codec:a': 'copy',
     'codec:v': 'copy',
@@ -85,20 +84,5 @@ export function createFFmpegOptions(
     flags['codec:v'] = null
     flags['filter:a'] = []
   }
-  return {
-    flags,
-    outputFile: createOutputFilePath(inputFile, outputDirectory, format)
-  }
-}
-
-function createOutputFilePath(
-  inputFile: string,
-  outputDirectory: string,
-  format: null | string
-): string {
-  if (format === null) {
-    return path.join(outputDirectory, inputFile)
-  }
-  const basename = path.basename(inputFile, path.extname(inputFile))
-  return path.join(outputDirectory, `${basename}.${format}`)
+  return flags
 }

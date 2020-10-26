@@ -1,4 +1,4 @@
-export type FFmpegOptions = {
+export type Options = {
   audio: boolean
   crop: null | string
   format: null | string
@@ -13,7 +13,7 @@ export type FFmpegOptions = {
 
 export type RotateOption = '-90' | '90' | '180'
 
-export type FFmpegCliFlags = {
+export type FFmpegFlags = {
   'an': null | boolean
   'codec:a': null | 'copy'
   'codec:v': null | 'copy'

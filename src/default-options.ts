@@ -1,4 +1,4 @@
-export const defaultFFmpegOptions = {
+export const defaultOptions = {
   audio: true,
   crop: null,
   format: null,

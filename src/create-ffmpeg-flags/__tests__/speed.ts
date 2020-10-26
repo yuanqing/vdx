@@ -1,12 +1,12 @@
 import { test } from 'tap'
 
-import { createFFmpegOptions } from '../create-ffmpeg-options'
-import { defaultFFmpegOptions } from '../default-ffmpeg-options'
+import { defaultOptions } from '../../default-options'
+import { createFFmpegFlags } from '../create-ffmpeg-flags'
 
 test('0.25x speed', function (t) {
-  t.plan(2)
-  const { flags, outputFile } = createFFmpegOptions('video.mov', 'build', {
-    ...defaultFFmpegOptions,
+  t.plan(1)
+  const flags = createFFmpegFlags('video.mov', {
+    ...defaultOptions,
     speed: 0.25
   })
   t.deepEqual(
@@ -22,13 +22,12 @@ test('0.25x speed', function (t) {
     },
     flags
   )
-  t.equal(outputFile, 'build/video.mov')
 })
 
 test('0.5x speed', function (t) {
-  t.plan(2)
-  const { flags, outputFile } = createFFmpegOptions('video.mov', 'build', {
-    ...defaultFFmpegOptions,
+  t.plan(1)
+  const flags = createFFmpegFlags('video.mov', {
+    ...defaultOptions,
     speed: 0.5
   })
   t.deepEqual(
@@ -44,13 +43,12 @@ test('0.5x speed', function (t) {
     },
     flags
   )
-  t.equal(outputFile, 'build/video.mov')
 })
 
 test('2x speed', function (t) {
-  t.plan(2)
-  const { flags, outputFile } = createFFmpegOptions('video.mov', 'build', {
-    ...defaultFFmpegOptions,
+  t.plan(1)
+  const flags = createFFmpegFlags('video.mov', {
+    ...defaultOptions,
     speed: 2
   })
   t.deepEqual(
@@ -66,13 +64,12 @@ test('2x speed', function (t) {
     },
     flags
   )
-  t.equal(outputFile, 'build/video.mov')
 })
 
 test('4x speed', function (t) {
-  t.plan(2)
-  const { flags, outputFile } = createFFmpegOptions('video.mov', 'build', {
-    ...defaultFFmpegOptions,
+  t.plan(1)
+  const flags = createFFmpegFlags('video.mov', {
+    ...defaultOptions,
     speed: 4
   })
   t.deepEqual(
@@ -88,5 +85,4 @@ test('4x speed', function (t) {
     },
     flags
   )
-  t.equal(outputFile, 'build/video.mov')
 })
