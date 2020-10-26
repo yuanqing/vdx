@@ -190,6 +190,10 @@ $ npm install --global vdx
 
 - [fluent-ffmpeg](https://github.com/fluent-ffmpeg/node-fluent-ffmpeg)
 
+## See also
+
+- [FFmpeg Cheatsheet](https://github.com/yuanqing/ffmpeg-cheatsheet)
+
 ## License
 
 [MIT](/LICENSE.md)
