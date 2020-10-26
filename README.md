@@ -62,7 +62,7 @@ Globs of input files to process.
 
 #### -c, --crop [&lt;x&gt;,&lt;y&gt;,]&lt;width&gt;,&lt;height&gt;
 
-`<x>` and `<y>` both default to `0`
+`<x>` and `<y>` both default to `0`.
 
 ```sh
 # Crop to width 360, height 640
@@ -95,7 +95,7 @@ $ vdx '*.mov' --no-audio
 
 #### -o, --output &lt;directory&gt;
 
-`<directory>` defaults to `'./build'`
+`<directory>` defaults to `'./build'`.
 
 ```sh
 # Output files to './gifs'
@@ -104,7 +104,7 @@ $ vdx '*.mov' --format=gif --output='./gifs'
 
 #### -p, --parallel &lt;concurrency&gt;
 
-`<concurrency>` defaults to `3`
+`<concurrency>` defaults to `3`.
 
 ```sh
 # Process up to 5 files concurrently
@@ -112,6 +112,8 @@ $ vdx '*.mov' --format=gif --parallel=5
 ```
 
 #### -r, --resize &lt;width&gt;,&lt;height&gt;
+
+Set either `<width>` or `<height>` to -1 to maintain the aspect ratio.
 
 ```sh
 # Resize to width 360, height 640
@@ -133,7 +135,7 @@ $ vdx '*.mov' --reverse
 
 #### -ro, --rotate &lt;angle&gt;
 
-`<angle>` is one of `-90`, `90`, or `180`
+`<angle>` must be one of `-90`, `90`, or `180`.
 
 ```sh
 # Rotate 90 degrees clockwise
@@ -157,6 +159,8 @@ $ vdx '*.mov' --speed=2
 ```
 
 #### -t, --trim &lt;start&gt;[,&lt;end&gt;]
+
+Omit `<end>` to trim from `<start>` to the end of the input file.
 
 ```sh
 # Trim from time 0:05 to the end of the input file
