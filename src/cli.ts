@@ -31,16 +31,19 @@ Options:
                              to './build'.
   -p,  --parallel <concurrency>  Set the maximum number of files to process
                                  concurrently. <concurrency> defaults to 3.
-  -r,  --resize <width>,<height>  Resize the video.
+  -r,  --resize <width>,<height>  Resize the video. Set either <width> or
+                                  <height> to -1 to maintain the aspect ratio.
   -rv, --reverse  Reverse the video.
-  -ro, --rotate <angle>  Rotate the video. <angle> is one of -90, 90, or 180.
+  -ro, --rotate <angle>  Rotate the video. <angle> must be one of -90, 90,
+                         or 180.
   -s,  --speed <speed>  Set the speed. To slow down, set <speed> to a number
                         between 0 and 1. To speed up, set <speed> to a number
                         greater than 1.
-  -t,  --trim <start>[,<end>]  Trim to the specified duration.
+  -t,  --trim <start>[,<end>]  Trim to the specified duration. Omit <end> to
+                               trim from <start> to the end of the input file.
   -v,  --version  Print the version number.
-  -vo, --volume <volume>  Set the volume. To reduce the volume, set <volume>
-                          to a number between 0 and 1. To raise the volume,
+  -vo, --volume <volume>  Set the volume. To decrease the volume, set <volume>
+                          to a number between 0 and 1. To increase the volume,
                           set <speed> to a number greater than 1.
 
 Examples:
