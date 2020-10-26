@@ -16,6 +16,50 @@ test('invalid', function (t) {
   }
 })
 
+test('width only', function (t) {
+  t.plan(2)
+  const { flags, outputFile } = createFFmpegOptions('video.mov', 'build', {
+    ...defaultFFmpegOptions,
+    resize: '360,-1'
+  })
+  t.deepEqual(
+    {
+      'an': null,
+      'codec:a': 'copy',
+      'codec:v': null,
+      'filter:a': [],
+      'filter:v': ['scale=360:-1'],
+      'i': 'video.mov',
+      'ss': null,
+      'to': null
+    },
+    flags
+  )
+  t.equal(outputFile, 'build/video.mov')
+})
+
+test('height only', function (t) {
+  t.plan(2)
+  const { flags, outputFile } = createFFmpegOptions('video.mov', 'build', {
+    ...defaultFFmpegOptions,
+    resize: '-1,640'
+  })
+  t.deepEqual(
+    {
+      'an': null,
+      'codec:a': 'copy',
+      'codec:v': null,
+      'filter:a': [],
+      'filter:v': ['scale=-1:640'],
+      'i': 'video.mov',
+      'ss': null,
+      'to': null
+    },
+    flags
+  )
+  t.equal(outputFile, 'build/video.mov')
+})
+
 test('width and height', function (t) {
   t.plan(2)
   const { flags, outputFile } = createFFmpegOptions('video.mov', 'build', {
