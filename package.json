@@ -25,6 +25,7 @@
     "coverage": "rimraf .nyc_output coverage && nyc --reporter=html --reporter=lcov --reporter=text yarn run test",
     "fix": "eslint --fix 'src/**/*.ts'",
     "lint": "eslint 'src/**/*.ts'",
+    "prepublishOnly": "yarn run build",
     "reset": "yarn run clean && rimraf node_modules yarn.lock && yarn install",
     "test": "tap 'src/**/__tests__/*.ts' --coverage-report html --coverage-report text --jobs-auto --no-browser --reporter terse",
     "watch": "yarn run clean && tsc --watch"
