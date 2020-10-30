@@ -2,8 +2,8 @@ import * as globby from 'globby'
 import * as path from 'path'
 import * as which from 'which'
 
+import { FFmpegFlags, FFmpegShellCommand, Options } from '../types'
 import { createFFmpegFlags } from './create-ffmpeg-flags/create-ffmpeg-flags'
-import { FFmpegFlags, FFmpegShellCommand, Options } from './types'
 
 export async function createFFmpegShellCommands(
   globPatterns: Array<string>,
@@ -83,5 +83,8 @@ function createFFmpegShellCommand(
       `-filter:v '${ffmpegFlags['filter:v'].slice().sort().join(',')}'`
     )
   }
-  return `${ffmpegBinaryPath} ${result.join(' ')} -y '${outputFile}'`
+  const outputDirectory = path.dirname(outputFile)
+  return `mkdir -p '${outputDirectory}' && ${ffmpegBinaryPath} ${result.join(
+    ' '
+  )} -y '${outputFile}'`
 }

@@ -1,6 +1,6 @@
 import { test } from 'tap'
 
-import { defaultOptions } from '../../default-options'
+import { defaultOptions } from '../../../default-options'
 import { createFFmpegFlags } from '../create-ffmpeg-flags'
 
 test('invalid timestamp', function (t) {

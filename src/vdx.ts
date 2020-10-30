@@ -1,4 +1,4 @@
-import { createFFmpegShellCommands } from './create-ffmpeg-shell-commands'
+import { createFFmpegShellCommands } from './create-ffmpeg-shell-commands/create-ffmpeg-shell-commands'
 import { executeShellCommands } from './execute-shell-commands'
 import { Options } from './types'
 

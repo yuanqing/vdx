@@ -1,4 +1,4 @@
-import { RotateOption } from '../../types'
+import { RotateOption } from '../../../types'
 
 export function mapRotateOptionToVideoFilter(rotate: RotateOption): string {
   if (rotate === '-90') {

@@ -1,21 +1,21 @@
 import { test } from 'tap'
 
-import { defaultOptions } from '../../default-options'
+import { defaultOptions } from '../../../default-options'
 import { createFFmpegFlags } from '../create-ffmpeg-flags'
 
-test('reverse', function (t) {
+test('strip audio', function (t) {
   t.plan(1)
   const flags = createFFmpegFlags('video.mov', {
     ...defaultOptions,
-    reverse: true
+    audio: false
   })
   t.deepEqual(
     {
-      'an': null,
+      'an': true,
       'codec:a': null,
-      'codec:v': null,
-      'filter:a': ['areverse'],
-      'filter:v': ['reverse'],
+      'codec:v': 'copy',
+      'filter:a': [],
+      'filter:v': [],
       'i': 'video.mov',
       'ss': null,
       'to': null

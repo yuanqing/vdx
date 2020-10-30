@@ -1,6 +1,6 @@
 import * as path from 'path'
 
-import { FFmpegFlags, Options } from '../types'
+import { FFmpegFlags, Options } from '../../types'
 import { formatFloat } from './utilities/format-float'
 import { mapCropOptionToVideoFilter } from './utilities/map-crop-option-to-video-filter'
 import { mapResizeOptionToVideoFilter } from './utilities/map-resize-option-to-video-filter'

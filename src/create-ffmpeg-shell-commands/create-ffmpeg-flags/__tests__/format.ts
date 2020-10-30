@@ -1,34 +1,21 @@
 import { test } from 'tap'
 
-import { defaultOptions } from '../../default-options'
+import { defaultOptions } from '../../../default-options'
 import { createFFmpegFlags } from '../create-ffmpeg-flags'
 
-test('invalid', function (t) {
-  t.plan(1)
-  try {
-    createFFmpegFlags('video.mov', {
-      ...defaultOptions,
-      crop: 'foo'
-    })
-    t.fail()
-  } catch {
-    t.pass()
-  }
-})
-
-test('width and height only', function (t) {
+test('convert to same format as input file', function (t) {
   t.plan(1)
   const flags = createFFmpegFlags('video.mov', {
     ...defaultOptions,
-    crop: '360,640'
+    format: 'mov'
   })
   t.deepEqual(
     {
       'an': null,
       'codec:a': 'copy',
-      'codec:v': null,
+      'codec:v': 'copy',
       'filter:a': [],
-      'filter:v': ['crop=360:640:0:0'],
+      'filter:v': [],
       'i': 'video.mov',
       'ss': null,
       'to': null
@@ -37,19 +24,19 @@ test('width and height only', function (t) {
   )
 })
 
-test('width, height, and coordinates', function (t) {
+test('convert to GIF format', function (t) {
   t.plan(1)
   const flags = createFFmpegFlags('video.mov', {
     ...defaultOptions,
-    crop: '10,20,360,640'
+    format: 'gif'
   })
   t.deepEqual(
     {
       'an': null,
-      'codec:a': 'copy',
+      'codec:a': null,
       'codec:v': null,
       'filter:a': [],
-      'filter:v': ['crop=360:640:10:20'],
+      'filter:v': [],
       'i': 'video.mov',
       'ss': null,
       'to': null

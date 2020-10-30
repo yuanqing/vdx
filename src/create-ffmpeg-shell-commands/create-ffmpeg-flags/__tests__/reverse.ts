@@ -1,21 +1,21 @@
 import { test } from 'tap'
 
-import { defaultOptions } from '../../default-options'
+import { defaultOptions } from '../../../default-options'
 import { createFFmpegFlags } from '../create-ffmpeg-flags'
 
-test('fps', function (t) {
+test('reverse', function (t) {
   t.plan(1)
   const flags = createFFmpegFlags('video.mov', {
     ...defaultOptions,
-    fps: 12
+    reverse: true
   })
   t.deepEqual(
     {
       'an': null,
-      'codec:a': 'copy',
+      'codec:a': null,
       'codec:v': null,
-      'filter:a': [],
-      'filter:v': ['fps=fps=12'],
+      'filter:a': ['areverse'],
+      'filter:v': ['reverse'],
       'i': 'video.mov',
       'ss': null,
       'to': null

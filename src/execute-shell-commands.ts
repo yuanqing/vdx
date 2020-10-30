@@ -1,9 +1,7 @@
 /* eslint-disable no-console */
 import * as childProcess from 'child_process'
-import * as fs from 'fs'
 import * as kleur from 'kleur'
 import * as pAll from 'p-all'
-import * as path from 'path'
 
 import { FFmpegShellCommand } from './types'
 
@@ -24,8 +22,6 @@ export async function executeShellCommands(
   }) {
     return function () {
       return new Promise(function (resolve, reject) {
-        const directory = path.dirname(outputFile)
-        fs.mkdirSync(directory, { recursive: true })
         childProcess.exec(shellCommand, function (error) {
           if (error) {
             reject(error)

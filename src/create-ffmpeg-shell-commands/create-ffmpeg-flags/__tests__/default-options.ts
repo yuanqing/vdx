@@ -1,18 +1,15 @@
 import { test } from 'tap'
 
-import { defaultOptions } from '../../default-options'
+import { defaultOptions } from '../../../default-options'
 import { createFFmpegFlags } from '../create-ffmpeg-flags'
 
-test('strip audio', function (t) {
+test('default options', function (t) {
   t.plan(1)
-  const flags = createFFmpegFlags('video.mov', {
-    ...defaultOptions,
-    audio: false
-  })
+  const flags = createFFmpegFlags('video.mov', defaultOptions)
   t.deepEqual(
     {
-      'an': true,
-      'codec:a': null,
+      'an': null,
+      'codec:a': 'copy',
       'codec:v': 'copy',
       'filter:a': [],
       'filter:v': [],

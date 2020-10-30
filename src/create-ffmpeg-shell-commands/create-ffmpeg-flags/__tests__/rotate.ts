@@ -1,26 +1,13 @@
 import { test } from 'tap'
 
-import { defaultOptions } from '../../default-options'
+import { defaultOptions } from '../../../default-options'
 import { createFFmpegFlags } from '../create-ffmpeg-flags'
 
-test('invalid', function (t) {
-  t.plan(1)
-  try {
-    createFFmpegFlags('video.mov', {
-      ...defaultOptions,
-      resize: 'foo'
-    })
-    t.fail()
-  } catch {
-    t.pass()
-  }
-})
-
-test('width only', function (t) {
+test('90 degrees counter-clockwise', function (t) {
   t.plan(1)
   const flags = createFFmpegFlags('video.mov', {
     ...defaultOptions,
-    resize: '360,-1'
+    rotate: '-90'
   })
   t.deepEqual(
     {
@@ -28,7 +15,7 @@ test('width only', function (t) {
       'codec:a': 'copy',
       'codec:v': null,
       'filter:a': [],
-      'filter:v': ['scale=360:-1'],
+      'filter:v': ['transpose=2'],
       'i': 'video.mov',
       'ss': null,
       'to': null
@@ -37,11 +24,11 @@ test('width only', function (t) {
   )
 })
 
-test('height only', function (t) {
+test('90 degrees clockwise', function (t) {
   t.plan(1)
   const flags = createFFmpegFlags('video.mov', {
     ...defaultOptions,
-    resize: '-1,640'
+    rotate: '90'
   })
   t.deepEqual(
     {
@@ -49,7 +36,7 @@ test('height only', function (t) {
       'codec:a': 'copy',
       'codec:v': null,
       'filter:a': [],
-      'filter:v': ['scale=-1:640'],
+      'filter:v': ['transpose=1'],
       'i': 'video.mov',
       'ss': null,
       'to': null
@@ -58,11 +45,11 @@ test('height only', function (t) {
   )
 })
 
-test('width and height', function (t) {
+test('180 degrees', function (t) {
   t.plan(1)
   const flags = createFFmpegFlags('video.mov', {
     ...defaultOptions,
-    resize: '360,640'
+    rotate: '180'
   })
   t.deepEqual(
     {
@@ -70,7 +57,7 @@ test('width and height', function (t) {
       'codec:a': 'copy',
       'codec:v': null,
       'filter:a': [],
-      'filter:v': ['scale=360:640'],
+      'filter:v': ['transpose=1,transpose=1'],
       'i': 'video.mov',
       'ss': null,
       'to': null
