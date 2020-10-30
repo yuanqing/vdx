@@ -54,11 +54,11 @@ Usage: vdx <pattern> [options]
 
 ### &lt;pattern&gt;
 
-Globs of input files to process.
+One or more globs of input files to process.
 
 ### [options]
 
-*Use the `-d` or `--debug` flag to print the underlying FFmpeg command that is being run.*
+*Use the `-d` or `--debug` flag to print the underlying FFmpeg commands that are being run.*
 
 #### -c, --crop [&lt;x&gt;,&lt;y&gt;,]&lt;width&gt;,&lt;height&gt;
 
