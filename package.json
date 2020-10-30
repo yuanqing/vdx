@@ -1,6 +1,6 @@
 {
   "name": "vdx",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "An intuitive CLI for processing video, powered by FFmpeg",
   "keywords": [
     "ffmpeg",
