@@ -186,6 +186,22 @@ $ vdx '*.mov' --volume=2
 $ npm install --global vdx
 ```
 
+## Docker
+
+Build:
+
+```sh
+$ docker build -t local/vdx .
+```
+
+Use:
+
+```sh
+$ docker run --rm -u $(id -u):$(id -g) \
+    -v /home/me/Videos/:/files/ \
+    local/vdx '*.mp4' --output=./output
+```
+
 ## Prior art
 
 - [fluent-ffmpeg](https://github.com/fluent-ffmpeg/node-fluent-ffmpeg)
