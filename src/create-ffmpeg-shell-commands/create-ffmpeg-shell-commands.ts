@@ -63,7 +63,7 @@ function createFFmpegShellCommand(
     result.push(`-to ${ffmpegFlags.to}`)
   }
   // `-ss` and `-t` must come before the `-i` flag
-  result.push(`-i '${ffmpegFlags.i}'`)
+  result.push(`-i "${ffmpegFlags.i}"`)
   if (ffmpegFlags.an === true) {
     result.push(`-an`)
   }
@@ -86,5 +86,5 @@ function createFFmpegShellCommand(
   const outputDirectory = path.dirname(outputFile)
   return `mkdir -p '${outputDirectory}' && ${ffmpegBinaryPath} ${result.join(
     ' '
-  )} -y '${outputFile}'`
+  )} -y "${outputFile}"`
 }
