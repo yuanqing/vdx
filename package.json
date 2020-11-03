@@ -14,7 +14,8 @@
     "url": "git://github.com/yuanqing/vdx.git"
   },
   "files": [
-    "lib"
+    "lib",
+    "!lib/**/__tests__/**/*"
   ],
   "bin": {
     "vdx": "lib/cli.js"
