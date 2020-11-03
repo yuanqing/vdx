@@ -3,6 +3,7 @@ import * as childProcess from 'child_process'
 import * as kleur from 'kleur'
 import * as pAll from 'p-all'
 
+import { escapeFilePath } from './escape-file-path'
 import { FFmpegShellCommand } from './types'
 
 export async function executeShellCommands(
@@ -28,9 +29,9 @@ export async function executeShellCommands(
             return
           }
           console.log(
-            `${kleur.green('✔')} ${formatFilePath(inputFile)} ${kleur.gray(
+            `${kleur.green('✔')} ${escapeFilePath(inputFile)} ${kleur.gray(
               '›'
-            )} ${formatFilePath(outputFile)}`
+            )} ${escapeFilePath(outputFile)}`
           )
           resolve()
         })
@@ -38,11 +39,4 @@ export async function executeShellCommands(
     }
   })
   await pAll(callbacks, { concurrency })
-}
-
-function formatFilePath(filePath: string): string {
-  if (filePath.indexOf(' ') === -1) {
-    return filePath
-  }
-  return `'${filePath}'`
 }

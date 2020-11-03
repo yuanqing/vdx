@@ -2,6 +2,7 @@ import * as globby from 'globby'
 import * as path from 'path'
 import * as which from 'which'
 
+import { escapeFilePath } from '../escape-file-path'
 import { FFmpegFlags, FFmpegShellCommand, Options } from '../types'
 import { createFFmpegFlags } from './create-ffmpeg-flags/create-ffmpeg-flags'
 
@@ -63,7 +64,7 @@ function createFFmpegShellCommand(
     result.push(`-to ${ffmpegFlags.to}`)
   }
   // `-ss` and `-t` must come before the `-i` flag
-  result.push(`-i "${ffmpegFlags.i}"`)
+  result.push(`-i ${escapeFilePath(ffmpegFlags.i)}`)
   if (ffmpegFlags.an === true) {
     result.push(`-an`)
   }
@@ -84,7 +85,9 @@ function createFFmpegShellCommand(
     )
   }
   const outputDirectory = path.dirname(outputFile)
-  return `mkdir -p '${outputDirectory}' && ${ffmpegBinaryPath} ${result.join(
-    ' '
-  )} -y "${outputFile}"`
+  return `mkdir -p ${escapeFilePath(
+    outputDirectory
+  )} && ${ffmpegBinaryPath} ${result.join(' ')} -y ${escapeFilePath(
+    outputFile
+  )}`
 }
