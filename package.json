@@ -14,8 +14,7 @@
     "url": "git://github.com/yuanqing/vdx.git"
   },
   "files": [
-    "lib",
-    "!lib/**/__tests__/**/*"
+    "lib"
   ],
   "bin": {
     "vdx": "lib/cli.js"
@@ -28,7 +27,7 @@
     "lint": "eslint 'src/**/*.ts'",
     "prepublishOnly": "yarn run build",
     "reset": "yarn run clean && rimraf node_modules yarn.lock && yarn install",
-    "test": "tap 'src/**/__tests__/*.ts' --coverage-report html --coverage-report text --jobs-auto --no-browser --reporter terse",
+    "test": "tap 'src/**/__tests__/**/*.ts' --coverage-report html --coverage-report text --jobs-auto --no-browser --reporter terse",
     "watch": "yarn run clean && tsc --watch"
   },
   "dependencies": {
