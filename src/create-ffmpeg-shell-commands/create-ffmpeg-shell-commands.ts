@@ -1,6 +1,5 @@
 import * as globby from 'globby'
 import * as path from 'path'
-import * as which from 'which'
 
 import { escapeFilePath } from '../escape-file-path'
 import { FFmpegFlags, FFmpegShellCommand, Options } from '../types'
@@ -11,7 +10,6 @@ export async function createFFmpegShellCommands(
   outputDirectory: string,
   options: Options
 ): Promise<Array<FFmpegShellCommand>> {
-  const ffmpegBinaryPath = await which('ffmpeg')
   const inputFiles = await globby(globPatterns)
   if (inputFiles.length === 0) {
     throw new Error('Cannot find input files')
@@ -24,11 +22,7 @@ export async function createFFmpegShellCommands(
       options.format
     )
     const flags = createFFmpegFlags(inputFile, options)
-    const shellCommand = createFFmpegShellCommand(
-      ffmpegBinaryPath,
-      flags,
-      outputFile
-    )
+    const shellCommand = createFFmpegShellCommand(flags, outputFile)
     result.push({
       inputFile,
       outputFile,
@@ -52,7 +46,6 @@ function createOutputFilePath(
 }
 
 function createFFmpegShellCommand(
-  ffmpegBinaryPath: string,
   ffmpegFlags: FFmpegFlags,
   outputFile: string
 ): string {
@@ -85,9 +78,7 @@ function createFFmpegShellCommand(
     )
   }
   const outputDirectory = path.dirname(outputFile)
-  return `mkdir -p ${escapeFilePath(
-    outputDirectory
-  )} && ${ffmpegBinaryPath} ${result.join(' ')} -y ${escapeFilePath(
-    outputFile
-  )}`
+  return `mkdir -p ${escapeFilePath(outputDirectory)} && ffmpeg ${result.join(
+    ' '
+  )} -y ${escapeFilePath(outputFile)}`
 }
