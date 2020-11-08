@@ -1,13 +1,15 @@
 export type Options = {
-  audio: boolean
-  crop: null | string
+  crop: null | { height: string; width: string; x: string; y: string }
+  debug: boolean
   format: null | string
   fps: null | number
-  resize: null | string
+  output: string
+  parallel: number
+  resize: null | { height: string; width: string }
   reverse: boolean
   rotate: null | RotateOption
   speed: null | number
-  trim: null | string
+  trim: null | { endTimestamp: null | string; startTimestamp: string }
   volume: null | number
 }
 

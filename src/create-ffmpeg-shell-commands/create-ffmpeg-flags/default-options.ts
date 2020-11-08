@@ -1,5 +1,4 @@
 export const defaultOptions = {
-  audio: true,
   crop: null,
   format: null,
   fps: null,

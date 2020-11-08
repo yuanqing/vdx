@@ -1,85 +1,40 @@
 import { test } from 'tap'
 
-import { defaultOptions } from '../../../default-options'
 import { createFFmpegFlags } from '../create-ffmpeg-flags'
+import { defaultOptions } from '../default-options'
 
-test('invalid timestamp', function (t) {
-  t.plan(1)
-  try {
-    createFFmpegFlags('video.mov', {
-      ...defaultOptions,
-      trim: 'foo'
-    })
-    t.fail()
-  } catch {
-    t.pass()
-  }
-})
-
-test('start timestamp only', function (t) {
+test('trim from the start timestamp to the end of the input file', function (t) {
   t.plan(1)
   const flags = createFFmpegFlags('video.mov', {
     ...defaultOptions,
-    trim: '0:05'
+    trim: { endTimestamp: null, startTimestamp: '0:05' }
   })
-  t.deepEqual(
-    {
-      'an': null,
-      'codec:a': 'copy',
-      'codec:v': 'copy',
-      'filter:a': [],
-      'filter:v': [],
-      'i': 'video.mov',
-      'ss': '0:05',
-      'to': null
-    },
-    flags
-  )
+  t.deepEqual(flags, {
+    'an': null,
+    'codec:a': 'copy',
+    'codec:v': 'copy',
+    'filter:a': [],
+    'filter:v': [],
+    'i': 'video.mov',
+    'ss': '0:05',
+    'to': null
+  })
 })
 
-test('invalid start timestamp', function (t) {
-  t.plan(1)
-  try {
-    createFFmpegFlags('video.mov', {
-      ...defaultOptions,
-      trim: 'foo,0:10'
-    })
-    t.fail()
-  } catch {
-    t.pass()
-  }
-})
-
-test('invalid end timestamp', function (t) {
-  t.plan(1)
-  try {
-    createFFmpegFlags('video.mov', {
-      ...defaultOptions,
-      trim: '0:05,foo'
-    })
-    t.fail()
-  } catch {
-    t.pass()
-  }
-})
-
-test('start and end timestamp', function (t) {
+test('trim from the start timestamp to the end timestamp', function (t) {
   t.plan(1)
   const flags = createFFmpegFlags('video.mov', {
     ...defaultOptions,
-    trim: '0:05,0:10'
+    trim: { endTimestamp: '0:10', startTimestamp: '0:05' }
   })
-  t.deepEqual(
-    {
-      'an': null,
-      'codec:a': 'copy',
-      'codec:v': 'copy',
-      'filter:a': [],
-      'filter:v': [],
-      'i': 'video.mov',
-      'ss': '0:05',
-      'to': '0:10'
-    },
-    flags
-  )
+  t.deepEqual(flags, {
+    'an': null,
+    'codec:a': 'copy',
+    'codec:v': 'copy',
+    'filter:a': [],
+    'filter:v': [],
+    'i': 'video.mov',
+    'ss': '0:05',
+    'to': '0:10'
+  })
 })

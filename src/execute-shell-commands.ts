@@ -8,7 +8,7 @@ import { FFmpegShellCommand } from './types'
 
 export async function executeShellCommands(
   shellCommands: Array<FFmpegShellCommand>,
-  concurrency: number,
+  parallel: number,
   debug: boolean
 ): Promise<void> {
   if (debug === true) {
@@ -38,5 +38,5 @@ export async function executeShellCommands(
       })
     }
   })
-  await pAll(callbacks, { concurrency })
+  await pAll(callbacks, { concurrency: parallel })
 }

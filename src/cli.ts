@@ -1,133 +1,159 @@
 #!/usr/bin/env node
 /* eslint-disable no-console */
 
-import * as nopt from 'nopt'
+import {
+  BOOLEAN,
+  createCli,
+  NON_ZERO_POSITIVE_NUMBER,
+  POSITIVE_NUMBER,
+  STRING
+} from '@yuanqing/cli'
 
-import { defaultOptions } from './default-options'
+import { parseCropValue } from './parse-option-value/parse-crop-value'
+import { parseResizeValue } from './parse-option-value/parse-resize-value'
+import { parseTrimValue } from './parse-option-value/parse-trim-value'
 import { Options } from './types'
 import { vdx } from './vdx'
 
-const packageJsonVersion = require('../package.json').version
+const packageJson = require('../package.json')
 
-const usageMessage = `
-Usage: vdx <pattern> [options]
-
-Pattern:
-  Globs of input files to process.
-
-Options:
-  -c,  --crop [<x>,<y>,]<width>,<height>  Crop the video to the specified
-                                          dimension. <x> and <y> both default
-                                          to 0.
-  -d,  --debug  Print the underlying FFmpeg command that is being run.
-  -f,  --format <format>  Convert to a different file format.
-       --gif  Shorthand for '--format gif'.
-       --mov  Shorthand for '--format mov'.
-       --mp4  Shorthand for '--format mp4'.
-  -fp, --fps <fps>  Change the frame rate.
-  -h,  --help  Print this message.
-  -na, --no-audio  Strip the audio.
-  -o,  --output <directory>  Set the output directory. <directory> defaults
-                             to './build'.
-  -p,  --parallel <concurrency>  Set the maximum number of files to process
-                                 concurrently. <concurrency> defaults to 3.
-  -r,  --resize <width>,<height>  Resize the video. Set either <width> or
-                                  <height> to -1 to maintain the aspect ratio.
-  -rv, --reverse  Reverse the video.
-  -ro, --rotate <angle>  Rotate the video. <angle> must be one of -90, 90,
-                         or 180.
-  -s,  --speed <speed>  Change the speed. To slow down, set <speed> to a
-                        number between 0 and 1. To speed up, set <speed> to a
-                        number greater than 1.
-  -t,  --trim <start>[,<end>]  Trim to the specified duration. Omit <end> to
-                               trim from <start> to the end of the input file.
-  -v,  --version  Print the version number.
-  -vo, --volume <volume>  Change the volume. To decrease the volume, set
-                          <volume> to a number between 0 and 1. To increase the
-                          volume, set <speed> to a number greater than 1.
-
-Examples:
-  $ vdx '*.mov' --crop=360,640    # Crop to width 360, height 640
-  $ vdx '*.mov' --format=gif      # Convert to GIF
-  $ vdx '*.mov' --fps=12          # Change the frame rate to 12
-  $ vdx '*.mov' --no-audio        # Strip audio
-  $ vdx '*.mov' --resize=360,-1   # Resize to width 360, maintaining aspect ratio
-  $ vdx '*.mov' --reverse         # Reverse
-  $ vdx '*.mov' --rotate=90       # Rotate 90 degrees clockwise
-  $ vdx '*.mov' --speed=2         # Double the speed
-  $ vdx '*.mov' --trim=0:05,0:10  # Trim from time 0:05 to 0:10
-  $ vdx '*.mov' --volume=0.5      # Halve the volume
-`
-
-const knownOptions = {
-  audio: Boolean,
-  crop: String,
-  debug: Boolean,
-  format: String,
-  fps: Number,
-  help: Boolean,
-  output: String,
-  parallel: Number,
-  resize: String,
-  reverse: Boolean,
-  rotate: ['-90', '90', '180'],
-  speed: Number,
-  trim: String,
-  version: Boolean,
-  volume: Number
+const cliConfig = {
+  name: packageJson.name,
+  version: packageJson.version
 }
 
-const shorthands = {
-  a: '--audio',
-  c: '--crop',
-  cut: '--trim',
-  d: '--debug',
-  f: '--format',
-  gif: '--format gif',
-  h: '--help',
-  mov: '--format mov',
-  mp4: '--format mp4',
-  na: '--no-audio',
-  o: '--output',
-  p: '--parallel',
-  r: '--resize',
-  ro: '--rotate',
-  rv: '--reverse',
-  s: '--speed',
-  scale: '--resize',
-  t: '--trim',
-  v: '--version',
-  vo: '--volume',
-  x: '--fps'
+const commandConfig = {
+  description: `${packageJson.description}.`,
+  examples: [
+    "'*.mov' --crop 360,640",
+    "'*.mov' --format gif",
+    "'*.mov' --fps 12",
+    "'*.mov' --no-audio",
+    "'*.mov' --resize 360,-1",
+    "'*.mov' --reverse",
+    "'*.mov' --rotate 90",
+    "'*.mov' --speed 2",
+    "'*.mov' --trim 0:05,0:10",
+    "'*.mov' --volume 0.5"
+  ],
+  options: [
+    {
+      aliases: ['c'],
+      default: null,
+      description:
+        'Crop the video to <width>,<height> or <x>,<y>,<width>,<height>.',
+      name: 'crop',
+      type: parseCropValue
+    },
+    {
+      aliases: ['d'],
+      default: false,
+      description: 'Print the underlying FFmpeg command that is being run.',
+      name: 'debug',
+      type: BOOLEAN
+    },
+    {
+      aliases: ['f'],
+      default: null,
+      description: 'Convert to a different file format.',
+      name: 'format',
+      type: STRING
+    },
+    {
+      aliases: ['fp'],
+      default: null,
+      description: 'Change the frame rate.',
+      name: 'fps',
+      type: NON_ZERO_POSITIVE_NUMBER
+    },
+    {
+      aliases: ['o'],
+      default: 'build',
+      description: "Set the output directory. Defaults to './build'.",
+      name: 'output',
+      type: STRING
+    },
+    {
+      aliases: ['p'],
+      default: 3,
+      description:
+        "Set the maximum number of files to process. Defaults to '3'.",
+      name: 'parallel',
+      type: NON_ZERO_POSITIVE_NUMBER
+    },
+    {
+      aliases: ['r'],
+      default: null,
+      description: 'Resize the video to <width>,<height>.',
+      name: 'resize',
+      type: parseResizeValue
+    },
+    {
+      aliases: ['rv'],
+      default: false,
+      description: 'Reverse the video.',
+      name: 'reverse',
+      type: BOOLEAN
+    },
+    {
+      aliases: ['ro'],
+      default: null,
+      description: "Rotate the video by '-90', '90', or '180'.",
+      name: 'rotate',
+      type: ['-90', '90', '180']
+    },
+    {
+      aliases: ['s'],
+      default: null,
+      description:
+        'Change the speed. To slow down, set to a number between 0 and 1. To speed up, set to a number greater than 1.',
+      name: 'speed',
+      type: NON_ZERO_POSITIVE_NUMBER
+    },
+    {
+      aliases: ['t'],
+      default: null,
+      description:
+        'Trim to <start>,<end>. Omit <end> to trim from <start> to the end of the video.',
+      name: 'trim',
+      type: parseTrimValue
+    },
+    {
+      aliases: ['vo'],
+      default: null,
+      description:
+        'Change the volume. To decrease the volume, set to a number between 0 and 1. To increase the volume, set to a number greater than 1.',
+      name: 'volume',
+      type: POSITIVE_NUMBER
+    }
+  ],
+  positionals: [
+    {
+      description: 'Globs of input files to process.',
+      name: 'files',
+      required: true,
+      type: STRING
+    }
+  ],
+  shorthands: {
+    'gif': ['--format', 'gif'],
+    'mov': ['--format', 'mov'],
+    'mp4': ['--format', 'mp4'],
+    'no-audio': ['--volume', '0']
+  }
 }
 
 async function main() {
-  const { argv, debug, help, output, parallel, version, ...rest } = nopt(
-    knownOptions,
-    shorthands
-  )
-  if (help) {
-    console.log(usageMessage)
-    process.exit(0)
-  }
-  if (version) {
-    console.log(packageJsonVersion)
-    process.exit(0)
-  }
-  const globPatterns = argv.remain
-  if (globPatterns.length === 0) {
-    console.error(`vdx: Need a glob pattern for input files`)
-    process.exit(1)
-  }
-  const outputDirectory = typeof output === 'undefined' ? './build' : output
-  const concurrency = typeof parallel === 'undefined' ? 3 : parallel
-  const options = { ...defaultOptions, ...rest } as Options
   try {
-    await vdx(globPatterns, outputDirectory, options, concurrency, debug)
+    const result = createCli(cliConfig, commandConfig)(process.argv.slice(2))
+    if (typeof result !== 'undefined') {
+      const { positionals, options, remainder } = result
+      const globPatterns = [positionals.files as string, ...remainder]
+      await vdx(globPatterns, options as Options)
+    }
   } catch (error) {
     console.error(`vdx: ${error.message}`)
     process.exit(1)
   }
 }
-
 main()

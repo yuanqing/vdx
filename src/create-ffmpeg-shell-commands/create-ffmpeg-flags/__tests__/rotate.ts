@@ -1,7 +1,7 @@
 import { test } from 'tap'
 
-import { defaultOptions } from '../../../default-options'
 import { createFFmpegFlags } from '../create-ffmpeg-flags'
+import { defaultOptions } from '../default-options'
 
 test('90 degrees counter-clockwise', function (t) {
   t.plan(1)
@@ -9,19 +9,16 @@ test('90 degrees counter-clockwise', function (t) {
     ...defaultOptions,
     rotate: '-90'
   })
-  t.deepEqual(
-    {
-      'an': null,
-      'codec:a': 'copy',
-      'codec:v': null,
-      'filter:a': [],
-      'filter:v': ['transpose=2'],
-      'i': 'video.mov',
-      'ss': null,
-      'to': null
-    },
-    flags
-  )
+  t.deepEqual(flags, {
+    'an': null,
+    'codec:a': 'copy',
+    'codec:v': null,
+    'filter:a': [],
+    'filter:v': ['transpose=2'],
+    'i': 'video.mov',
+    'ss': null,
+    'to': null
+  })
 })
 
 test('90 degrees clockwise', function (t) {
@@ -30,19 +27,16 @@ test('90 degrees clockwise', function (t) {
     ...defaultOptions,
     rotate: '90'
   })
-  t.deepEqual(
-    {
-      'an': null,
-      'codec:a': 'copy',
-      'codec:v': null,
-      'filter:a': [],
-      'filter:v': ['transpose=1'],
-      'i': 'video.mov',
-      'ss': null,
-      'to': null
-    },
-    flags
-  )
+  t.deepEqual(flags, {
+    'an': null,
+    'codec:a': 'copy',
+    'codec:v': null,
+    'filter:a': [],
+    'filter:v': ['transpose=1'],
+    'i': 'video.mov',
+    'ss': null,
+    'to': null
+  })
 })
 
 test('180 degrees', function (t) {
@@ -51,17 +45,14 @@ test('180 degrees', function (t) {
     ...defaultOptions,
     rotate: '180'
   })
-  t.deepEqual(
-    {
-      'an': null,
-      'codec:a': 'copy',
-      'codec:v': null,
-      'filter:a': [],
-      'filter:v': ['transpose=1,transpose=1'],
-      'i': 'video.mov',
-      'ss': null,
-      'to': null
-    },
-    flags
-  )
+  t.deepEqual(flags, {
+    'an': null,
+    'codec:a': 'copy',
+    'codec:v': null,
+    'filter:a': [],
+    'filter:v': ['transpose=1,transpose=1'],
+    'i': 'video.mov',
+    'ss': null,
+    'to': null
+  })
 })

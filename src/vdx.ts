@@ -4,18 +4,16 @@ import { Options } from './types'
 
 export async function vdx(
   globPatterns: Array<string>,
-  outputDirectory: string,
-  options: Options,
-  concurrency: number,
-  debug: boolean
+  options: Options
 ): Promise<void> {
+  const { debug, parallel, output, ...rest } = options
   const shellCommands = await createFFmpegShellCommands(
     globPatterns,
-    outputDirectory,
-    options
+    output,
+    rest
   )
   if (shellCommands.length === 0) {
     return
   }
-  await executeShellCommands(shellCommands, concurrency, debug)
+  await executeShellCommands(shellCommands, parallel, debug)
 }

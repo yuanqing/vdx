@@ -8,7 +8,7 @@ import { createFFmpegFlags } from './create-ffmpeg-flags/create-ffmpeg-flags'
 export async function createFFmpegShellCommands(
   globPatterns: Array<string>,
   outputDirectory: string,
-  options: Options
+  options: Omit<Options, 'debug' | 'parallel' | 'output'>
 ): Promise<Array<FFmpegShellCommand>> {
   const inputFiles = await globby(globPatterns)
   if (inputFiles.length === 0) {

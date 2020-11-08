@@ -2,17 +2,13 @@ import * as path from 'path'
 
 import { FFmpegFlags, Options } from '../../types'
 import { formatFloat } from './utilities/format-float'
-import { mapCropOptionToVideoFilter } from './utilities/map-crop-option-to-video-filter'
-import { mapResizeOptionToVideoFilter } from './utilities/map-resize-option-to-video-filter'
 import { mapRotateOptionToVideoFilter } from './utilities/map-rotate-option-to-video-filter'
 import { mapSpeedOptionToAudioFilter } from './utilities/map-speed-option-to-audio-filter'
 import { mapSpeedOptionToVideoFilter } from './utilities/map-speed-option-to-video-filter'
-import { parseTrimOption } from './utilities/parse-trim-option'
 
 export function createFFmpegFlags(
   inputFile: string,
   {
-    audio,
     crop,
     format,
     fps,
@@ -22,7 +18,7 @@ export function createFFmpegFlags(
     speed,
     trim,
     volume
-  }: Options
+  }: Omit<Options, 'parallel' | 'debug' | 'output'>
 ): FFmpegFlags {
   const flags: FFmpegFlags = {
     'an': null,
@@ -38,7 +34,9 @@ export function createFFmpegFlags(
   const isGif = originalFormat === 'gif' || format === 'gif'
   if (crop !== null) {
     flags['codec:v'] = null
-    flags['filter:v'].push(mapCropOptionToVideoFilter(crop))
+    flags['filter:v'].push(
+      `crop=${crop.width}:${crop.height}:${crop.x}:${crop.y}`
+    )
   }
   if (fps !== null) {
     flags['codec:v'] = null
@@ -46,7 +44,7 @@ export function createFFmpegFlags(
   }
   if (resize !== null) {
     flags['codec:v'] = null
-    flags['filter:v'].push(mapResizeOptionToVideoFilter(resize))
+    flags['filter:v'].push(`scale=${resize.width}:${resize.height}`)
   }
   if (reverse === true) {
     flags['codec:a'] = null
@@ -65,18 +63,17 @@ export function createFFmpegFlags(
     flags['filter:v'].push(mapSpeedOptionToVideoFilter(speed))
   }
   if (trim !== null) {
-    const { startTimestamp, endTimestamp } = parseTrimOption(trim)
-    flags['ss'] = startTimestamp
-    flags['to'] = endTimestamp
+    flags['ss'] = trim.startTimestamp
+    flags['to'] = trim.endTimestamp
   }
   if (volume !== null && volume !== 1) {
     flags['codec:a'] = null
-    flags['filter:a'].push(`volume=${formatFloat(volume)}`)
-  }
-  if (audio === false) {
-    flags['an'] = true
-    flags['codec:a'] = null
-    flags['filter:a'] = []
+    if (volume === 0) {
+      flags['an'] = true
+      flags['filter:a'] = []
+    } else {
+      flags['filter:a'].push(`volume=${formatFloat(volume)}`)
+    }
   }
   if (isGif === true) {
     flags['an'] = null
