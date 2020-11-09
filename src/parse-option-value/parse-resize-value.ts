@@ -1,11 +1,8 @@
+import { ResizeOption } from '../types'
+
 const regex = /^(-1|\d+),(-1|\d+)$/
 
-export function parseResizeValue(
-  value: string
-): {
-  width: string
-  height: string
-} {
+export function parseResizeValue(value: string): ResizeOption {
   if (value === '-1,-1') {
     throw new Error("Only one of <width> or <height> can be '-1'")
   }

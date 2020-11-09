@@ -1,9 +1,8 @@
+import { TrimOption } from '../types'
+
 const regex = /^\d{1,2}:[0-5]\d(?:.\d{1,3})?$/
 
-export function parseTrimValue(
-  value: string,
-  name: string
-): { startTimestamp: string; endTimestamp: null | string } {
+export function parseTrimValue(value: string, name: string): TrimOption {
   if (value.indexOf(',') === -1) {
     if (regex.test(value) === false) {
       throw new Error(

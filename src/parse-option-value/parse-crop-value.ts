@@ -1,13 +1,8 @@
+import { CropOption } from '../types'
+
 const regex = /^(\d+),(\d+)(?:,(\d+),(\d+))?$/
 
-export function parseCropValue(
-  value: string
-): {
-  width: string
-  height: string
-  x: string
-  y: string
-} {
+export function parseCropValue(value: string): CropOption {
   const matches = value.match(regex)
   if (matches === null) {
     throw new Error(

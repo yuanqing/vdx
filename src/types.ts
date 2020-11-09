@@ -1,19 +1,22 @@
 export type Options = {
-  crop: null | { height: string; width: string; x: string; y: string }
+  crop: null | CropOption
   debug: boolean
   format: null | string
   fps: null | number
   output: string
   parallel: number
-  resize: null | { height: string; width: string }
+  resize: null | ResizeOption
   reverse: boolean
   rotate: null | RotateOption
   speed: null | number
-  trim: null | { endTimestamp: null | string; startTimestamp: string }
+  trim: null | TrimOption
   volume: null | number
 }
 
+export type CropOption = { height: string; width: string; x: string; y: string }
+export type ResizeOption = { height: string; width: string }
 export type RotateOption = '-90' | '90' | '180'
+export type TrimOption = { endTimestamp: null | string; startTimestamp: string }
 
 export type FFmpegFlags = {
   'an': null | boolean
