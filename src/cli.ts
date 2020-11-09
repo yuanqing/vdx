@@ -48,21 +48,21 @@ const commandConfig = {
     {
       aliases: ['d'],
       default: false,
-      description: 'Print the underlying FFmpeg command that is being run.',
+      description: 'Print the underlying FFmpeg commands that are being run.',
       name: 'debug',
       type: BOOLEAN
     },
     {
       aliases: ['f'],
       default: null,
-      description: 'Convert to a different file format.',
+      description: 'Convert the video to a different file format.',
       name: 'format',
       type: STRING
     },
     {
       aliases: ['fp'],
       default: null,
-      description: 'Change the frame rate.',
+      description: 'Change the frame rate of the video.',
       name: 'fps',
       type: NON_ZERO_POSITIVE_NUMBER
     },
@@ -77,7 +77,7 @@ const commandConfig = {
       aliases: ['p'],
       default: 3,
       description:
-        "Set the maximum number of files to process. Defaults to '3'.",
+        "Set the maximum number of video files to process concurrently. Defaults to '3'.",
       name: 'parallel',
       type: NON_ZERO_POSITIVE_NUMBER
     },
@@ -98,7 +98,7 @@ const commandConfig = {
     {
       aliases: ['ro'],
       default: null,
-      description: "Rotate the video by '-90', '90', or '180'.",
+      description: "Rotate the video by '-90', '90', or '180' degrees.",
       name: 'rotate',
       type: ['-90', '90', '180']
     },
@@ -106,7 +106,7 @@ const commandConfig = {
       aliases: ['s'],
       default: null,
       description:
-        'Change the speed. To slow down, set to a number between 0 and 1. To speed up, set to a number greater than 1.',
+        'Change the speed of the video. To slow down, set to a number greater than 0 and less than 1. To speed up, set to a number greater than 1.',
       name: 'speed',
       type: NON_ZERO_POSITIVE_NUMBER
     },
@@ -114,7 +114,7 @@ const commandConfig = {
       aliases: ['t'],
       default: null,
       description:
-        'Trim to <start>,<end>. Omit <end> to trim from <start> to the end of the video.',
+        "Trim to <start>,<end> where <start> and <end> are timestamps in the format 'HH:MM' or 'HH:MM.mmm'. Omit <end> to trim from <start> to the end of the video.",
       name: 'trim',
       type: parseTrimValue
     },
@@ -122,7 +122,7 @@ const commandConfig = {
       aliases: ['vo'],
       default: null,
       description:
-        'Change the volume. To decrease the volume, set to a number between 0 and 1. To increase the volume, set to a number greater than 1.',
+        'Change the volume of the video. To remove audio from the video, set to 0. To decrease the volume, set to a number greater than 0 and less than 1. To increase the volume, set to a number greater than 1.',
       name: 'volume',
       type: POSITIVE_NUMBER
     }
