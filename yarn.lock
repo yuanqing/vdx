@@ -415,10 +415,10 @@
     "@typescript-eslint/types" "4.6.1"
     eslint-visitor-keys "^2.0.0"
 
-"@yuanqing/cli@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@yuanqing/cli/-/cli-0.0.4.tgz#9f4cd7341dccab729c490664a71fb5ace36e95f4"
-  integrity sha512-q16BOTqLjckvQthMy8IkH7SEF9XxXIbc8KuYeGdHmeRd/JeJr6cLF5A4/rU7zOIfYZD1SYM3JjseDmWF7LcWhg==
+"@yuanqing/cli@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@yuanqing/cli/-/cli-0.0.5.tgz#abdfa1844d0cd42a42744f08697ceaba37336e45"
+  integrity sha512-hmgEyq2tOg/dW2mROfRz3IpS30RvlYzUO+Eedi/jaGIXd4J+3kA7fGeXRfAbSZrhwHN54zDfg3fYKeJXaEToUg==
 
 acorn-jsx@^5.2.0:
   version "5.3.1"
