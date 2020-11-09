@@ -19,12 +19,12 @@ A variety of common video processing operations are supported:
 $ vdx '*.mov' --crop 360,640    # Crop to width 360, height 640
 $ vdx '*.mov' --format gif      # Convert to GIF
 $ vdx '*.mov' --fps 12          # Change the frame rate to 12
-$ vdx '*.mov' --no-audio        # Strip audio
+$ vdx '*.mov' --no-audio        # Remove audio
 $ vdx '*.mov' --resize 360,-1   # Resize to width 360, maintaining aspect ratio
 $ vdx '*.mov' --reverse         # Reverse
 $ vdx '*.mov' --rotate 90       # Rotate 90 degrees clockwise
 $ vdx '*.mov' --speed 2         # Double the speed
-$ vdx '*.mov' --trim 0:05,0:10  # Trim from time 0:05 to 0:10
+$ vdx '*.mov' --trim 0:05,0:10  # Trim from 0:05 to 0:10
 $ vdx '*.mov' --volume 0.5      # Halve the volume
 ```
 
@@ -89,7 +89,7 @@ $ vdx '*.mov' --fps 12
 #### --no-audio
 
 ```sh
-# Strip audio
+# Remove audio
 $ vdx '*.mov' --no-audio
 ```
 
@@ -119,10 +119,10 @@ Set either `<width>` or `<height>` to `-1` to maintain the aspect ratio.
 # Resize to width 360, height 640
 $ vdx '*.mov' --resize 360,640
 
-# Resize to width 360, maintaining the aspect ratio
+# Resize to width 360, maintaining aspect ratio
 $ vdx '*.mov' --resize 360,-1
 
-# Resize to height 640, maintaining the aspect ratio
+# Resize to height 640, maintaining aspect ratio
 $ vdx '*.mov' --resize -1,640
 ```
 
@@ -163,10 +163,10 @@ $ vdx '*.mov' --speed 2
 Omit `<end>` to trim from `<start>` to the end of the input file.
 
 ```sh
-# Trim from time 0:05 to the end of the input file
+# Trim from 0:05 to the end of the video
 $ vdx '*.mov' --trim 0:05
 
-# Trim from time 0:05 to 0:10
+# Trim from 0:05 to 0:10
 $ vdx '*.mov' --trim 0:05,0:10
 ```
 
