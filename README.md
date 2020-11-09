@@ -2,8 +2,8 @@
 
 > An intuitive CLI for processing video, powered by [FFmpeg](https://ffmpeg.org)
 
-- Crop, trim, resize, reverse, rotate, strip audio, change the speed, change the frame rate, change the volume, convert to a different file format
-- Run multiple operations on multiple files concurrently
+- Crop, trim, resize, reverse, rotate, remove audio, change the speed, change the frame rate, change the volume, convert to a different file format
+- Run multiple operations on multiple video files concurrently
 
 ## Quick start
 
@@ -34,13 +34,13 @@ We can also run multiple operations all at once:
 $ vdx '*.mov' --format gif --fps 12 --resize 360,640 --speed 2 --trim 0:05,0:10
 ```
 
-By default, the processed files will be written to a directory called `./build`. To change this, use the `--output` flag:
+By default, the processed files will be written to a directory called `./build`. To change this, use the `--output` option:
 
 ```sh
 $ vdx '*.mov' --format gif --output './gifs'
 ```
 
-By default, up to 3 input files will be processed concurrently. To change this, use the `--parallel` flag:
+By default, up to 3 video files will be processed concurrently. To change this, use the `--parallel` option:
 
 ```sh
 $ vdx '*.mov' --format gif --output './gifs' --parallel 5
@@ -54,11 +54,11 @@ Usage: vdx <pattern> [options]
 
 ### &lt;pattern&gt;
 
-One or more globs of input files to process.
+One or more globs of video files to process.
 
 ### [options]
 
-*Use the `-d` or `--debug` flag to print the underlying FFmpeg commands that are being run.*
+*Use the `-d` or `--debug` option to print the underlying FFmpeg commands that are being run.*
 
 #### -c, --crop [&lt;x&gt;,&lt;y&gt;,]&lt;width&gt;,&lt;height&gt;
 
@@ -160,7 +160,7 @@ $ vdx '*.mov' --speed 2
 
 #### -t, --trim &lt;start&gt;[,&lt;end&gt;]
 
-Omit `<end>` to trim from `<start>` to the end of the input file.
+Omit `<end>` to trim from `<start>` to the end of the video.
 
 ```sh
 # Trim from 0:05 to the end of the video
