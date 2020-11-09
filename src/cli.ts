@@ -4,6 +4,7 @@
 import {
   BOOLEAN,
   createCli,
+  NON_ZERO_POSITIVE_INTEGER,
   NON_ZERO_POSITIVE_NUMBER,
   POSITIVE_NUMBER,
   STRING
@@ -79,7 +80,7 @@ const commandConfig = {
       description:
         "Set the maximum number of video files to process concurrently. Defaults to '3'.",
       name: 'parallel',
-      type: NON_ZERO_POSITIVE_NUMBER
+      type: NON_ZERO_POSITIVE_INTEGER
     },
     {
       aliases: ['r'],
