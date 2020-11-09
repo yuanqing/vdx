@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import * as childProcess from 'child_process'
 import * as kleur from 'kleur'
 import * as pAll from 'p-all'
@@ -13,6 +12,7 @@ export async function executeShellCommands(
 ): Promise<void> {
   if (debug === true) {
     for (const { shellCommand } of shellCommands) {
+      // eslint-disable-next-line no-console
       console.log(kleur.gray(shellCommand))
     }
   }
@@ -28,6 +28,7 @@ export async function executeShellCommands(
             reject(error)
             return
           }
+          // eslint-disable-next-line no-console
           console.log(
             `${kleur.green('✔')} ${escapeFilePath(inputFile)} ${kleur.gray(
               '›'

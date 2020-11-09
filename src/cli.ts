@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* eslint-disable no-console */
 
 import {
   BOOLEAN,
@@ -153,6 +152,7 @@ async function main() {
       await vdx(globPatterns, options as Options)
     }
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error(`vdx: ${error.message}`)
     process.exit(1)
   }
