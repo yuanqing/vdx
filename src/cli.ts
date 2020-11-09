@@ -65,7 +65,7 @@ const commandConfig = {
       default: null,
       description: 'Change the frame rate of the video.',
       name: 'fps',
-      type: NON_ZERO_POSITIVE_NUMBER
+      type: NON_ZERO_POSITIVE_INTEGER
     },
     {
       aliases: ['o'],
