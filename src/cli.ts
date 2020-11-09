@@ -129,7 +129,7 @@ const commandConfig = {
   ],
   positionals: [
     {
-      description: 'Globs of input files to process.',
+      description: 'One or more globs of video files to process.',
       name: 'files',
       required: true,
       type: STRING
