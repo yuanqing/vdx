@@ -20,7 +20,7 @@ $ vdx '*.mov' --crop 360,640    # Crop to width 360, height 640
 $ vdx '*.mov' --format gif      # Convert to GIF
 $ vdx '*.mov' --fps 12          # Change the frame rate to 12
 $ vdx '*.mov' --no-audio        # Remove audio
-$ vdx '*.mov' --resize 360,-1   # Resize to width 360, maintaining aspect ratio
+$ vdx '*.mov' --resize 360,-1   # Resize to width 360, maintaining the aspect ratio
 $ vdx '*.mov' --reverse         # Reverse
 $ vdx '*.mov' --rotate 90       # Rotate 90 degrees clockwise
 $ vdx '*.mov' --speed 2         # Double the speed
@@ -49,20 +49,20 @@ $ vdx '*.mov' --format gif --output './gifs' --parallel 5
 ## Usage
 
 ```
-Usage: vdx <pattern> [options]
+Usage: vdx <files> [options]
 ```
 
-### &lt;pattern&gt;
+### &lt;files&gt;
 
 One or more globs of video files to process.
 
 ### [options]
 
-*Use the `-d` or `--debug` option to print the underlying FFmpeg commands that are being run.*
+Use the `-d` or `--debug` option to print the underlying FFmpeg commands that are being run.
 
-#### -c, --crop [&lt;x&gt;,&lt;y&gt;,]&lt;width&gt;,&lt;height&gt;
+#### -c, --crop
 
-`<x>` and `<y>` both default to `0`.
+Crop the video to `<width>,<height>` or `<x>,<y>,<width>,<height>`.
 
 ```sh
 # Crop to width 360, height 640
@@ -72,14 +72,18 @@ $ vdx '*.mov' --crop 360,640
 $ vdx '*.mov' --crop 10,20,360,640
 ```
 
-#### -f, --format &lt;format&gt;
+#### -f, --format
+
+Convert the video to a different file format.
 
 ```sh
 # Convert to GIF
 $ vdx '*.mov' --format gif
 ```
 
-#### -fp, --fps &lt;fps&gt;
+#### -fp, --fps
+
+Change the frame rate of the video.
 
 ```sh
 # Change the frame rate to 12
@@ -88,54 +92,58 @@ $ vdx '*.mov' --fps 12
 
 #### --no-audio
 
+Remove audio from the video.
+
 ```sh
 # Remove audio
 $ vdx '*.mov' --no-audio
 ```
 
-#### -o, --output &lt;directory&gt;
+#### -o, --output
 
-`<directory>` defaults to `'./build'`.
+Set the output directory. Defaults to `./build`.
 
 ```sh
 # Output files to './gifs'
 $ vdx '*.mov' --format gif --output './gifs'
 ```
 
-#### -p, --parallel &lt;concurrency&gt;
+#### -p, --parallel
 
-`<concurrency>` defaults to `3`.
+Set the maximum number of video files to process concurrently. Defaults to `3`.
 
 ```sh
 # Process up to 5 files concurrently
 $ vdx '*.mov' --format gif --parallel 5
 ```
 
-#### -r, --resize &lt;width&gt;,&lt;height&gt;
+#### -r, --resize
 
-Set either `<width>` or `<height>` to `-1` to maintain the aspect ratio.
+Resize the video to `<width>,<height>`. Set either `<width>` or `<height>` to `-1` to maintain the aspect ratio.
 
 ```sh
 # Resize to width 360, height 640
 $ vdx '*.mov' --resize 360,640
 
-# Resize to width 360, maintaining aspect ratio
+# Resize to width 360, maintaining the aspect ratio
 $ vdx '*.mov' --resize 360,-1
 
-# Resize to height 640, maintaining aspect ratio
+# Resize to height 640, maintaining the aspect ratio
 $ vdx '*.mov' --resize -1,640
 ```
 
 #### -rv, --reverse
+
+Reverse the video.
 
 ```sh
 # Reverse
 $ vdx '*.mov' --reverse
 ```
 
-#### -ro, --rotate &lt;angle&gt;
+#### -ro, --rotate
 
-`<angle>` must be one of `-90`, `90`, or `180`.
+Rotate the video by `-90`, `90`, or `180` degrees.
 
 ```sh
 # Rotate 90 degrees clockwise
@@ -148,7 +156,9 @@ $ vdx '*.mov' --rotate -90
 $ vdx '*.mov' --rotate 180
 ```
 
-#### -s, --speed &lt;speed&gt;
+#### -s, --speed
+
+Change the speed of the video. To slow down, set to a number greater than `0` and less than `1`. To speed up, set to a number greater than `1`.
 
 ```sh
 # Halve the speed
@@ -158,21 +168,26 @@ $ vdx '*.mov' --speed 0.5
 $ vdx '*.mov' --speed 2
 ```
 
-#### -t, --trim &lt;start&gt;[,&lt;end&gt;]
+#### -t, --trim
 
-Omit `<end>` to trim from `<start>` to the end of the video.
+Trim to `<start>,<end>` where `<start>` and `<end>` are timestamps in the format `HH:MM` or `HH:MM.mmm`. Omit `<end>` to trim from `<start>` to the end of the video.
 
 ```sh
-# Trim from 0:05 to the end of the video
-$ vdx '*.mov' --trim 0:05
-
 # Trim from 0:05 to 0:10
 $ vdx '*.mov' --trim 0:05,0:10
+
+# Trim from 0:05 to the end of the video
+$ vdx '*.mov' --trim 0:05
 ```
 
-#### -vo, --volume &lt;volume&gt;
+#### -vo, --volume
+
+Change the volume of the video. To remove audio from the video, set to `0`. To decrease the volume, set to a number greater than `0` and less than `1`. To increase the volume, set to a number greater than `1`.
 
 ```sh
+# Remove audio from the video
+$ vdx '*.mov' --volume 0
+
 # Halve the volume
 $ vdx '*.mov' --volume 0.5
 
