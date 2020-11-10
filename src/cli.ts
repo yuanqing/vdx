@@ -1,13 +1,6 @@
 #!/usr/bin/env node
 
-import {
-  BOOLEAN,
-  createCli,
-  NON_ZERO_POSITIVE_INTEGER,
-  NON_ZERO_POSITIVE_NUMBER,
-  POSITIVE_NUMBER,
-  STRING
-} from '@yuanqing/cli'
+import { createCli } from '@yuanqing/cli'
 
 import { parseCropValue } from './parse-option-value/parse-crop-value'
 import { parseResizeValue } from './parse-option-value/parse-resize-value'
@@ -50,28 +43,28 @@ const commandConfig = {
       default: false,
       description: 'Print the underlying FFmpeg commands that are being run.',
       name: 'debug',
-      type: BOOLEAN
+      type: 'BOOLEAN'
     },
     {
       aliases: ['f'],
       default: null,
       description: 'Convert the video to a different file format.',
       name: 'format',
-      type: STRING
+      type: 'STRING'
     },
     {
       aliases: ['fp'],
       default: null,
       description: 'Change the frame rate of the video.',
       name: 'fps',
-      type: NON_ZERO_POSITIVE_INTEGER
+      type: 'NON_ZERO_POSITIVE_INTEGER'
     },
     {
       aliases: ['o'],
       default: 'build',
       description: "Set the output directory. Defaults to './build'.",
       name: 'output',
-      type: STRING
+      type: 'STRING'
     },
     {
       aliases: ['p'],
@@ -79,12 +72,13 @@ const commandConfig = {
       description:
         "Set the maximum number of video files to process concurrently. Defaults to '3'.",
       name: 'parallel',
-      type: NON_ZERO_POSITIVE_INTEGER
+      type: 'NON_ZERO_POSITIVE_INTEGER'
     },
     {
       aliases: ['r'],
       default: null,
-      description: 'Resize the video to <width>,<height>.',
+      description:
+        "Resize the video to <width>,<height>. Set either <width> or <height> to '-1' to maintain the aspect ratio.",
       name: 'resize',
       type: parseResizeValue
     },
@@ -93,7 +87,7 @@ const commandConfig = {
       default: false,
       description: 'Reverse the video.',
       name: 'reverse',
-      type: BOOLEAN
+      type: 'BOOLEAN'
     },
     {
       aliases: ['ro'],
@@ -106,9 +100,9 @@ const commandConfig = {
       aliases: ['s'],
       default: null,
       description:
-        'Change the speed of the video. To slow down, set to a number greater than 0 and less than 1. To speed up, set to a number greater than 1.',
+        "Change the speed of the video. To slow down, set to a number greater than '0' and less than '1'. To speed up, set to a number greater than '1'.",
       name: 'speed',
-      type: NON_ZERO_POSITIVE_NUMBER
+      type: 'NON_ZERO_POSITIVE_NUMBER'
     },
     {
       aliases: ['t'],
@@ -122,9 +116,9 @@ const commandConfig = {
       aliases: ['vo'],
       default: null,
       description:
-        'Change the volume of the video. To remove audio from the video, set to 0. To decrease the volume, set to a number greater than 0 and less than 1. To increase the volume, set to a number greater than 1.',
+        "Change the volume of the video. To remove audio from the video, set to '0'. To decrease the volume, set to a number greater than '0' and less than '1'. To increase the volume, set to a number greater than '1'.",
       name: 'volume',
-      type: POSITIVE_NUMBER
+      type: 'POSITIVE_NUMBER'
     }
   ],
   positionals: [
@@ -132,7 +126,7 @@ const commandConfig = {
       description: 'One or more globs of video files to process.',
       name: 'files',
       required: true,
-      type: STRING
+      type: 'STRING'
     }
   ],
   shorthands: {
@@ -153,7 +147,7 @@ async function main() {
     }
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error(`vdx: ${error.message}`)
+    console.error(`${packageJson.name}: ${error.message}`)
     process.exit(1)
   }
 }

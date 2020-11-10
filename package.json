@@ -31,7 +31,7 @@
     "watch": "yarn run clean && tsc --watch"
   },
   "dependencies": {
-    "@yuanqing/cli": "^0.0.5",
+    "@yuanqing/cli": "^0.0.6",
     "globby": "^11.0.1",
     "kleur": "^4.1.3",
     "p-all": "^3.0.0"
