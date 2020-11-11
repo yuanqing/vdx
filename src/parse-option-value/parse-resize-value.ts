@@ -8,7 +8,7 @@ export function parseResizeValue(value: string): ResizeOption {
   }
   const matches = value.match(regex)
   if (matches === null) {
-    throw new Error(`Expected ${name} to be <width>,<height>`)
+    throw new Error(`${name} must be <width>,<height>`)
   }
   return {
     height: matches[2],

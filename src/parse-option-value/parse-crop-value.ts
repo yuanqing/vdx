@@ -6,7 +6,7 @@ export function parseCropValue(value: string): CropOption {
   const matches = value.match(regex)
   if (matches === null) {
     throw new Error(
-      `Expected ${name} to be either <width>,<height> or <x>,<y>,<width>,<height>`
+      `${name} must be either <width>,<height> or <x>,<y>,<width>,<height>`
     )
   }
   let x, y, width, height
@@ -22,10 +22,10 @@ export function parseCropValue(value: string): CropOption {
     height = matches[4]
   }
   if (width === '0') {
-    throw new Error(`<width> in ${name} must be greater than '0'`)
+    throw new Error(`${name}'s <width> must be greater than '0'`)
   }
   if (height === '0') {
-    throw new Error(`<height> in ${name} must be greater than '0'`)
+    throw new Error(`${name}'s <height> must be greater than '0'`)
   }
   return {
     height,

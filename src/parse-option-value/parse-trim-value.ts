@@ -6,7 +6,7 @@ export function parseTrimValue(value: string, name: string): TrimOption {
   if (value.indexOf(',') === -1) {
     if (regex.test(value) === false) {
       throw new Error(
-        `Expected the ${name} start timestamp to be in the format 'HH:MM' or 'HH:MM.mmm'`
+        `${name}'s start timestamp must be in the format 'HH:MM' or 'HH:MM.mmm'`
       )
     }
     return {
@@ -17,12 +17,12 @@ export function parseTrimValue(value: string, name: string): TrimOption {
   const split = value.split(',')
   if (split.length !== 2 || split[0] === '') {
     throw new Error(
-      `Expected ${name} to be <start>,<end> where <start> and <end> are timestamps in the format 'HH:MM' or 'HH:MM.mmm'`
+      `${name} must be <start>,<end> where <start> and <end> are timestamps in the format 'HH:MM' or 'HH:MM.mmm'`
     )
   }
   if (regex.test(split[0]) === false) {
     throw new Error(
-      `Expected the ${name} start timestamp to be in the format 'HH:MM' or 'HH:MM.mmm'`
+      `${name}'s start timestamp must be in the format 'HH:MM' or 'HH:MM.mmm'`
     )
   }
   if (split[1] === '') {
@@ -30,7 +30,7 @@ export function parseTrimValue(value: string, name: string): TrimOption {
   }
   if (regex.test(split[1]) === false) {
     throw new Error(
-      `Expected the ${name} end timestamp to be in the format HH:MM or HH:MM.mmm`
+      `${name}'s end timestamp must be in the format 'HH:MM' or 'HH:MM.mmm'`
     )
   }
   return { endTimestamp: split[1], startTimestamp: split[0] }
