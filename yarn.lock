@@ -405,10 +405,10 @@
     "@typescript-eslint/types" "4.7.0"
     eslint-visitor-keys "^2.0.0"
 
-"@yuanqing/cli@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@yuanqing/cli/-/cli-0.0.6.tgz#3715e07683f20e753283f4747dca666fff70f1b2"
-  integrity sha512-j98O865r8Or32mi/bo3QlvS1PdRf18pHYpjhXLc7H2X+yk5Qn5C6mz7L6Ct2uFhaEtGabIcH1H3Yyz0XHFntCw==
+"@yuanqing/cli@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@yuanqing/cli/-/cli-0.0.7.tgz#43dd33eef23b94c2bf0a63f1aba42b691d92735a"
+  integrity sha512-cWqvCwJu3vCt266D7NeRPmIzq9m5zdZ6G4sh+fzbsf9kvmoQbQQP9kvk8g0/4ffUaHZGW1Rzd/FfG1ymI/g5ZQ==
 
 acorn-jsx@^5.2.0:
   version "5.3.1"
@@ -1886,7 +1886,7 @@ is-ci@^2.0.0:
   dependencies:
     ci-info "^2.0.0"
 
-is-core-module@^2.0.0:
+is-core-module@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/is-core-module/-/is-core-module-2.1.0.tgz#a4cc031d9b1aca63eecbd18a650e13cb4eeab946"
   integrity sha512-YcV7BgVMRFRua2FqQzKtTDMz8iCuLEyGKjr70q8Zm1yy2qKcurbFEd79PAdHV77oL3NrAaOVQIbMmiHQCHB7ZA==
@@ -3019,11 +3019,11 @@ resolve-from@^4.0.0:
   integrity sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==
 
 resolve@^1.10.0, resolve@^1.10.1, resolve@^1.13.1, resolve@^1.17.0, resolve@^1.18.1, resolve@^1.3.2:
-  version "1.18.1"
-  resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.18.1.tgz#018fcb2c5b207d2a6424aee361c5a266da8f4130"
-  integrity sha512-lDfCPaMKfOJXjy0dPayzPdF1phampNWr3qFCjAu+rw/qbQmr5jWH5xN2hwh9QKfw9E5v4hwV7A+jrCmL8yjjqA==
+  version "1.19.0"
+  resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.19.0.tgz#1af5bf630409734a067cae29318aac7fa29a267c"
+  integrity sha512-rArEXAgsBG4UgRGcynxWIWKFvh/XZCcS8UJdHhwy91zwAvCZIbcs+vAbflgBnNjYMs/i/i+/Ux6IZhML1yPvxg==
   dependencies:
-    is-core-module "^2.0.0"
+    is-core-module "^2.1.0"
     path-parse "^1.0.6"
 
 restore-cursor@^2.0.0:
