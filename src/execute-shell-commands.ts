@@ -34,7 +34,7 @@ export async function executeShellCommands(
               '›'
             )} ${escapeFilePath(outputFile)}`
           )
-          resolve()
+          resolve(null)
         })
       })
     }
