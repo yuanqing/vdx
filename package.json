@@ -25,36 +25,34 @@
     "coverage": "rimraf .nyc_output coverage && nyc --reporter=html --reporter=lcov --reporter=text yarn run test",
     "fix": "eslint --fix 'src/**/*.ts'",
     "lint": "eslint 'src/**/*.ts'",
-    "prepublishOnly": "yarn run build",
+    "postinstall": "husky install && yarn run build",
+    "prepublishOnly": "pinst --disable && yarn run build",
+    "postpublish": "pinst --enable",
     "reset": "yarn run clean && rimraf node_modules yarn.lock && yarn install",
     "test": "tap 'src/**/__tests__/**/*.ts' --coverage-report html --coverage-report text --jobs-auto --no-browser --reporter terse",
     "watch": "yarn run clean && tsc --watch"
   },
   "dependencies": {
-    "@yuanqing/cli": "^0.0.7",
-    "globby": "^11.0.1",
-    "kleur": "^4.1.3",
+    "@yuanqing/cli": "^0.0.9",
+    "globby": "^11.0.2",
+    "kleur": "^4.1.4",
     "p-all": "^3.0.0"
   },
   "devDependencies": {
-    "@types/node": "^14.14.2",
-    "@types/tap": "^14.10.1",
-    "eslint": "^7.12.0",
-    "eslint-config-yuanqing": "^0.0.3",
-    "husky": "^4.3.0",
-    "lint-staged": "^10.4.2",
-    "prettier": "^2.1.2",
+    "@types/node": "^14.14.31",
+    "@types/tap": "^14.10.2",
+    "eslint": "^7.20.0",
+    "eslint-config-yuanqing": "^0.0.4",
+    "husky": "^5.1.1",
+    "lint-staged": "^10.5.4",
+    "pinst": "^2.1.6",
+    "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
-    "tap": "^14.10.8",
-    "typescript": "^4.0.3"
+    "tap": "^14.11.0",
+    "typescript": "^4.2.2"
   },
   "eslintConfig": {
     "extends": "eslint-config-yuanqing"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "lint-staged": {
     "*.ts": [
